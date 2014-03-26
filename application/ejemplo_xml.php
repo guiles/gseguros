@@ -1,5 +1,5 @@
 <?php    
-    /* create a dom document with encoding utf8 */
+    /** create a dom document with encoding utf8 */
     $domtree = new DOMDocument('1.0', 'UTF-8');
 
     /* create the root element of the xml tree */
