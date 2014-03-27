@@ -807,7 +807,8 @@ class Domain_Operador implements Domain_IEntidad {
 		->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
 		,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion))
 		->andWhere("p.asegurado_id = ? ", $asegurado_id)
-		->limit(30)
+		->orderBy("p.fecha_pedido")
+		->limit(100)
 		->execute()
 		->toArray();
 
