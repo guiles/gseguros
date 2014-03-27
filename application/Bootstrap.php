@@ -57,18 +57,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
          * @TODO no me gusta que sea asi, marito tu codigo no me gusta
          */
         // $entorno = getenv('ENTORNO');
-
+$entorno = 'dev';
         $config = new Zend_Config_Ini('../config.ini',$entorno);
         
 //echo "<pre>";
 //print_r($config);
 //exit; 
-        //$gseguros = $config->gseguros->toArray();
+        $gseguros = $config->gseguros->toArray();
 
-        //$connection_string = "mysql://{$gseguros['user']}:{$gseguros['password']}@localhost/{$gseguros['db']}";
+        $connection_string = "mysql://{$gseguros['user']}:{$gseguros['password']}@localhost/{$gseguros['db']}";
                 
 //        $connection_string = "mysql://guiles:guiles@localhost/gseguros";
-        $connection_string = "mysql://guiles:guiles@localhost/sconsultora";
+        //$connection_string = "mysql://guiles:guiles@localhost/sconsultora";
         $manager->openConnection($connection_string, 'gseguros');
 //       print_r($connection_string);
  //      print_r($manager);
