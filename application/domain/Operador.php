@@ -744,6 +744,7 @@ class Domain_Operador implements Domain_IEntidad {
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
 			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion))
 			->andWhere("p.asegurado_id = ? ", $asegurado_id)
+			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 
@@ -758,6 +759,7 @@ class Domain_Operador implements Domain_IEntidad {
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
 			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion))
 			->andWhere("p.asegurado_id = ? and p.compania_id = ?", array($asegurado_id,$compania_id))
+			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 			//->getSqlQuery();
@@ -770,6 +772,7 @@ class Domain_Operador implements Domain_IEntidad {
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
 			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion))
 			->andWhere("p.asegurado_id = ? and p.agente_id = ?", array($asegurado_id,$agente_id))
+			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 
@@ -781,6 +784,7 @@ class Domain_Operador implements Domain_IEntidad {
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
 			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion))
 			->andWhere("p.asegurado_id = ? and p.agente_id = ? and p.compania_id = ?", array($asegurado_id,$agente_id,$compania_id))
+			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 			//->getSqlQuery();
