@@ -703,7 +703,6 @@ class Domain_Operador implements Domain_IEntidad {
 		//echo "<br>mes actual".$mes_actual;
 		//echo "<br>mes que viene".$mes_que_viene;
 		//exit;
-		
 		$this->_model_poliza = new Model_Poliza();
 		$rows = $this->_model_poliza
 		->getTable()

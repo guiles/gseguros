@@ -591,7 +591,6 @@ class Informes_ListadoController extends Informes_IndexController
 
 		$this->view->numero_orden = $params['numero_orden'];
 		$this->view->productor_id=$params['productor_id'];
-
 		//$this->view->listado_libro_operaciones = $this->_t_usuario->getListadoOperacionesByProductorIdAndMonth($params['productor_id'],$params['mes'],$params['anio']);
 		$this->view->listado_libro_operaciones = $this->_t_usuario->getListadoOperacionesByProductorIdAndMonthRefacturado($params['productor_id'],$params['mes'],$params['anio']);
 

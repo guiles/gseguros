@@ -260,6 +260,14 @@ if($motivo_garantia_id == $solvencia_economica_aduaneros):?>
 			<?endif;?>
 			<?break;
 case 'CONSTRUCCION':?>
+
+	<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-construccion/poliza_id/<?=$poliza['poliza_id']?>','Poliza Construccion','CONSTRUCCION')">
+				</input>
+			</td>
+			<?endif;?>
+
 			<?if($this->operador):?>
 			<td><input type='button' value='Ver'
 				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-construccion/poliza_id/<?=$poliza['poliza_id']?>','Construccion','CONSTRUCCION')">
