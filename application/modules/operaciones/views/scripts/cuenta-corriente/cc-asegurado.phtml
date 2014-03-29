@@ -1,47 +1,4 @@
-<script type="text/javascript">
-    
-function viewDetalleMovimiento(url){
-
-  
-		var tabs_sel = $('#tabs').tabs();
-        var idx = tabs_sel.tabs('option', 'selected');
-    
-        //Trae el tab correspondiente
-        var tab = $('#tabs ul li a')[idx]; 
-        //console.debug($('#tabs ul li a'));
-        var href = $(tab).attr('href') ;
-       // var url = $(g).attr('href')
-    
-            $.ajax({url: url,success:function(result){
-                $(href).html(result);
-              }});
-  
-            return false;
-
-
-}
-
-function onClickAtras(url){
-
-	var tabs_sel = $('#tabs').tabs();
-    var idx = tabs_sel.tabs('option', 'selected');
-
-    //Trae el tab correspondiente
-    var tab = $('#tabs ul li a')[idx]; 
-    //console.debug($('#tabs ul li a'));
-    var href = $(tab).attr('href') ;
-   // var url = $(g).attr('href')
-
-        $.ajax({url: url,
-            success:function(result){
-            $(href).html(result);
-          }});
-
-        return false;
-
-	
-}
-</script>
+<?php echo $this->headScript()->appendFile('./js/gseguros.operaciones.cuenta-corriente.cc-asegurado.js');?>
 
 <b>Cliente:</b> <?=$this->asegurado?>
 <table>
