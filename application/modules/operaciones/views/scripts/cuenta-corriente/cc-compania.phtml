@@ -111,3 +111,4 @@ $moneda = Domain_Helper::getHelperNameById('moneda', $row['moneda_id']);
 </form>
 
 </div>
+<?= $this->paginationControl($this->rows, 'Sliding', 'paginator.phtml',array('compania_id'=>$this->compania_id)); ?>

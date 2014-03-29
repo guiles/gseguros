@@ -100,6 +100,7 @@ class Operaciones_CuentaCorrienteController extends Operaciones_IndexController
 	   //Domain_Movimiento::getPolizasByMovimiento(125);
 		//Trae el nombre del asegurado
 		$this->view->asegurado = Domain_Asegurado::getNameById($params['asegurado_id']);
+		$this->view->asegurado_id = $params['asegurado_id'];
 		//Trae el pago del asegurado
 		//Seria la sumatoria de todos los pagos que hizo
 		$moneda_pesos = Domain_Helper::getHelperIdByDominioAndName('moneda', 'PESOS');
@@ -128,8 +129,14 @@ class Operaciones_CuentaCorrienteController extends Operaciones_IndexController
 		
 		
 		$rows = Domain_Asegurado::getMovimientosByAseguradoId($params['asegurado_id']);
-		$this->view->rows = $rows; 
-		
+
+		$page=$this->_getParam('page',1);
+		$paginator = Zend_Paginator::factory($rows);
+		$paginator->setItemCountPerPage(10);
+		$paginator->setCurrentPageNumber($page);
+		$this->view->rows = $paginator;
+
+		//$this->view->rows = $rows; 
 	}
 	
 	
@@ -276,7 +283,7 @@ public function detalleMovimientoAction(){
 		
 		//Trae el nombre del asegurado
 		$this->view->compania = Domain_Compania::getNameById($params['compania_id']);
-	
+		$this->view->compania_id = $params['compania_id'];
 		//Seria la sumatoria de todos los pagos que hizo
 		$moneda_pesos = Domain_Helper::getHelperIdByDominioAndName('moneda', 'PESOS');
 		$moneda_dolar = Domain_Helper::getHelperIdByDominioAndName('moneda', 'DOLAR');
@@ -303,7 +310,13 @@ public function detalleMovimientoAction(){
 		
 		
 		$rows = Domain_Compania::getMovimientosByCompaniaId($params['compania_id']);
-		$this->view->rows = $rows; 
+		
+		$page=$this->_getParam('page',1);
+		$paginator = Zend_Paginator::factory($rows);
+		$paginator->setItemCountPerPage(10);
+		$paginator->setCurrentPageNumber($page);
+		$this->view->rows = $paginator;
+		//$this->view->rows = $rows; 
 		
 	}
 	
