@@ -836,6 +836,7 @@ public function getListadoDeudaCompaniaByEntidadId($compania_id,$agente_id=null,
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
 			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion))
 			->andWhere("p.compania_id = ? ", $compania_id)
+			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 			//->getSqlQuery();
@@ -850,6 +851,7 @@ public function getListadoDeudaCompaniaByEntidadId($compania_id,$agente_id=null,
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
 			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion))
 			->andWhere("p.asegurado_id = ? and p.compania_id = ?", array($asegurado_id,$compania_id))
+			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 			//->getSqlQuery();
@@ -863,6 +865,7 @@ public function getListadoDeudaCompaniaByEntidadId($compania_id,$agente_id=null,
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
 			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion))
 			->andWhere("p.compania_id = ? and p.agente_id = ?", array($compania_id,$agente_id))
+			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 
@@ -874,6 +877,7 @@ public function getListadoDeudaCompaniaByEntidadId($compania_id,$agente_id=null,
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
 			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion))
 			->andWhere("p.asegurado_id = ? and p.agente_id = ? and p.compania_id = ?", array($asegurado_id,$agente_id,$compania_id))
+			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 			//->getSqlQuery();
@@ -900,6 +904,8 @@ public function getListadoDeudaCompaniaByEntidadId($compania_id,$agente_id=null,
 		->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
 		,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion))
 		->andWhere("p.compania_id = ? ", $compania_id)
+		->orderBy("p.fecha_pedido")
+		->limit(100)
 		->execute()
 		->toArray();
 		//->getSqlQuery();
