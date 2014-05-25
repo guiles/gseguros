@@ -1,20 +1,54 @@
+			/**
+			 * 
+			 *
+			 * @module Solicitud Aduaneros
+			 */
 $(document).ready(
+			/**
+			 * 
+			 *
+			 * @class Alta solicitud Aduaneros
+			 */
 		function() {
+			/**
+			 * 
+			 *
+			 * @method confirmar
+			 * @return {Object} Confirm
+			 */
 			function confirmar() {
 				return confirm('Desea agregar el registro?');
 			}
-
+			/**
+			 * 
+			 *
+			 * @method formatItem
+			 * @param {String} row 
+			 * @return {String} String formateada
+			 */	
 			// Autocomplete cliente
 			function formatItem(row) {
 				// console.debug(row);
 				return row[0] + ' ' + row[1];// + "(<strong>id: " + row[1] +
 												// "</strong>)";
 			}
+			/**
+			 * 
+			 *
+			 * @method formatResult
+			 * @param {String} row 
+			 * @return {String} String formateada
+			 */	
 			function formatResult(row) {
 				// console.debug(row);
 				return row[0] + ' ' + row[1];
 				// return row[0].replace(/(<.+?>)/gi, '');
 			}
+			/**
+			 * Autocomplete del Asegurado
+			 *
+			 * @event Autocomplete del Asegurado
+			 */
 			$("#asegurado").autocomplete(
 					'./poliza/solicitud/listar-asegurados', {
 						width : 300,
@@ -23,7 +57,11 @@ $(document).ready(
 						formatItem : formatItem,
 						formatResult : formatResult
 					});
-
+			/**
+			 * Autocomplete del Asegurado
+			 *
+			 * @event change
+			 */
 			$("#asegurado").result(
 					function(event, data, formatted) {
 						var hidden = $(this).parent().next().find(">:input");
@@ -33,7 +71,11 @@ $(document).ready(
 						// console.debug(data[1]);
 						$("#asegurado_id").val(data[2]);
 					});
-
+			/**
+			 * Plugin de fecha
+			 *
+			 * @event change
+			 */
 			$('#fecha_pedido').datepicker(
 					{
 						dateFormat : 'yy-mm-dd',

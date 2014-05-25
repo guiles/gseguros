@@ -67,7 +67,10 @@ class Domain_Operador implements Domain_IEntidad {
 		return $row;
 
 	}
-	
+	/**
+	* Este metodo arma el array de busqueda, no tiene en cuenta el tipo de operacion
+	* Como me pidieron que a un campo le ponga un like, tuve que poner un if() dentro del for()
+	*/
 	public function searchPoliza($params){
 
 		
@@ -77,12 +80,19 @@ class Domain_Operador implements Domain_IEntidad {
 		$query=$table_poliza->createQuery();
 		
 		foreach ($params as $arr) {
+			if($arr['nombre'] !== "numero_factura"){ 		//saco de params el numero de factura
 			$campo = $arr['nombre'];
 			$valor = $arr['valor'];
 			
-			$query->addWhere("$campo = ? ", $valor);
+			$query->addWhere("$campo = ? ", $valor) ;
+			}else{
+			$campo = $arr['nombre'];
+			$valor = $arr['valor'];
+			$query->addWhere("numero_factura like ? ", array("%$valor%") ) ;
+
+			}
 		}
-		
+
 		//$q = $query->getSqlQuery();
 		$q = $query->execute()->toArray();
 		
