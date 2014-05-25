@@ -451,7 +451,39 @@ Luego el resto ordenando en 2 columnas
 							value=<?=$this->escape($this->valor_cuotas)?>>
 						</td>
 					</tr>
+					<tr>
+						<td>Iva:</td>
+						<td><input type="text" name="iva"
+							value="<?=$this->escape($this->poliza_valores->iva)?>" /></td>
+					</tr>
+					<tr>
+						<td>Prima:</td>
+						<td><input type="text" name="prima_comision"
+							value="<?=$this->escape($this->poliza_valores->prima_comision)?>" />
+						</td>
+					</tr>
 
+					<tr>
+						<td>Premio Compania:</td>
+						<td><input type="text" name="premio_compania" id="premio_compania"
+							value="<?=$this->escape($this->poliza_valores->premio_compania)?>" />
+						</td>
+
+					</tr>
+
+					<tr>
+						<td>Premio Asegurado:</td>
+						<td><input type="text" name="premio_asegurado"
+							id="premio_asegurado"
+							value="<?=$this->escape($this->poliza_valores->premio_asegurado)?>" />
+						</td>
+					</tr>
+					<tr>
+						<td>Plus:</td>
+						<td><input type="text" name="plus" id="plus"
+							value="<?=$this->escape($this->poliza_valores->plus)?>" /></td>
+					</tr>
+					<tr>
 					<tr>
 						<td>Importe total a cobrar:</td>
 						<td><input readonly type="text" name="importe"
