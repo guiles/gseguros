@@ -590,7 +590,86 @@ public function endosoPolizaAlquilerAction()
 		}
 
 	}
+/**
+*
+* @method endosoPolizaIntegralComercio
+*/
 
+public function endosoPolizaIntegralComercioAction()
+	{
+		
+	    $tipo_poliza_id = Domain_TipoPoliza::getIdByName('ALQUILER');
+		//1.traigo todos los helpers para dar el alta de la solicitud
+		$this->view->monedas = Domain_Helper::getHelperByDominio('moneda');
+		$this->view->periodos = Domain_Helper::getHelperByDominio('periodo');
+		$this->view->forma_pagos = Domain_Helper::getHelperByDominio('forma_pago');
+		$this->view->cuotas = Domain_Helper::getHelperByDominio('cuota');
+		$this->view->tipo_endoso = Domain_Helper::getHelperByDominio('tipo_endoso');
+
+		$this->view->tipo_garantias = Domain_TipoGarantia::getTipoGarantiaByTipoPoliza($tipo_poliza_id);
+		
+		$this->view->motivo_garantias = Domain_MotivoGarantia::getMotivoGarantiasByTipoPoliza($tipo_poliza_id);
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		//$poliza = $this->_poliza;
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$m_poliza = $d_poliza->getModelPoliza();
+		
+		//Datos de la poliza
+
+		$this->view->asegurado= Domain_Asegurado::getNameById($m_poliza->asegurado_id);
+		$this->view->compania= Domain_Compania::getNameById($m_poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($m_poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($m_poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($m_poliza->cobrador_id);
+
+
+		/*Chequeo por las dudas pero siempre va a venir con solicitud/poliza ID
+		 * Me trae todos los datos de la poliza nueva a crear
+		 */
+		$this->view->poliza_endoso_id = $params['poliza_id'];
+		
+		//$solicitud = $this->_solicitud;
+		//Si viene con ID es para guardar y traigo la solicitud con los datos, sobreescribo la variable
+		//if(! empty($params['poliza_id']) )$poliza = new Domain_Poliza($params['poliza_id']);
+		
+		//Traigo todos los datos que hay que traducir y de tablas relacionadas
+	
+		$this->view->poliza = $m_poliza;
+		$this->view->poliza_valores = $d_poliza->getModelPolizaValores();
+		$this->view->poliza_detalle = $d_poliza->getModelDetalle();
+		$this->view->detalle_pago = $d_poliza->getModelDetallePago();
+		$this->view->cantidad_cuotas = (int)Domain_DetallePago::getCantidadCuotas($d_poliza->getModelDetallePago()->detalle_pago_id);
+		$this->view->valor_cuotas = (float)Domain_DetallePago::getValorCuotas($d_poliza->getModelDetallePago()->detalle_pago_id);
+		$this->view->importe = $this->view->cantidad_cuotas * $this->view->valor_cuotas;
+		$this->view->asegurado_nombre = Domain_Asegurado::getNameById($d_poliza->getModelPoliza()->asegurado_id);
+		$this->view->documentacion = Domain_Helper::getHelperByDominio('documentacion');
+		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $m_poliza->periodo_id);
+		$this->view->cuotas = Domain_Helper::getHelperByDominio('cuota');
+
+
+		if($params['save']){
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		
+			//Hice un save para endosar la poliza.
+			/*
+			 * Service_Poliza::savepoliza()
+			 * @param: $params(datos del POST)
+			 */
+		
+			$d_poliza_endosada = $this->_services_poliza->endosarPolizaAlquiler($d_poliza,$params);
+			$this->_services_poliza->saveDetallePagoEndoso($d_poliza_endosada,$params); //Devuelve el objeto poliza ( pero no lo uso)
+			
+			echo "Poliza endosada con exito";
+			exit;
+		}
+
+	}
 
 public function endosoPolizaAduanerosAction()
 	{
@@ -2282,7 +2361,92 @@ public function viewPolizaAccidentesPersonalesAction()
 			$this->view->detalle_pago = $d_poliza->getModelDetallePago();
 		}
 	}
-	
+	/**
+	* Metodo ver la Póliza Integral de Comercio
+	* @method viewPolizaIntegralComercioAction
+	*/
+public function viewPolizaIntegralComercioAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('ALQUILER');
+		$this->view->isAgente = false;
+		if($this->_t_usuario->getNombre()=='AGENTE'){
+
+			$this->view->isAgente = true;
+			$this->view->agente_id = $this->_usuario->getModel()->usuario_tipo_id;
+			$this->view->agente_nombre = Domain_Agente::getNameById($this->_usuario->getModel()->usuario_tipo_id);
+			//print_r($this->view->agente_nombre);
+		}
+
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+
+		//Datos de la poliza
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->documentacion = Domain_Helper::getHelperByDominio('documentacion');
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+
+		//Datos del seguro - detalle - valores
+		$poliza_valores = $d_poliza->getModelPolizaValores();
+		$poliza_detalle = $d_poliza->getModelDetalle();
+		$detalle_pago = $d_poliza->getModelDetallePago();
+
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		$this->view->detalle_pago = $detalle_pago;
+		$this->view->cantidad_cuotas = (int)Domain_DetallePago::getCantidadCuotas($d_poliza->getModelDetallePago()->detalle_pago_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($d_poliza->getModelPoliza()->asegurado_id);
+		$this->view->valor_cuotas = (float)Domain_DetallePago::getValorCuotas($d_poliza->getModelDetallePago()->detalle_pago_id);
+		$this->view->importe = $this->view->cantidad_cuotas * $this->view->valor_cuotas;
+		$this->view->documentacion = Domain_Helper::getHelperByDominio('documentacion');
+
+		//2.Traigo los datos de las tablas asociadas
+		$this->view->moneda = Domain_Helper::getHelperNameById('moneda', $poliza_valores->moneda_id);
+		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $poliza->periodo_id);
+		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $poliza->forma_pago_id);
+
+		$this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
+		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($poliza_detalle->motivo_garantia_id, $tipo_poliza_id);
+		
+		//Si se renovo muestro los datos de la poliza
+		if(!empty($poliza->poliza_poliza_id)){
+		$this->view->renovada = true;
+		$poliza_renovada = new Domain_Poliza($poliza->poliza_poliza_id);
+		$this->view->poliza_renovada_numero_poliza = $poliza_renovada->getModelPoliza()->numero_poliza;
+		echo " deberia mostrar el numero".$this->view->numero_poliza_renovada;
+		}
+
+
+		if($params['save']){
+			/**
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->saveViewPolizaIntegralComercio($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			$this->view->poliza_valores = $d_poliza->getModelPolizaValores();
+			$this->view->poliza_detalle = $d_poliza->getModelDetalle();
+			$this->view->detalle_pago = $d_poliza->getModelDetallePago();
+
+		}
+
+
+	}
+
+
 
 	public function addAction()
 	{

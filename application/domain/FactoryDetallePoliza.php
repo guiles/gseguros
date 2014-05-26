@@ -60,6 +60,11 @@
 		return new Model_DetalleVida();
 		
 	}
+ public function crearDetallePolizaIntegralComercio(){
+
+		return new Model_DetalleIntegralComercio();
+		
+	}
 	
 	
 }

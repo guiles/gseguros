@@ -1253,6 +1253,49 @@ public function saveEditPolizaAduaneros($poliza,$params){
 		
 		return $refactura_poliza;
 	}
+
+
+	public function saveViewPolizaIntegralComercio($poliza,$params){
+
+
+		try{
+			$m_poliza_detalle = $poliza->getModelDetalle();
+			$m_poliza_detalle->documentacion_id=$params['documentacion_id'];
+			$m_poliza_detalle->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try{
+			$m_poliza_valores = $poliza->getModelPolizaValores();
+			$m_poliza_valores->iva=$params['iva'];
+			
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->prima_comision=$params['prima_comision'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
+			$m_poliza->save();
+				
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+	
 	
 	
 public function refacturarPolizaAlquiler($poliza){
@@ -1331,7 +1374,7 @@ public function refacturarPolizaAlquiler($poliza){
 			$m_poliza->endoso = $model_poliza->endoso+1;
 			//Guarda el ID de las tablas asociadas
 			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
-			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_alquiler_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_integral_comercio_id;
 			$m_poliza->save();
 			//Guardo Numero de Poliza
 			$m_poliza->numero_poliza = $model_poliza->numero_poliza ;
@@ -2099,8 +2142,111 @@ public function endosarPolizaAlquiler($d_poliza,$params){
 		return $poliza_endosada;
 	}
 	
+/**
+*
+* @method endosarPolizaIntegralComercio
+*/
 
 
+public function endosarPolizaIntegralComercio($d_poliza,$params){
+
+		//Pongo como endosada a la poliza vieja y la nueva es afectada
+		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
+
+		//1. Traigo la poliza actual		
+		$poliza_a_endosar = new Domain_Poliza($params['poliza_id']);  
+		//Traigo la poliza que tengo que copiar
+		$model_poliza = $poliza_a_endosar->getModelPoliza();
+		$model_poliza->estado_id=$estado_endosada;
+		$model_poliza->save();
+		
+		//1.1 Traigo detalle poliza a endosar
+		$poliza_detalle = $d_poliza->getModelDetalle();
+		
+		//2. Creo nueva poliza
+		$poliza_endosada = new Domain_Poliza(); 
+
+		//Tipo Alquiler
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('INTEGRAL_COMERCIO');
+		
+		//Estado Afectada
+		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
+		
+		$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Endoso');
+
+		try {
+			//3. Guardo detalle poliza			
+			$m_poliza_detalle = $poliza_endosada->getModelDetallePoliza($tipo_poliza);
+			$m_poliza_detalle->motivo_garantia_id=$poliza_detalle->motivo_garantia_id;
+			$m_poliza_detalle->domicilio_riesgo=$poliza_detalle->domicilio_riesgo;
+			$m_poliza_detalle->localidad_riesgo=$poliza_detalle->localidad_riesgo;
+			$m_poliza_detalle->provincia_riesgo=$poliza_detalle->provincia_riesgo;
+			$m_poliza_detalle->tipo_garantia_id=$poliza_detalle->tipo_garantia_id;
+			$m_poliza_detalle->beneficiario_id=$poliza_detalle->beneficiario_id;
+			$m_poliza_detalle->descripcion_adicional=$poliza_detalle->descripcion_adicional;
+			
+			$m_poliza_detalle->save();
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $poliza_endosada->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->moneda_id=$poliza_valores->moneda_id;
+			$m_poliza_valores->iva=$params['iva'];
+			$m_poliza_valores->prima_comision=$params['prima_comision'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+			
+			$m_poliza = $poliza_endosada->getModelPoliza();
+			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
+			$m_poliza->asegurado_id=$model_poliza->asegurado_id;
+			$m_poliza->agente_id=$model_poliza->agente_id;
+			$m_poliza->compania_id=$model_poliza->compania_id;
+			$m_poliza->productor_id=$model_poliza->productor_id;
+			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
+			$m_poliza->fecha_pedido=$model_poliza->fecha_vigencia_hasta;
+			$m_poliza->periodo_id=$model_poliza->periodo_id;
+			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
+			$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
+			$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
+			$m_poliza->tipo_poliza_id = $tipo_poliza; 
+			$m_poliza->estado_id = $estado_vigente;
+			$m_poliza->tipo_endoso_id = $params['tipo_endoso_id'];
+			$m_poliza->operacion_id = $operacion_id;
+			$m_poliza->endoso = $model_poliza->endoso+1;
+			//Guarda el ID de las tablas asociadas
+			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_integral_comercio_id;
+			$m_poliza->save();
+			//Guardo Numero de Poliza
+			$m_poliza->numero_poliza = $model_poliza->numero_poliza ;
+			$m_poliza->save();
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+		//$this->saveDetallePagoRefacturar($poliza_a_endosar, $detalle_pago);
+		
+		return $poliza_endosada;
+	}
+	
 
 /* Uso este metodo para refacturar y endosar (?)
 */

@@ -112,6 +112,9 @@ function renovarPoliza(url, title,tipo_poliza) {
 	}else if (tipo_poliza == 'VIDA') {
 		tab_url = './poliza/solicitud/renovacion-vida';
 		temp_url = './poliza/solicitud/renovacion-vida';
+	}else if (tipo_poliza == 'VIDA') {
+		tab_url = './poliza/solicitud/renovacion-integral-comercio';
+		temp_url = './poliza/solicitud/renovacion-integral-comercio';
 	}
 
 	//console.debug('temp'+temp_url);
@@ -168,6 +171,9 @@ function endosoPoliza(url, title,tipo_poliza) {
 	}else if (tipo_poliza == 'CONSTRUCCION') {
 		tab_url = './poliza/solicitud/endoso-poliza-construccion';
 		temp_url = './poliza/solicitud/endoso-poliza-construccion';
+	}else if (tipo_poliza == 'CONSTRUCCION') {
+		tab_url = './poliza/solicitud/endoso-poliza-integral-comercio';
+		temp_url = './poliza/solicitud/endoso-poliza-integral-comercio';
 	}
 
 	//console.debug('temp'+temp_url);
@@ -295,6 +301,9 @@ function loadTabPoliza(url, title, tipo_poliza) {
 	}else if (tipo_poliza == 'VIDA') {
 		tab_url = './poliza/poliza/view-poliza-vida';
 		temp_url = './poliza/poliza/view-poliza-vida';
+	}else if (tipo_poliza == 'INTEGRAL_COMERCIO') {
+		tab_url = './poliza/poliza/view-poliza-integral-comercio';
+		temp_url = './poliza/poliza/view-poliza-integral-comercio';
 	}
 
 	$('div#CenterPane>div#tabs>ul.ui-tabs-nav>li a').each(function() {

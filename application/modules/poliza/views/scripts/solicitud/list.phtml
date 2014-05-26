@@ -218,7 +218,22 @@ function loadPageSolicitudIgj(url, title){
 			return false;  	
 		}
 
-
+function loadPageSolicitudIntegralComercio(url, title){
+	var existe=false;
+	tab_url = './poliza/solicitud/alta-integral-comercio';
+	temp_url = './poliza/solicitud/alta-integral-comercio';
+			$('div#CenterPane>div#tabs>ul.ui-tabs-nav>li a').each(function() {
+				
+		   var href = $(this).attr('tab_url');
+		   console.debug(href);
+				   if (href==temp_url)existe=true;
+				})
+				
+				if(!existe)$("#tabs").tabs("add",url,title);
+				if(existe)alert('Ya esta abierta la solapa, cerrala para poder ver la Solicitud');
+				
+			return false;  	
+		}
 
 
 
@@ -520,7 +535,12 @@ case 11:?>
 				</input>
 			</td>
 			<?break;
-						
+case 12:?>
+			<td><input type='button' value='Ver'
+				onClick="return loadPageSolicitudIntegralComercio('./poliza/solicitud/alta-integral-comercio/solicitud_id/<?=$solicitud['poliza_id']?>','Integral Comercio')">
+				</input>
+			</td>
+			<?break;						
 			
 default:
 	break;

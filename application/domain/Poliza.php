@@ -220,7 +220,20 @@ class Domain_Poliza {
 				->find($this->_model_poliza->poliza_detalle_id);
 					
 				break;
+					case 'INTEGRAL_COMERCIO':
 				
+				$m_detalle_poliza = $factory_detalle_poliza->crearDetallePolizaIntegralComercio();
+				//Si no tiene poliza_id devuelve el modelo solo
+				if($this->_model_poliza->poliza_id ==  null){
+
+					return $m_detalle_poliza;
+
+				}
+					
+				return $m_detalle_poliza->getTable()
+				->find($this->_model_poliza->poliza_detalle_id);
+					
+				break;	
 				
 			case 'AUTOMOTORES':
 					

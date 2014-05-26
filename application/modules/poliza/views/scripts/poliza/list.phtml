@@ -312,6 +312,30 @@ case 'ALQUILER':?>
 			<?endif;?>
 <?endif;
 break;
+case 'INTEGRAL_COMERCIO':?>
+<?if($this->operador):?>
+
+			<td><input type='button' value='Ver'
+				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-integral-comercio/poliza_id/<?=$poliza['poliza_id']?>','INTEGRAL DE COMERCIO','INTEGRAL_COMERCIO')">
+			</td>
+			
+			<?if($estado_codigo == 'VIGENTE'):?>
+			<td><input type='button' value='RENOVAR'
+				onClick="return renovarPoliza('./poliza/solicitud/renovacion-integral-comercio/poliza_id/<?=$poliza['poliza_id']?>','RENOVACION INTEGRAL DE COMERCIO','INTEGRAL_COMERCIO')">
+				</input>
+			</td>
+			<td><input type='button' value='ENDOSO'
+				onClick="return endosoPoliza('./poliza/poliza/endoso-poliza-integral-comercio/poliza_id/<?=$poliza['poliza_id']?>','ENDOSO INTEGRAL DE COMERCIO','INTEGRAL_COMERCIO')">
+				</input>
+			</td>
+			<td><input type='button' value='BAJA'
+				onClick="return lbajaPoliza('./poliza/poliza/baja-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
+				</input>
+			</td>
+			<?endif;?>
+<?endif;
+break;
+
 case 'RESPONSABILIDAD_CIVIL':?>
 <?if($this->operador):?>
 			<td><input type='button' value='Ver'
