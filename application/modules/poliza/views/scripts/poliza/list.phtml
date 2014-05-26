@@ -139,7 +139,11 @@ Tomador / Compañia / Nº Solicitud / Nº Poliza / Endoso / Operación / Secció
 		case 'JUDICIALES':
                         $tipo_cobertura = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_detalle_poliza->motivo_garantia_id,$poliza['tipo_poliza_id']);
                         
-               break;       
+               break;
+        case 'INTEGRAL_COMERCIO':
+                        $tipo_cobertura = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_detalle_poliza->motivo_garantia_id,$poliza['tipo_poliza_id']);
+                        
+               break;               
 			
 		default:
 			$tipo_cobertura = null;

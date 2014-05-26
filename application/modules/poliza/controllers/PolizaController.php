@@ -598,7 +598,7 @@ public function endosoPolizaAlquilerAction()
 public function endosoPolizaIntegralComercioAction()
 	{
 		
-	    $tipo_poliza_id = Domain_TipoPoliza::getIdByName('ALQUILER');
+	    $tipo_poliza_id = Domain_TipoPoliza::getIdByName('INTEGRAL_COMERCIO');
 		//1.traigo todos los helpers para dar el alta de la solicitud
 		$this->view->monedas = Domain_Helper::getHelperByDominio('moneda');
 		$this->view->periodos = Domain_Helper::getHelperByDominio('periodo');
@@ -649,7 +649,9 @@ public function endosoPolizaIntegralComercioAction()
 		$this->view->documentacion = Domain_Helper::getHelperByDominio('documentacion');
 		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $m_poliza->periodo_id);
 		$this->view->cuotas = Domain_Helper::getHelperByDominio('cuota');
-
+		$this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($d_poliza->getModelDetalle()->tipo_garantia_id, $tipo_poliza_id);
+		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($d_poliza->getModelDetalle()->motivo_garantia_id, $tipo_poliza_id);
+		
 
 		if($params['save']){
 
@@ -662,7 +664,7 @@ public function endosoPolizaIntegralComercioAction()
 			 * @param: $params(datos del POST)
 			 */
 		
-			$d_poliza_endosada = $this->_services_poliza->endosarPolizaAlquiler($d_poliza,$params);
+			$d_poliza_endosada = $this->_services_poliza->endosarPolizaIntegralComercio($d_poliza,$params);
 			$this->_services_poliza->saveDetallePagoEndoso($d_poliza_endosada,$params); //Devuelve el objeto poliza ( pero no lo uso)
 			
 			echo "Poliza endosada con exito";
@@ -2368,7 +2370,7 @@ public function viewPolizaAccidentesPersonalesAction()
 public function viewPolizaIntegralComercioAction()
 	{
 		//La Poliza siempre tiene poliza_id
-		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('ALQUILER');
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('INTEGRAL_COMERCIO');
 		$this->view->isAgente = false;
 		if($this->_t_usuario->getNombre()=='AGENTE'){
 
@@ -2416,6 +2418,7 @@ public function viewPolizaIntegralComercioAction()
 		$this->view->moneda = Domain_Helper::getHelperNameById('moneda', $poliza_valores->moneda_id);
 		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $poliza->periodo_id);
 		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $poliza->forma_pago_id);
+
 
 		$this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
 		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($poliza_detalle->motivo_garantia_id, $tipo_poliza_id);
