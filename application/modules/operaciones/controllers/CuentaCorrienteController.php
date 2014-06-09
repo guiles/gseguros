@@ -127,8 +127,17 @@ class Operaciones_CuentaCorrienteController extends Operaciones_IndexController
 		$this->view->suma_movimientos_dolar = Domain_Asegurado::getSumaMovimientosByAseguradoIdAndMoneda($params['asegurado_id'],$moneda_dolar);
 		$this->view->suma_movimientos_euro = Domain_Asegurado::getSumaMovimientosByAseguradoIdAndMoneda($params['asegurado_id'],$moneda_euro);
 		
+
+					//if($params['busqueda_poliza']){
+			if($params['numero_poliza']!=''){
+				$rows = Domain_Asegurado::getMovimientosByAseguradoIdAndPoliza($params['asegurado_id'],$params['numero_poliza']);
+
+
+				}else{
+
+					$rows = Domain_Asegurado::getMovimientosByAseguradoId($params['asegurado_id']);
+				}
 		
-		$rows = Domain_Asegurado::getMovimientosByAseguradoId($params['asegurado_id']);
 
 		$page=$this->_getParam('page',1);
 		$paginator = Zend_Paginator::factory($rows);

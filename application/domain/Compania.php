@@ -146,15 +146,15 @@ class Domain_Compania {
 	$rows = Doctrine_Query::create()
 		->select('m.*')
 		->from('Model_Movimiento m, m.Model_MovimientoPoliza mp,mp.Model_Poliza p')
-		->where('p.compania_id = ?',array($id))
+		->where('m.compania_id = ?',array($id))
 		->andWhere('p.numero_poliza like ? ',array("%$numero_poliza%"))
+		->andWhere('m.tipo_movimiento_id = ?',1)
 		->execute()
 		->toArray();
 		//->getSqlQuery();
 
 		return $rows;
 	}
-
 	
 	public static function getDebePremioCompaniaByCompaniaIdAndMoneda($compania_id,$moneda_id){
 

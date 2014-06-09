@@ -95,6 +95,23 @@ class Domain_Asegurado {
 		
 		return $rows;
 	}
+public static function getMovimientosByAseguradoIdAndPoliza($id,$numero_poliza=null){
+//SELECT * FROM movimiento m, movimiento_poliza mp, 
+//poliza p where m.movimiento_id=mp.movimiento_id and mp.poliza_id=p.poliza_id and numero_poliza like'%1234%'
+	//echo "entra aca asegurado_id".$id;
+	$rows = Doctrine_Query::create()
+		->select('m.*')
+		->from('Model_Movimiento m, m.Model_MovimientoPoliza mp,mp.Model_Poliza p')
+		->where('m.asegurado_id = ?',array($id))
+		->andWhere('p.numero_poliza like ? ',array("%$numero_poliza%"))
+		->andWhere('m.tipo_movimiento_id = ?',0)
+		->execute()
+		->toArray();
+		//->getSqlQuery();
+
+		return $rows;
+	}
+
 
 	public static function getDebeByAseguradoId($id){
 		/*

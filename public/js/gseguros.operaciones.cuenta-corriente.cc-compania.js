@@ -41,8 +41,6 @@ function onClickAtras(url){
 
 $(document).ready(
         function() {
-     //var compania_id = $('#id_compania_movimientos');
-  
    
            var compania_id = $('#id_compania_movimientos').val();
      
