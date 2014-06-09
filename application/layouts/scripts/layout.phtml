@@ -51,13 +51,14 @@ $perfiles = $usuario->getUserPerfilTemp();
  *  Todo lo que esta en /css/ *.css lo uno para hacer un solo request
  */
 //->appendStylesheet('/min/b=css&f=layout.css,html-elements.css,ui.jqgrid.css,sexy-combo.css,jquery.autocomplete.css,redmond/jquery-ui-1.7.1.custom.css,sexy/sexy.css,jquery.contextMenu.css')
-->appendStylesheet('./css/layout.css')
-->appendStylesheet('./css/html-elements.css')
+->appendStylesheet('./css/layout.css') //saque
+->appendStylesheet('./css/html-elements.css') //saque
 //->appendStylesheet("./css/ui.jqgrid.css")
 //->appendStylesheet("./css/sexy-combo.css")
 ->appendStylesheet("./css/jquery.autocomplete.css")
 //->appendStylesheet('./css/redmond/jquery-ui-1.7.1.custom.css','','',array('id' => 'linc'))
 ->appendStylesheet('./css/ui/css/smoothness/jquery-ui-1.8.14.custom.css','','',array('id' => 'linc'))
+//->appendStylesheet('./css/css/ui-lightness/jquery-ui-1.10.4.custom.css','','',array('id' => 'linc'))
 //->appendStylesheet('./css/ui/css/jquery-ui-custom/css/custom-theme/jquery-ui-1.9.2.custom.css','','',array('id' => 'linc'))
 ->appendStylesheet("./css/tablesorter/style.css")
 //<link rel="stylesheet" type="text/css" href="jNotify.jquery.css" media="screen" />

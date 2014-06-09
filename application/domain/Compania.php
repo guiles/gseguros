@@ -135,8 +135,23 @@ class Domain_Compania {
 		->createQuery()
 		->where('compania_id = ?',$id)
 		->execute()
+		->toArray();	
+		return $rows;
+	}
+
+	public static function getMovimientosByCompaniaIdAndPoliza($id,$numero_poliza=null){
+//SELECT * FROM movimiento m, movimiento_poliza mp, 
+//poliza p where m.movimiento_id=mp.movimiento_id and mp.poliza_id=p.poliza_id and numero_poliza like'%1234%'
+	
+	$rows = Doctrine_Query::create()
+		->select('m.*')
+		->from('Model_Movimiento m, m.Model_MovimientoPoliza mp,mp.Model_Poliza p')
+		->where('p.compania_id = ?',array($id))
+		->andWhere('p.numero_poliza like ? ',array("%$numero_poliza%"))
+		->execute()
 		->toArray();
-		
+		//->getSqlQuery();
+
 		return $rows;
 	}
 

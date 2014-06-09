@@ -273,14 +273,16 @@ public function detalleMovimientoAction(){
 
 	}
 	
-	/*
+	/**
 	 * Movimientos y Pagos a compania
-	 * 
+	 * @method ccCompaniaAction
 	 */
 	
 	public function ccCompaniaAction(){
 		$params = $this->_request->getParams();
-		
+		//echo"<pre>";
+		//print_r($params);
+
 		//Trae el nombre del asegurado
 		$this->view->compania = Domain_Compania::getNameById($params['compania_id']);
 		$this->view->compania_id = $params['compania_id'];
@@ -302,15 +304,16 @@ public function detalleMovimientoAction(){
 	    $this->view->pago_pesos = Domain_Compania::getPagoPremioCompaniaByCompaniaIdAndMoneda($params['compania_id'],$moneda_pesos);
 		$this->view->pago_dolar = Domain_Compania::getPagoPremioCompaniaByCompaniaIdAndMoneda($params['compania_id'],$moneda_dolar);
 		$this->view->pago_euro = Domain_Compania::getPagoPremioCompaniaByCompaniaIdAndMoneda($params['compania_id'],$moneda_euro);
-		
-		
-	//	$this->view->suma_movimientos_pesos = Domain_Asegurado::getSumaMovimientosByAseguradoIdAndMoneda($params['asegurado_id'],$moneda_pesos);
-	//	$this->view->suma_movimientos_dolar = Domain_Asegurado::getSumaMovimientosByAseguradoIdAndMoneda($params['asegurado_id'],$moneda_dolar);
-	//	$this->view->suma_movimientos_euro = Domain_Asegurado::getSumaMovimientosByAseguradoIdAndMoneda($params['asegurado_id'],$moneda_euro);
-		
-		
-		$rows = Domain_Compania::getMovimientosByCompaniaId($params['compania_id']);
-		
+	
+				//if($params['busqueda_poliza']){
+			if($params['numero_poliza']!=''){
+
+					$rows = Domain_Compania::getMovimientosByCompaniaIdAndPoliza($params['compania_id'],$params['numero_poliza']);
+
+
+				}else{
+					$rows = Domain_Compania::getMovimientosByCompaniaId($params['compania_id']);
+				}
 		$page=$this->_getParam('page',1);
 		$paginator = Zend_Paginator::factory($rows);
 		$paginator->setItemCountPerPage(10);
@@ -323,7 +326,7 @@ public function detalleMovimientoAction(){
 	public function detalleMovimientoCompaniaAction(){
 		$params = $this->_request->getParams();
 		
-		echo "<pre>";
+		//echo "<pre>";
 		//print_r($params);
 	    $rows = Domain_Movimiento::getPolizasByMovimiento($params['movimiento_id']);
 		

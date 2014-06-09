@@ -78,7 +78,16 @@ class Domain_Movimiento {
 		
 		return $poliza;
 	}
+	static public function getDatosCheques($movimiento_id){
 
+		$m_datos_cheques = Doctrine_Query::create()
+		->from('Model_DatosCheque dc')
+		->where('dc.movimiento_id = ? ',$movimiento_id)
+		->execute()
+		->toArray();
+		
+		return $m_datos_cheques;
+	}
 	
 }
 
