@@ -63,7 +63,7 @@ $moneda = Domain_Helper::getHelperNameById('moneda', $row['moneda_id']);
 $datos_cheques = Domain_Movimiento::getDatosCheques($row['movimiento_id']);
 ?>
 
-	<tr>
+	<tr id="<?=$row['movimiento_id']?>">
 		<td rowspan="4"><?=$row['movimiento_id']?></td>
 		<td rowspan="4"><?=$row['fecha_pago']?></td>
 		<td rowspan="4"><?=$moneda?></td>
@@ -72,8 +72,13 @@ $datos_cheques = Domain_Movimiento::getDatosCheques($row['movimiento_id']);
     <td class="ui-widget-header">Banco</td>
     <td class="ui-widget-header">Numero</td>
     <td class="ui-widget-header">Importe</td>
-		<td rowspan="4"><input type="button" value="Ver Detalle" onClick="return viewDetalleMovimientoCompania('./operaciones/cuenta-corriente/detalle-movimiento-compania/movimiento_id/<?=$row['movimiento_id']?>')"> </input> </td>
-	</tr>
+		<td rowspan="4">
+      <input type="button" value="Ver Detalle" onClick="return viewDetalleMovimientoCompania('./operaciones/cuenta-corriente/detalle-movimiento-compania/movimiento_id/<?=$row['movimiento_id']?>')"> </input> </td>
+	  <td rowspan="4"><input type="button" class="imprimir_detalle_movimiento_poliza" value="Imprimir Detalle" onClick="return false"> </input>
+       </td>
+  <!--<A HREF="javascript:void(0)"
+onclick="window.open('./operaciones/cuenta-corriente/imprimir-detalle-movimiento-compania/movimiento_id/<?=$this->m_movimiento->movimiento_id?>')">Imprimir Detalle</A> -->
+  </tr>
  <tr>
     <td><?=$datos_cheques[0]['banco']?></td>
     <td><?=$datos_cheques[0]['numero']?></td>
