@@ -95,8 +95,8 @@ class Operaciones_CuentaCorrienteController extends Operaciones_IndexController
 	public function ccAseguradoAction(){
 		$params = $this->_request->getParams();
 		
-		//echo "<pre>";
-		//print_r($params);
+		echo "<pre>";
+		print_r($params);
 	   //Domain_Movimiento::getPolizasByMovimiento(125);
 		//Trae el nombre del asegurado
 		$this->view->asegurado = Domain_Asegurado::getNameById($params['asegurado_id']);
@@ -154,10 +154,12 @@ class Operaciones_CuentaCorrienteController extends Operaciones_IndexController
 public function detalleMovimientoAction(){
 		$params = $this->_request->getParams();
 		
-		//echo "<pre>";
+		echo "<pre>";
 		//print_r($params);
 	    $rows = Domain_Movimiento::getPolizasByMovimiento($params['movimiento_id']);
 		//print_r($rows);
+
+		
 		$array_detalle_poliza = $rows[0]['Model_MovimientoPoliza'];
 		$polizas_result = array();
 	    //Trae el nombre del asegurado
@@ -166,7 +168,8 @@ public function detalleMovimientoAction(){
 	    	$d = Domain_Movimiento::getPolizaByDetallePagoId($value['poliza_id']);
 	    	$polizas_result[]=$d;
 	    }
-	    
+	    print_r($polizas_result);
+		exit;
 		$this->view->rows = $polizas_result; 
 		
 	}

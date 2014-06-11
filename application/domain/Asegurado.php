@@ -86,13 +86,17 @@ class Domain_Asegurado {
 	}
 	
 	public static function getMovimientosByAseguradoId($id){
+		//echo "trae movimientos:". $id;
 		$m_movimiento = new Model_Movimiento();
 		$rows = $m_movimiento->getTable()
 		->createQuery()
 		->where('asegurado_id = ?',$id)
 		->execute()
 		->toArray();
-		
+		//->getSqlQuery();
+		//echo"<pre>";
+		//print_r($rows);
+		//exit;
 		return $rows;
 	}
 public static function getMovimientosByAseguradoIdAndPoliza($id,$numero_poliza=null){
@@ -108,7 +112,8 @@ public static function getMovimientosByAseguradoIdAndPoliza($id,$numero_poliza=n
 		->execute()
 		->toArray();
 		//->getSqlQuery();
-
+//print_r($rows);
+//exit;
 		return $rows;
 	}
 
