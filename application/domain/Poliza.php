@@ -292,7 +292,16 @@ class Domain_Poliza {
 
 	}
 
+	static public function setPago($poliza_id){
 
+		$q = Doctrine_Query::create()
+        ->update('Model_Poliza p')
+        ->set('p.pago_compania_id',0)
+        ->where('p.poliza_id = ?',array($poliza_id))
+		->execute();
+
+	return $q;
+	}
 
 }
 

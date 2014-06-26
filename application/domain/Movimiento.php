@@ -88,6 +88,31 @@ class Domain_Movimiento {
 		
 		return $m_datos_cheques;
 	}
+	static public function eliminarMovimientosPoliza($movimiento_id){
+
+		$q = Doctrine_Query::create()
+        ->delete('Model_MovimientoPoliza mp')
+        ->where('mp.movimiento_id = ?',array($movimiento_id))
+        ->execute();
+		//->toArray();
+		
+		//$q->getSqlQuery();
+
+		return $q;
+	}
 	
+	static public function getMovimientosPoliza($movimiento_id){
+
+		$q = Doctrine_Query::create()
+		->select('*')
+        ->from('Model_MovimientoPoliza mp')
+        ->where('mp.movimiento_id = ?',$movimiento_id)
+		->execute()
+		->toArray();
+		
+		//echo $q->getSqlQuery();
+		return $q;
+	}
+
 }
 

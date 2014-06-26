@@ -1,3 +1,4 @@
+
 function viewDetalleMovimientoCompania(url){
 
   
@@ -86,6 +87,31 @@ $(document).ready(
                      success : function(result) {
                      $(href).html(result);
                              }
+                });
+                
+            });
+
+
+            $('.eliminar_movimiento_poliza').click(function(x){
+               
+               if(!confirm('Desea Eliminar el Movimiento')) return false;
+               
+               var movimiento_id = x.target.parentNode.parentNode.id;
+
+
+                var tabs_sel = $('#tabs').tabs();
+                var idx = tabs_sel.tabs('option', 'selected');
+
+                //Trae el tab correspondiente
+                var tab = $('#tabs ul li a')[idx]; 
+                var href = $(tab).attr('href') ;
+                
+                 $.ajax({
+                     url : "./operaciones/cuenta-corriente/eliminar-movimiento-compania/movimiento_id/"+movimiento_id+"/compania_id/"+compania_id,
+                   //  data : compania_id,
+                     success : function(result) {
+                     $(href).html(result);
+                    }
                 });
                 
             });

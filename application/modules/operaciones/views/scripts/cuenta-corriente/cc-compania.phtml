@@ -51,8 +51,8 @@
 		<th>Moneda</th>
 		<th>Importe</th>
     <th>Descuento</th>
-    <th colspan="3">Datos Cheque</th>
-		<th></th>
+    <th></th>
+    <th></th>
 	</tr>
 </thead>
 <tbody class="ui-widget-content">
@@ -64,36 +64,20 @@ $datos_cheques = Domain_Movimiento::getDatosCheques($row['movimiento_id']);
 ?>
 
 	<tr id="<?=$row['movimiento_id']?>">
-		<td rowspan="4"><?=$row['movimiento_id']?></td>
-		<td rowspan="4"><?=$row['fecha_pago']?></td>
-		<td rowspan="4"><?=$moneda?></td>
-		<td rowspan="4"><?=round($row['importe'],2)?></td>
-		<td rowspan="4"><?=$row['descuento']?></td>
-    <td class="ui-widget-header">Banco</td>
-    <td class="ui-widget-header">Numero</td>
-    <td class="ui-widget-header">Importe</td>
-		<td rowspan="4">
-      <input type="button" value="Ver Detalle" onClick="return viewDetalleMovimientoCompania('./operaciones/cuenta-corriente/detalle-movimiento-compania/movimiento_id/<?=$row['movimiento_id']?>')"> </input> </td>
-	  <td rowspan="4"><input type="button" class="imprimir_detalle_movimiento_poliza" value="Imprimir Detalle" onClick="return false"> </input>
+		<td><?=$row['movimiento_id']?></td>
+		<td><?=$row['fecha_pago']?></td>
+		<td><?=$moneda?></td>
+		<td><?=round($row['importe'],2)?></td>
+		<td><?=$row['descuento']?></td>
+  	<!--td>
+      <!--input type="button" value="Ver Detalle" onClick="return viewDetalleMovimientoCompania('./operaciones/cuenta-corriente/detalle-movimiento-compania/movimiento_id///$row['movimiento_id']')"> </input> </td-->
+	  <td><input type="button" class="imprimir_detalle_movimiento_poliza" value="Ver Detalle" onClick="return false"> </input>
        </td>
+     <td><input type="button" class="eliminar_movimiento_poliza" value="Eliminar" onClick="return false"> </input>
+       </td>   
   <!--<A HREF="javascript:void(0)"
 onclick="window.open('./operaciones/cuenta-corriente/imprimir-detalle-movimiento-compania/movimiento_id/<?=$this->m_movimiento->movimiento_id?>')">Imprimir Detalle</A> -->
-  </tr>
- <tr>
-    <td><?=$datos_cheques[0]['banco']?></td>
-    <td><?=$datos_cheques[0]['numero']?></td>
-    <td><?=$datos_cheques[0]['importe']?></td>
- </tr>
-  <tr>
-     <td><?=$datos_cheques[1]['banco']?></td>
-    <td><?=$datos_cheques[1]['numero']?></td>
-    <td><?=$datos_cheques[1]['importe']?></td>
- </tr>
-   <tr>
-     <td><?=$datos_cheques[2]['banco']?></td>
-    <td><?=$datos_cheques[2]['numero']?></td>
-    <td><?=$datos_cheques[2]['importe']?></td>
- </tr>
+  
 	<?endforeach;?>
 </tbody>
 </table>

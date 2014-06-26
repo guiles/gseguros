@@ -45,13 +45,14 @@ window.print();
 <? 
 $moneda = Domain_Helper::getHelperNameById('moneda', $this->m_movimiento->moneda_id);
 ?>
+<div>
 <table class="ui-widget" >
 	<thead class="ui-widget-header">
 	<tr>
 		<th>Nro. Movimiento</th>	
 		<th>Fecha</th>
 		<th>Moneda</th>
-		<th>Importe</th>
+		<th>Importe Total</th>
     <th>Descuento</th>
 	</tr>
 </thead>
@@ -62,20 +63,31 @@ $moneda = Domain_Helper::getHelperNameById('moneda', $this->m_movimiento->moneda
 <td><?=round($this->m_movimiento->importe,2)?></td>
 <td><?=$this->m_movimiento->descuento?></td>
 </table>
+</div>
+<div>
+<fieldset>
+<legend> Detalle pago</legend>
 <table>
 <tr>
-<th class="ui-widget-header">Banco</th>
-<th class="ui-widget-header">Numero</th>
-<th class="ui-widget-header">Importe</th>
+<td class="ui-widget-header">Importe en Efectivo</td>
+<td></td>
+<td><?=round($this->m_movimiento->importe_efectivo,2)?></td>
+</tr>
+<tr>
+<td class="ui-widget-header">Banco</td>
+<td class="ui-widget-header">Numero</td>
+<td class="ui-widget-header">Importe</td>
 </tr>
 <tr>
 <td><?=$this->datos_cheques[0]['banco']?></td><td><?=$this->datos_cheques[0]['numero']?></td><td><?=$this->datos_cheques[0]['importe']?></td>
 </tr>
 <tr>
-<td><?=$this->datos_cheques[0]['banco']?></td><td><?=$this->datos_cheques[0]['numero']?></td><td><?=$this->datos_cheques[0]['importe']?></td></tr>
-<tr><td><?=$this->datos_cheques[0]['banco']?></td><td><?=$this->datos_cheques[0]['numero']?></td><td><?=$this->datos_cheques[0]['importe']?></td>
+<td><?=$this->datos_cheques[1]['banco']?></td><td><?=$this->datos_cheques[1]['numero']?></td><td><?=$this->datos_cheques[1]['importe']?></td></tr>
+<tr><td><?=$this->datos_cheques[2]['banco']?></td><td><?=$this->datos_cheques[2]['numero']?></td><td><?=$this->datos_cheques[2]['importe']?></td>
 </tr>
 </table>
+</fieldset>
+</div>
 </div>	
 <table id="poliza_search" class="ui-widget" cellspacing="1" cellpadding="0" border="0" >
 

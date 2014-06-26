@@ -317,6 +317,9 @@ public function detalleMovimientoAction(){
 		$this->view->pago_dolar = Domain_Compania::getPagoPremioCompaniaByCompaniaIdAndMoneda($params['compania_id'],$moneda_dolar);
 		$this->view->pago_euro = Domain_Compania::getPagoPremioCompaniaByCompaniaIdAndMoneda($params['compania_id'],$moneda_euro);
 	
+
+
+
 				//if($params['busqueda_poliza']){
 			if($params['numero_poliza']!=''){
 
@@ -411,6 +414,26 @@ public function detalleMovimientoAction(){
     	
 	    }
 	    $this->view->rows = $polizas_result; 
+
+	}
+
+	public function eliminarMovimientoCompaniaAction(){
+		$params = $this->_request->getParams();
+		$this->view->compania_id = $params['compania_id'];
+	
+		$polizas = Domain_Movimiento::getMovimientosPoliza($params['movimiento_id']);
+
+		foreach($polizas as $poliza){
+		Domain_Poliza::setPago($poliza['poliza_id']);
+		}
+
+		//Elimino movimientos de la tabla movimiento Poliza
+		Domain_Movimiento::eliminarMovimientosPoliza($params['movimiento_id']);
+
+		$d_movimiento = new Domain_Movimiento($params['movimiento_id']);
+		
+		$m_movimiento = $d_movimiento->getModel();
+		$m_movimiento->delete();
 
 	}
 	

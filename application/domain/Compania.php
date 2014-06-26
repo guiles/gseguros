@@ -134,6 +134,7 @@ class Domain_Compania {
 		$rows = $m_movimiento->getTable()
 		->createQuery()
 		->where('compania_id = ?',$id)
+		->orderBy('movimiento_id desc')
 		->execute()
 		->toArray();	
 		return $rows;
@@ -149,6 +150,7 @@ class Domain_Compania {
 		->where('m.compania_id = ?',array($id))
 		->andWhere('p.numero_poliza like ? ',array("%$numero_poliza%"))
 		->andWhere('m.tipo_movimiento_id = ?',1)
+		->orderBy('m.movimiento_id desc')
 		->execute()
 		->toArray();
 		//->getSqlQuery();
@@ -222,8 +224,7 @@ class Domain_Compania {
 		->execute()
 		->toArray();
 		//->getSqlQuery();
-		//echo "<pre>";
-		//print_r($debe);
+
 		//Redondeo dos decimales
 		return round($debe[0]['debe'],2);
 	}
