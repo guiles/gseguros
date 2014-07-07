@@ -1296,7 +1296,9 @@ public function renovacionResponsabilidadCivilAction()
 			 * Service_Poliza::saveSolicitud()
 			 * @param: Domain_Poliza,$params(datos del POST)
 			 */
-		
+		//echo"<pre>";
+		//print_r($params);
+
 			$solicitud = $this->_services_solicitud->saveSolicitudResponsabilidadCivil($solicitud,$params);
 			$solicitud = $this->_services_solicitud->saveDetallePago($solicitud,$params);
 			
@@ -1318,15 +1320,15 @@ public function renovacionResponsabilidadCivilAction()
 			 */
 
 			if( empty($params['poliza_id']) ){
-				echo "entra aca para cambiar de estado!!!<br>";
-			
-			$poliza_padre_id = $solicitud->getModelDetallePago()->poliza_id;
+			//	echo "entra aca para cambiar de estado!!!<br>";
+	
+			$poliza_poliza_id = $solicitud->getModelDetallePago()->poliza_id;
 			//echo "poliza id para actualizar".$poliza_padre_id;
 
 			$estado_id = Domain_EstadoPoliza::getIdByCodigo('RENOVADA');
 			$poliza_renovada = new Domain_Poliza($params['poliza_renovada_id']);
 			$poliza_renovada_model = $poliza_renovada->getModelPoliza();
-			$poliza_renovada_model->poliza_padre_id = $poliza_padre_id;
+			$poliza_renovada_model->poliza_poliza_id = $poliza_poliza_id;
 			$poliza_renovada_model->estado_id = $estado_id;
 			$poliza_renovada_model->save();
 
@@ -1374,7 +1376,7 @@ public function renovacionIgjAction()
 		//1. Traigo el POST
 		$params = $this->_request->getParams();
 
-		echo "<pre>";
+		//echo "<pre>";
 		//print_r($params);
 		
 		/*Chequeo por las dudas pero siempre va a venir con solicitud/poliza ID
