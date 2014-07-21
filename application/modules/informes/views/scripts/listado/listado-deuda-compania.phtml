@@ -150,6 +150,7 @@ Imprimir Informe</A>
 		<th>Importe Cuota</th>
 		<th>Estado</th>
 		<th>Fecha Baja</th>
+		<th>N&uacute;mero Factura</th>
 	</thead>
 	<tbody class="ui-widget-content">
 	<?
@@ -194,6 +195,7 @@ Imprimir Informe</A>
 			<td><?=$m_poliza_valores->premio_asegurado?></td>
 			<td><?=$estado_poliza?></td>
 			<td><?=$poliza['fecha_baja']?></td>
+			<td><?=$m_poliza->numero_factura?></td>
 		</tr>
 		<?endforeach;?>
 	</tbody>

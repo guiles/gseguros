@@ -443,6 +443,7 @@ public function saveDetallePago($d_poliza,$params){
 
 
 	public function saveViewPolizaAutomotor($poliza,$params){
+	
 		$tipo_poliza = Domain_TipoPoliza::getIdByName('AUTOMOTORES');
 		//$estado = Domain_EstadoPoliza::getIdByCodigo('SOLICITUD_PENDIENTE');
 		//Tipo poliza Automotor => id = 7

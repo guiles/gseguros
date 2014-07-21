@@ -162,7 +162,7 @@ function savePolizaAutomotores(f) {
 					//,otros_automotor : f.otros_automotor.value
 					//,fecha_pedido : f.fecha_pedido.value
 					//,periodo_id : f.periodo_id.value
-					//,fecha_vigencia : f.fecha_vigencia.value
+					,fecha_vigencia : f.fecha_vigencia.value
 					//,cuotas : f.cuotas.value
 					//,observaciones_asegurado : f.observaciones_asegurado.value
 					//,observaciones_compania : f.observaciones_compania.value

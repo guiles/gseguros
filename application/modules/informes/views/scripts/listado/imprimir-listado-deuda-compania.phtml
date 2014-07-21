@@ -61,6 +61,8 @@ Fecha de pedido / Vigencia / Nº Solicitud / Nº Poliza / Endoso / Cliente (en v
 		<th>Importe Cuota</th>
 		<th>Estado</th>
 		<th>Fecha Baja</th>
+		<th>N&uacute;mero Factura</th>
+
 	</thead>
 	<tbody class="ui-widget-content">
 	<?
@@ -105,6 +107,8 @@ Fecha de pedido / Vigencia / Nº Solicitud / Nº Poliza / Endoso / Cliente (en v
 			<td><?=$m_poliza_valores->premio_asegurado?></td>
 			<td><?=$estado_poliza?></td>
 			<td><?=$poliza['fecha_baja']?></td>
+			<td><?=$m_poliza->numero_factura?></td>
+
 		</tr>
 		<?endforeach;?>
 	</tbody>

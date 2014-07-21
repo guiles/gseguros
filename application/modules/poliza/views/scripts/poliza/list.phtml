@@ -93,6 +93,8 @@ Tomador / Compañia / Nº Solicitud / Nº Poliza / Endoso / Operación / Secció
 	$cantidad_cuotas = (float) Domain_DetallePago::getCantidadCuotas($d_poliza->getModelDetallePago()->detalle_pago_id);
 	$valor_cuotas = (float) Domain_DetallePago::getValorCuotas($d_poliza->getModelDetallePago()->detalle_pago_id);
 	$importe = $cantidad_cuotas * $valor_cuotas;
+
+	//echo 'este tipo:'.$tipo_poliza.' este importe '.$importe;
 	$operacion = Domain_Helper::getHelperNameById('operacion', $poliza['operacion_id']);
 
 	$m_detalle_poliza = $d_poliza->getModelDetalle();
