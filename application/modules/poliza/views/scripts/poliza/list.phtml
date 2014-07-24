@@ -343,7 +343,13 @@ case 'INTEGRAL_COMERCIO':?>
 break;
 
 case 'RESPONSABILIDAD_CIVIL':?>
-<?if($this->operador):?>
+	<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-responsabilidad-civil/poliza_id/<?=$poliza['poliza_id']?>','Poliza R. Civil','RESPONSABILIDAD_CIVIL')">
+				</input>
+			</td>
+			<?endif;?>
+		<?if($this->operador):?>
 			<td><input type='button' value='Ver'
 				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-responsabilidad-civil/poliza_id/<?=$poliza['poliza_id']?>','Responsabilidad Civil','RESPONSABILIDAD_CIVIL')">
 			</td>
@@ -363,8 +369,9 @@ case 'RESPONSABILIDAD_CIVIL':?>
 				</input>
 			</td>
 			<?endif;?>
-<?endif;
-break;
+		
+		<?endif;?>
+<?break;
 case 'ACCIDENTES_PERSONALES':?>
 <?if($this->operador):?>
 			<td><input type='button' value='Ver'
