@@ -124,10 +124,10 @@ class Operaciones_DeudaAseguradoController extends Operaciones_IndexController
 	public function pagarDeudaAseguradoAction(){
 
 		$params = $this->_request->getParams();
-		//echo"<pre>";
-		//print_r($params);
+		/*echo"<pre>";
+		print_r($params);
 
-		//exit;
+		exit;*/
 		//aca tiene que pasar el parametro de "pagar" o algo parecido
 		if(!empty($params['array_polizas'])){
 			
@@ -135,6 +135,7 @@ class Operaciones_DeudaAseguradoController extends Operaciones_IndexController
 			//1. Guardo el movimiento del pago
 			$m_movimiento = new Model_Movimiento();
 			$m_movimiento->importe = $params['importe'];
+			$m_movimiento->importe_efectivo = $params['importe_efectivo'];
 			$m_movimiento->asegurado_id = $params['asegurado_id'];
 			$m_movimiento->fecha_pago = $params['fecha_pago'];
 			$m_movimiento->moneda_id = $params['moneda_id'];

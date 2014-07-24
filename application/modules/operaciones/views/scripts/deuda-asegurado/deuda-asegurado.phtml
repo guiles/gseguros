@@ -246,7 +246,8 @@ $.ajax({
     url: url,
 	data:{
     	 array_polizas: array_polizas.toString()
-    	 ,importe: importe_total	
+    	 ,importe: importe_total
+    	 ,importe_efectivo: parseFloat(importe.val())
     	 ,moneda_id: moneda_id.val()
     	 ,fecha_pago: fecha_pago.val()
     	 ,asegurado_id: asegurado_id.val()

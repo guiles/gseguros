@@ -142,6 +142,21 @@ class Domain_DetallePago {
 		->delete();
 
 	}
+
+	public static function setPago($detalle_pago_cuota_id){
+
+		if(empty($detalle_pago_cuota_id)) return false;
+
+
+
+		$q = Doctrine_Query::create()
+        ->update('Model_DetallePagoCuota dpc')
+        ->set('dpc.pago_id',0)
+        ->where('dpc.detalle_pago_cuota_id = ?',array($detalle_pago_cuota_id))
+		->execute();
+		
+	}
+
 	public static function addMonthbyDate($date){
 		//echo "<pre>";
 		//echo "Esta es la fecha";

@@ -95,8 +95,8 @@ class Operaciones_CuentaCorrienteController extends Operaciones_IndexController
 	public function ccAseguradoAction(){
 		$params = $this->_request->getParams();
 		
-		echo "<pre>";
-		print_r($params);
+		//echo "<pre>";
+		//print_r($params);
 	   //Domain_Movimiento::getPolizasByMovimiento(125);
 		//Trae el nombre del asegurado
 		$this->view->asegurado = Domain_Asegurado::getNameById($params['asegurado_id']);
@@ -154,7 +154,7 @@ class Operaciones_CuentaCorrienteController extends Operaciones_IndexController
 public function detalleMovimientoAction(){
 		$params = $this->_request->getParams();
 		
-		echo "<pre>";
+		//echo "<pre>";
 		//print_r($params);
 	    $rows = Domain_Movimiento::getPolizasByMovimiento($params['movimiento_id']);
 		//print_r($rows);
@@ -168,8 +168,8 @@ public function detalleMovimientoAction(){
 	    	$d = Domain_Movimiento::getPolizaByDetallePagoId($value['poliza_id']);
 	    	$polizas_result[]=$d;
 	    }
-	    print_r($polizas_result);
-		exit;
+	    /*print_r($polizas_result);
+		exit;*/
 		$this->view->rows = $polizas_result; 
 		
 	}
@@ -436,6 +436,90 @@ public function detalleMovimientoAction(){
 		$m_movimiento->delete();
 
 	}
+
+	public function imprimirDetalleMovimientoAseguradoAction(){
+		$params = $this->_request->getParams();
+	//	echo "<pre>";
+	//	print_r($params);
+
+	    $rows = Domain_Movimiento::getPolizasByMovimiento($params['movimiento_id']);
+		
+		$d_movimiento = new Domain_Movimiento($params['movimiento_id']);
+		
+		$this->view->m_movimiento = $d_movimiento->getModel();
+		$this->view->datos_cheques = Domain_Movimiento::getDatosCheques($params['movimiento_id']);
+
+		$array_detalle_poliza = $rows[0]['Model_MovimientoPoliza'];
+		
+		$polizas_result = array();
+	    //Trae el nombre del asegurado
+	    foreach ($array_detalle_poliza as $value) {
+
+	    	
+	    	$d = Domain_Movimiento::getPolizaByDetallePagoId($value['poliza_id']);
+	    	$polizas_result[]=$d;
+    	
+	    }
+	    $this->view->rows = $polizas_result;
+	    $this->view->asegurado_id = $rows[0]['asegurado_id']; 
+	   // print_r($rows[0]['asegurado_id']);
+	   // print_r($this->view->rows);
+	}
+	public function impresionDetalleMovimientoAseguradoAction(){
+		$params = $this->_request->getParams();
+	//	echo "<pre>";
+	//	print_r($params);
+
+	    $rows = Domain_Movimiento::getPolizasByMovimiento($params['movimiento_id']);
+		
+		$d_movimiento = new Domain_Movimiento($params['movimiento_id']);
+		
+		$this->view->m_movimiento = $d_movimiento->getModel();
+		$this->view->datos_cheques = Domain_Movimiento::getDatosCheques($params['movimiento_id']);
+
+		$array_detalle_poliza = $rows[0]['Model_MovimientoPoliza'];
+		
+		$polizas_result = array();
+	    //Trae el nombre del asegurado
+	    foreach ($array_detalle_poliza as $value) {
+
+	    	
+	    	$d = Domain_Movimiento::getPolizaByDetallePagoId($value['poliza_id']);
+	    	$polizas_result[]=$d;
+    	
+	    }
+	    $this->view->rows = $polizas_result;
+	    $this->view->asegurado_id = $rows[0]['asegurado_id']; 
+	   // print_r($rows[0]['asegurado_id']);
+	   // print_r($this->view->rows);
+	}
+
+
+	public function eliminarMovimientoAseguradoAction(){
+		$params = $this->_request->getParams();
+		$this->view->asegurado_id = $params['asegurado_id'];
+		
+		//detalle_pago_id
+		$polizas = Domain_Movimiento::getMovimientosPoliza($params['movimiento_id']);
+		
+		foreach($polizas as $poliza){
+		//$d = Domain_Movimiento::getPolizaByDetallePagoId($poliza['poliza_id']);
+		//es parte de la cuota (detalle_pago_cuota_id)
+		
+		Domain_DetallePago::setPago($poliza['poliza_id']);
+		
+		}
+		//Elimino movimientos de la tabla movimiento Poliza
+		Domain_Movimiento::eliminarMovimientosPoliza($params['movimiento_id']);
+
+		$d_movimiento = new Domain_Movimiento($params['movimiento_id']);
+		
+		$m_movimiento = $d_movimiento->getModel();
+		$m_movimiento->delete();
+
+	}
+
+
 	
 	/*
 	 * 

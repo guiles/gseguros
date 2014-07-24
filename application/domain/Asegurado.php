@@ -91,6 +91,7 @@ class Domain_Asegurado {
 		$rows = $m_movimiento->getTable()
 		->createQuery()
 		->where('asegurado_id = ?',$id)
+		->orderBy('movimiento_id desc')
 		->execute()
 		->toArray();
 		//->getSqlQuery();
@@ -109,6 +110,7 @@ public static function getMovimientosByAseguradoIdAndPoliza($id,$numero_poliza=n
 		->where('m.asegurado_id = ?',array($id))
 		->andWhere('p.numero_poliza like ? ',array("%$numero_poliza%"))
 		->andWhere('m.tipo_movimiento_id = ?',0)
+		->orderBy('movimiento_id desc')
 		->execute()
 		->toArray();
 		//->getSqlQuery();
