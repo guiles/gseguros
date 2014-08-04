@@ -220,6 +220,7 @@ class Services_Poliza
 
 
 			$m_poliza = $poliza->getModelPoliza();
+			//$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
 			$m_poliza->compania_id=$params['compania_id'];
@@ -531,6 +532,7 @@ public function saveDetallePago($d_poliza,$params){
 
 
 			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
 			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
 			$m_poliza->save();
@@ -949,6 +951,7 @@ public function saveEditPolizaAduaneros($poliza,$params){
 			$m_poliza = $poliza->getModelPoliza();
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
+			$m_poliza->numero_factura2=$params['numero_factura'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
@@ -978,6 +981,81 @@ public function saveEditPolizaAduaneros($poliza,$params){
 
 		return 	$poliza;
 	}
+/**************************************************************************/
+public function saveEditPolizaAlquiler($poliza,$params){
+
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('ALQUILER');
+		try {
+		
+			$m_poliza_detalle = $poliza->getModelDetallePoliza($tipo_poliza);
+			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
+			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			$m_poliza_detalle->domicilio_riesgo=$params['domicilio_riesgo'];
+			$m_poliza_detalle->localidad_riesgo=$params['localidad_riesgo'];
+			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
+			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
+
+
+			$m_poliza_detalle->save();
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $poliza->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->moneda_id=$params['moneda_id'];
+			$m_poliza_valores->iva=$params['iva'];
+			$m_poliza_valores->prima_comision=$params['prima'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+			$m_poliza = $poliza->getModelPoliza();
+
+			$m_poliza->estado_id=$params['estado_poliza_id'];
+			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->asegurado_id=$params['asegurado_id'];
+			$m_poliza->agente_id=$params['agente_id'];
+			$m_poliza->compania_id=$params['compania_id'];
+			$m_poliza->productor_id=$params['productor_id'];
+			$m_poliza->cobrador_id=$params['cobrador_id'];
+			$m_poliza->fecha_pedido=$params['fecha_pedido'];
+			$m_poliza->periodo_id=$params['periodo_id'];
+			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
+			$m_poliza->fecha_vigencia_hasta=$fecha_vigencia_hasta;
+			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];
+			$m_poliza->observaciones_compania=$params['observaciones_compania'];
+			//$m_poliza->tipo_poliza_id = $tipo_poliza; 
+			//$m_poliza->estado_id = $estado;
+			//$m_poliza->endoso = 0;
+			//Guarda el ID de las tablas asociadas
+			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_alquiler_id;
+		
+			$m_poliza->save();
+
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+
+		return 	$poliza;
+	}
+
 
 	public function saveEditPolizaConstruccion($poliza,$params){
 //echo "<pre>";
@@ -2589,7 +2667,7 @@ public function notaCreditoPolizaAduaneros($poliza){
 	
 }
 	/**************Servicio para modificar poliza super admin*******************/
-public function editPolizaAduaneros($poliza,$params){
+	public function editPolizaAduaneros($poliza,$params){
 		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
 
 		try{
@@ -2685,6 +2763,10 @@ private function calcularPeriodo($fecha_desde,$periodo){
 			break;
 		}
 		
+		$date_parche = new DateTime($fecha_desde);
+		if($date_parche->format('d') == '31') $date->sub(new DateInterval('P1D'));
+		
+		$fecha_hasta =  $date->format('Y-m-d') . "\n";
 
 		return $fecha_hasta;
 	}

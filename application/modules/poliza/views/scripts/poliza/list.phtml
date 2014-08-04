@@ -297,7 +297,12 @@ case 'CONSTRUCCION':?>
 			<?break;
 case 'ALQUILER':?>
 <?if($this->operador):?>
-
+	<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-alquiler/poliza_id/<?=$poliza['poliza_id']?>','Poliza Alquiler','ALQUILER')">
+				</input>
+			</td>
+			<?endif;?>
 			<td><input type='button' value='Ver'
 				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-alquiler/poliza_id/<?=$poliza['poliza_id']?>','Alquiler','ALQUILER')">
 			</td>

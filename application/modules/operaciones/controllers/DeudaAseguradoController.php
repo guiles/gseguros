@@ -193,7 +193,7 @@ class Operaciones_DeudaAseguradoController extends Operaciones_IndexController
 				->execute();
 				//->toArray();
 				//->getSqlQuery();
-				
+				//poliza_id = detalle_pago_cuota_id en movimiento poliza
 				$detalle = $res->getFirst();
 				$detalle->pago_id = 1;
 				$detalle->fecha_pago = $params['fecha_pago'];

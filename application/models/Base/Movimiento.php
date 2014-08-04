@@ -110,6 +110,14 @@ public function setUp()
                 'foreign' => 'movimiento_id'
             )
         );
+
+        $this->hasMany('Model_DetallePagoCuota', array(
+                'local' => 'poliza_id',
+                'foreign' => 'detalle_pago_cuota_id'
+            )
+        );
+
+
     }
 	
 

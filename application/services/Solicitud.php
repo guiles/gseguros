@@ -1259,7 +1259,10 @@ public function saveSolicitudJudiciales($solicitud,$params){
 				break;
 		}
 
-
+		$date_parche = new DateTime($fecha_desde);
+		if($date_parche->format('d') == '31') $date->sub(new DateInterval('P1D'));
+		
+		$fecha_hasta =  $date->format('Y-m-d') . "\n";
 		return $fecha_hasta;
 	}
 

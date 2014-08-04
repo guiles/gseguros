@@ -101,13 +101,24 @@ class Domain_Asegurado {
 		return $rows;
 	}
 public static function getMovimientosByAseguradoIdAndPoliza($id,$numero_poliza=null){
-//SELECT * FROM movimiento m, movimiento_poliza mp, 
-//poliza p where m.movimiento_id=mp.movimiento_id and mp.poliza_id=p.poliza_id and numero_poliza like'%1234%'
-	//echo "entra aca asegurado_id".$id;
+/*
+SELECT mp . *
+FROM movimiento_poliza mp, detalle_pago_cuota dpc, detalle_pago dp, poliza p
+WHERE mp.poliza_id = dpc.detalle_pago_cuota_id
+AND dp.detalle_pago_id = dpc.detalle_pago_id
+AND dp.detalle_pago_id = p.detalle_pago_id
+AND p.numero_poliza LIKE '%80679%'
+LIMIT 10 
+*/
+
 	$rows = Doctrine_Query::create()
 		->select('m.*')
-		->from('Model_Movimiento m, m.Model_MovimientoPoliza mp,mp.Model_Poliza p')
-		->where('m.asegurado_id = ?',array($id))
+		->from('Model_Movimiento m, Model_MovimientoPoliza mp, Model_DetallePagoCuota dpc, Model_DetallePago dp, Model_Poliza p ')
+		->where('p.asegurado_id = ?',array($id))
+		->andwhere('mp.poliza_id = dpc.detalle_pago_cuota_id')
+		->andWhere('dp.detalle_pago_id = dpc.detalle_pago_id')
+		->andWhere('dp.detalle_pago_id = p.detalle_pago_id')
+		->andWhere('m.movimiento_id = mp.movimiento_id')
 		->andWhere('p.numero_poliza like ? ',array("%$numero_poliza%"))
 		->andWhere('m.tipo_movimiento_id = ?',0)
 		->orderBy('movimiento_id desc')

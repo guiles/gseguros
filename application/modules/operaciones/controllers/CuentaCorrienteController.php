@@ -130,6 +130,8 @@ class Operaciones_CuentaCorrienteController extends Operaciones_IndexController
 
 					//if($params['busqueda_poliza']){
 			if($params['numero_poliza']!=''){
+				//echo "<pre>";
+				//print_r($params);
 				$rows = Domain_Asegurado::getMovimientosByAseguradoIdAndPoliza($params['asegurado_id'],$params['numero_poliza']);
 
 
