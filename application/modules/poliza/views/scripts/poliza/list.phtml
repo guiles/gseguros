@@ -324,6 +324,13 @@ case 'ALQUILER':?>
 <?endif;
 break;
 case 'INTEGRAL_COMERCIO':?>
+
+	<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-integral-comercio/poliza_id/<?=$poliza['poliza_id']?>','Poliza Integ. Comercio','INTEGRAL_COMERCIO')">
+				</input>
+			</td>
+			<?endif;?>
 <?if($this->operador):?>
 
 			<td><input type='button' value='Ver'
@@ -379,6 +386,12 @@ case 'RESPONSABILIDAD_CIVIL':?>
 <?break;
 case 'ACCIDENTES_PERSONALES':?>
 <?if($this->operador):?>
+			<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-accidentes-personales/poliza_id/<?=$poliza['poliza_id']?>','Poliza Acc. Personales','ACCIDENTES_PERSONALES')">
+				</input>
+			</td>
+			<?endif;?>
 			<td><input type='button' value='Ver'
 				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-accidentes-personales/poliza_id/<?=$poliza['poliza_id']?>','Accidentes Personales','ACCIDENTES_PERSONALES')">
 			</td>
@@ -402,6 +415,13 @@ case 'ACCIDENTES_PERSONALES':?>
 break;
 case 'IGJ':?>
 <?if($this->operador):?>
+			<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-igj/poliza_id/<?=$poliza['poliza_id']?>','Poliza IGJ','IGJ')">
+				</input>
+			</td>
+			<?endif;?>
+
 			<td><input type='button' value='Ver'
 				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-igj/poliza_id/<?=$poliza['poliza_id']?>','IGJ','IGJ')">
 			</td>
@@ -426,6 +446,12 @@ break;
 
 case 'JUDICIALES':?>
 <?if($this->operador):?>
+	<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-judiciales/poliza_id/<?=$poliza['poliza_id']?>','Poliza Judiciales','JUDICIALES')">
+				</input>
+			</td>
+			<?endif;?>
 			<td><input type='button' value='Ver'
 				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-judiciales/poliza_id/<?=$poliza['poliza_id']?>','JUDICIALES','JUDICIALES')">
 			</td>
@@ -450,6 +476,12 @@ break;
 
 case 'VIDA':?>
 <?if($this->operador):?>
+	<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-vida/poliza_id/<?=$poliza['poliza_id']?>','Poliza Vida','VIDA')">
+				</input>
+			</td>
+			<?endif;?>
 			<td><input type='button' value='Ver'
 				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-vida/poliza_id/<?=$poliza['poliza_id']?>','VIDA','VIDA')">
 			</td>
@@ -471,6 +503,12 @@ break;
 
 case 'TRANSPORTE_MERCADERIA':?>
 <?if($this->operador):?>
+	<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-transporte-mercaderia/poliza_id/<?=$poliza['poliza_id']?>','Poliza Transporte Mercaderia','TRANSPORTE_MERCADERIA')">
+				</input>
+			</td>
+			<?endif;?>
 			<td><input type='button' value='Ver'
 				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-transporte-mercaderia/poliza_id/<?=$poliza['poliza_id']?>','Transporte Mercaderia','TRANSPORTE_MERCADERIA')">
 			</td>

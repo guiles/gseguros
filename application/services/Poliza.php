@@ -951,7 +951,7 @@ public function saveEditPolizaAduaneros($poliza,$params){
 			$m_poliza = $poliza->getModelPoliza();
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
-			$m_poliza->numero_factura2=$params['numero_factura'];
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
@@ -1056,6 +1056,484 @@ public function saveEditPolizaAlquiler($poliza,$params){
 		return 	$poliza;
 	}
 
+		public function saveEditPolizaAccidentesPersonales($poliza,$params){
+
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('ACCIDENTES_PERSONALES');
+		try {
+		
+			$m_poliza_detalle = $poliza->getModelDetallePoliza($tipo_poliza);
+			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
+			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			
+			$m_poliza_detalle->cantidad_personas =$params['cantidad_personas'];
+			$m_poliza_detalle->tareas_a_realizar =$params['tareas_a_realizar'];
+			$m_poliza_detalle->altura_maxima =$params['altura_maxima'];
+			$m_poliza_detalle->datos_adicionales =$params['datos_adicionales'];
+
+
+			$m_poliza_detalle->save();
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $poliza->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->moneda_id=$params['moneda_id'];
+			$m_poliza_valores->iva=$params['iva'];
+			$m_poliza_valores->prima_comision=$params['prima'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+			$m_poliza = $poliza->getModelPoliza();
+
+			$m_poliza->estado_id=$params['estado_poliza_id'];
+			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->asegurado_id=$params['asegurado_id'];
+			$m_poliza->agente_id=$params['agente_id'];
+			$m_poliza->compania_id=$params['compania_id'];
+			$m_poliza->productor_id=$params['productor_id'];
+			$m_poliza->cobrador_id=$params['cobrador_id'];
+			$m_poliza->fecha_pedido=$params['fecha_pedido'];
+			$m_poliza->periodo_id=$params['periodo_id'];
+			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
+			$m_poliza->fecha_vigencia_hasta=$fecha_vigencia_hasta;
+			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];
+			$m_poliza->observaciones_compania=$params['observaciones_compania'];
+			//$m_poliza->tipo_poliza_id = $tipo_poliza; 
+			//$m_poliza->estado_id = $estado;
+			//$m_poliza->endoso = 0;
+			//Guarda el ID de las tablas asociadas
+			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_accidentes_personales_id;
+		
+			$m_poliza->save();
+
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+
+		return 	$poliza;
+	}
+
+public function saveEditPolizaIgj($poliza,$params){
+
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('IGJ');
+		try {
+		
+			$m_poliza_detalle = $poliza->getModelDetallePoliza($tipo_poliza);
+			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
+			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			$m_poliza_detalle->domicilio_riesgo=$params['domicilio_riesgo'];
+			$m_poliza_detalle->localidad_riesgo=$params['localidad_riesgo'];
+			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
+			$m_poliza_detalle->numero_licitacion=$params['numero_licitacion'];
+			$m_poliza_detalle->obra=$params['obra'];
+			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
+			$m_poliza_detalle->expediente=$params['expediente'];
+			$m_poliza_detalle->objeto=$params['objeto'];
+			$m_poliza_detalle->apertura_licitacion=$params['apertura_licitacion'];
+			$m_poliza_detalle->clausula_especial=$params['clausula_especial'];
+			$m_poliza_detalle->certificaciones=$params['certificaciones'];
+
+
+			$m_poliza_detalle->save();
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $poliza->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->moneda_id=$params['moneda_id'];
+			$m_poliza_valores->iva=$params['iva'];
+			$m_poliza_valores->prima_comision=$params['prima'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+			$m_poliza = $poliza->getModelPoliza();
+
+			$m_poliza->estado_id=$params['estado_poliza_id'];
+			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->asegurado_id=$params['asegurado_id'];
+			$m_poliza->agente_id=$params['agente_id'];
+			$m_poliza->compania_id=$params['compania_id'];
+			$m_poliza->productor_id=$params['productor_id'];
+			$m_poliza->cobrador_id=$params['cobrador_id'];
+			$m_poliza->fecha_pedido=$params['fecha_pedido'];
+			$m_poliza->periodo_id=$params['periodo_id'];
+			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
+			$m_poliza->fecha_vigencia_hasta=$fecha_vigencia_hasta;
+			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];
+			$m_poliza->observaciones_compania=$params['observaciones_compania'];
+			//$m_poliza->tipo_poliza_id = $tipo_poliza; 
+			//$m_poliza->estado_id = $estado;
+			//$m_poliza->endoso = 0;
+			//Guarda el ID de las tablas asociadas
+			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_igj_id;
+		
+			$m_poliza->save();
+
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+
+		return 	$poliza;
+	}
+
+		public function saveEditPolizaJudiciales($poliza,$params){
+
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('IGJ');
+		try {
+		
+			$m_poliza_detalle = $poliza->getModelDetallePoliza($tipo_poliza);
+			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
+			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			$m_poliza_detalle->domicilio_riesgo=$params['domicilio_riesgo'];
+			$m_poliza_detalle->localidad_riesgo=$params['localidad_riesgo'];
+			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
+			$m_poliza_detalle->numero_licitacion=$params['numero_licitacion'];
+			$m_poliza_detalle->obra=$params['obra'];
+			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
+			$m_poliza_detalle->expediente=$params['expediente'];
+			$m_poliza_detalle->objeto=$params['objeto'];
+			$m_poliza_detalle->apertura_licitacion=$params['apertura_licitacion'];
+			$m_poliza_detalle->clausula_especial=$params['clausula_especial'];
+			$m_poliza_detalle->certificaciones=$params['certificaciones'];
+
+
+			$m_poliza_detalle->save();
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $poliza->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->moneda_id=$params['moneda_id'];
+			$m_poliza_valores->iva=$params['iva'];
+			$m_poliza_valores->prima_comision=$params['prima'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+			$m_poliza = $poliza->getModelPoliza();
+
+			$m_poliza->estado_id=$params['estado_poliza_id'];
+			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->asegurado_id=$params['asegurado_id'];
+			$m_poliza->agente_id=$params['agente_id'];
+			$m_poliza->compania_id=$params['compania_id'];
+			$m_poliza->productor_id=$params['productor_id'];
+			$m_poliza->cobrador_id=$params['cobrador_id'];
+			$m_poliza->fecha_pedido=$params['fecha_pedido'];
+			$m_poliza->periodo_id=$params['periodo_id'];
+			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
+			$m_poliza->fecha_vigencia_hasta=$fecha_vigencia_hasta;
+			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];
+			$m_poliza->observaciones_compania=$params['observaciones_compania'];
+			//$m_poliza->tipo_poliza_id = $tipo_poliza; 
+			//$m_poliza->estado_id = $estado;
+			//$m_poliza->endoso = 0;
+			//Guarda el ID de las tablas asociadas
+			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_igj_id;
+		
+			$m_poliza->save();
+
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+
+		return 	$poliza;
+	}
+
+public function saveEditPolizaVida($poliza,$params){
+
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('VIDA');
+		try {
+		
+			$m_poliza_detalle = $poliza->getModelDetallePoliza($tipo_poliza);
+			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
+			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			$m_poliza_detalle->domicilio_riesgo=$params['domicilio_riesgo'];
+			$m_poliza_detalle->localidad_riesgo=$params['localidad_riesgo'];
+			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
+			$m_poliza_detalle->numero_licitacion=$params['numero_licitacion'];
+			$m_poliza_detalle->obra=$params['obra'];
+			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
+			$m_poliza_detalle->expediente=$params['expediente'];
+			$m_poliza_detalle->objeto=$params['objeto'];
+			$m_poliza_detalle->apertura_licitacion=$params['apertura_licitacion'];
+			$m_poliza_detalle->clausula_especial=$params['clausula_especial'];
+			$m_poliza_detalle->certificaciones=$params['certificaciones'];
+
+
+			$m_poliza_detalle->save();
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $poliza->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->moneda_id=$params['moneda_id'];
+			$m_poliza_valores->iva=$params['iva'];
+			$m_poliza_valores->prima_comision=$params['prima'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+			$m_poliza = $poliza->getModelPoliza();
+
+			$m_poliza->estado_id=$params['estado_poliza_id'];
+			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->asegurado_id=$params['asegurado_id'];
+			$m_poliza->agente_id=$params['agente_id'];
+			$m_poliza->compania_id=$params['compania_id'];
+			$m_poliza->productor_id=$params['productor_id'];
+			$m_poliza->cobrador_id=$params['cobrador_id'];
+			$m_poliza->fecha_pedido=$params['fecha_pedido'];
+			$m_poliza->periodo_id=$params['periodo_id'];
+			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
+			$m_poliza->fecha_vigencia_hasta=$fecha_vigencia_hasta;
+			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];
+			$m_poliza->observaciones_compania=$params['observaciones_compania'];
+			//$m_poliza->tipo_poliza_id = $tipo_poliza; 
+			//$m_poliza->estado_id = $estado;
+			//$m_poliza->endoso = 0;
+			//Guarda el ID de las tablas asociadas
+			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_vida_id;
+		
+			$m_poliza->save();
+
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+
+		return 	$poliza;
+	}
+
+public function saveEditPolizaIntegralComercio($poliza,$params){
+
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('INTEGRAL_COMERCIO');
+		try {
+		
+			$m_poliza_detalle = $poliza->getModelDetallePoliza($tipo_poliza);
+			
+			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
+			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			$m_poliza_detalle->domicilio_riesgo=$params['domicilio_riesgo'];
+			$m_poliza_detalle->localidad_riesgo=$params['localidad_riesgo'];
+			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
+			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
+			$m_poliza_detalle->save();
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $poliza->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->moneda_id=$params['moneda_id'];
+			$m_poliza_valores->iva=$params['iva'];
+			$m_poliza_valores->prima_comision=$params['prima'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+			$m_poliza = $poliza->getModelPoliza();
+
+			$m_poliza->estado_id=$params['estado_poliza_id'];
+			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->asegurado_id=$params['asegurado_id'];
+			$m_poliza->agente_id=$params['agente_id'];
+			$m_poliza->compania_id=$params['compania_id'];
+			$m_poliza->productor_id=$params['productor_id'];
+			$m_poliza->cobrador_id=$params['cobrador_id'];
+			$m_poliza->fecha_pedido=$params['fecha_pedido'];
+			$m_poliza->periodo_id=$params['periodo_id'];
+			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
+			$m_poliza->fecha_vigencia_hasta=$fecha_vigencia_hasta;
+			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];
+			$m_poliza->observaciones_compania=$params['observaciones_compania'];
+			//$m_poliza->tipo_poliza_id = $tipo_poliza; 
+			//$m_poliza->estado_id = $estado;
+			//$m_poliza->endoso = 0;
+			//Guarda el ID de las tablas asociadas
+			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_integral_comercio_id;
+		
+			$m_poliza->save();
+
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+
+		return 	$poliza;
+	}
+
+public function saveEditPolizaTransporteMercaderia($poliza,$params){
+
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('TRANSPORTE_MERCADERIA');
+		try {
+		
+			$m_poliza_detalle = $poliza->getModelDetallePoliza($tipo_poliza);
+			
+			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
+			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
+
+			$m_poliza_detalle->mercaderia=$params['mercaderia'];
+			$m_poliza_detalle->transporte=$params['transporte'];
+			$m_poliza_detalle->cuit_transportista=$params['cuit_transportista'];
+			$m_poliza_detalle->origen_desde=$params['origen_desde'];
+			$m_poliza_detalle->origen_hasta=$params['origen_hasta'];
+			$m_poliza_detalle->tipo_transporte_id=$params['tipo_transporte_id'];
+			$m_poliza_detalle->marca=$params['marca'];
+			$m_poliza_detalle->modelo=$params['modelo'];
+			$m_poliza_detalle->patente=$params['patente'];
+			$m_poliza_detalle->patente_semi=$params['patente_semi'];
+			
+			$m_poliza_detalle->nombre_chofer=$params['nombre_chofer'];
+			$m_poliza_detalle->documento_chofer=$params['documento_chofer'];
+			$m_poliza_detalle->custodia_id=$params['custodia_id'];
+			$m_poliza_detalle->datos_custodia=$params['datos_custodia'];
+			$m_poliza_detalle->save();
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $poliza->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->moneda_id=$params['moneda_id'];
+			$m_poliza_valores->iva=$params['iva'];
+			$m_poliza_valores->prima_comision=$params['prima'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+			$m_poliza = $poliza->getModelPoliza();
+
+			$m_poliza->estado_id=$params['estado_poliza_id'];
+			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->asegurado_id=$params['asegurado_id'];
+			$m_poliza->agente_id=$params['agente_id'];
+			$m_poliza->compania_id=$params['compania_id'];
+			$m_poliza->productor_id=$params['productor_id'];
+			$m_poliza->cobrador_id=$params['cobrador_id'];
+			$m_poliza->fecha_pedido=$params['fecha_pedido'];
+			$m_poliza->periodo_id=$params['periodo_id'];
+			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
+			$m_poliza->fecha_vigencia_hasta=$fecha_vigencia_hasta;
+			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];
+			$m_poliza->observaciones_compania=$params['observaciones_compania'];
+			//$m_poliza->tipo_poliza_id = $tipo_poliza; 
+			//$m_poliza->estado_id = $estado;
+			//$m_poliza->endoso = 0;
+			//Guarda el ID de las tablas asociadas
+			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_transporte_mercaderia_id;
+		
+			$m_poliza->save();
+
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+
+		return 	$poliza;
+	}
 
 	public function saveEditPolizaConstruccion($poliza,$params){
 //echo "<pre>";
