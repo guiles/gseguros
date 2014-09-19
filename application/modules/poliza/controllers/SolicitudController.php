@@ -1127,6 +1127,99 @@ public function altaIntegralComercioAction()
 
 	}
 
+/**
+* Alta de tipo de Seguro integral de comercio
+* @method altaIntegralComercioAction 
+*/
+public function altaIncendioAction()
+	{
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('INCENDIO');
+		//1.traigo todos los helpers para dar el alta de la solicitud
+		$this->view->monedas = Domain_Helper::getHelperByDominio('moneda');
+		$this->view->periodos = Domain_Helper::getHelperByDominio('periodo');
+		$this->view->forma_pagos = Domain_Helper::getHelperByDominio('forma_pago');
+		$this->view->cuotas = Domain_Helper::getHelperByDominio('cuota');
+		
+		$this->view->tipo_garantias = Domain_TipoGarantia::getTipoGarantiaByTipoPoliza($tipo_poliza_id);
+		
+		$this->view->motivo_garantias = Domain_MotivoGarantia::getMotivoGarantiasByTipoPoliza($tipo_poliza_id);
+
+		$compania = new Domain_Compania();
+		$this->view->companias= $compania->getModel()->getTable()->findAll()->toArray();
+		$productor = new Domain_Productor();
+		$this->view->productores= $productor->getModel()->getTable()->findAll()->toArray();
+		$cobrador = new Domain_Cobrador();
+		$this->view->cobradores= $cobrador->getModel()->getTable()->findAll()->toArray();
+		//este seria ejecutivo de cuentas, Lo unifico con agente
+		$agente = new Domain_Agente();
+		$this->view->agentes= $agente->getModel()->getTable()->findAll()->toArray();
+		$despachante_aduana = new Domain_DespachanteAduana();
+		//$this->view->despachante_aduanas= $despachante_aduana->getModel()->getTable()->findAll()->toArray();
+		$beneficiario = new Domain_Beneficiario();
+		$this->view->beneficiarios= $beneficiario->getModel()->getTable()->findAll()->toArray();
+
+
+	     //Esto es un asco tengo que modificarlo cuando tenga tiempo
+		$this->view->isAgente = false;
+		$this->view->isOperador = false;
+		$rol_usuario = $this->_t_usuario->getNombre();
+		if($rol_usuario=='AGENTE'){
+
+			$this->view->isAgente = true;
+			$this->view->agente_id = $this->_usuario->getModel()->usuario_tipo_id;
+			$this->view->agente_nombre = Domain_Agente::getNameById($this->_usuario->getModel()->usuario_tipo_id);
+			////print_r($this->view->agente_nombre);
+		}elseif($rol_usuario=='OPERADOR'){
+				
+			$this->view->isOperador = true;
+		}
+
+		//2. Traigo el POST
+		$params = $this->_request->getParams();
+
+		//echo "<pre>";
+		//print_r($params);
+		$solicitud = $this->_solicitud;
+		//Si viene con ID es para guardar y traigo la solicitud con los datos, sobreescribo la variable
+		if(! empty($params['solicitud_id']) )$solicitud = new Domain_Poliza($params['solicitud_id']);
+
+		$this->view->solicitud = $solicitud->getModelPoliza();
+		$this->view->poliza_valores = $solicitud->getModelPolizaValores();
+		$this->view->poliza_detalle = $solicitud->getModelDetalle();
+		$this->view->detalle_pago = $solicitud->getModelDetallePago();
+		$this->view->cantidad_cuotas = (int)Domain_DetallePago::getCantidadCuotas($solicitud->getModelDetallePago()->detalle_pago_id);
+		$this->view->valor_cuotas = (float)Domain_DetallePago::getValorCuotas($solicitud->getModelDetallePago()->detalle_pago_id);
+		$this->view->importe = $this->view->cantidad_cuotas * $this->view->valor_cuotas;
+		$this->view->asegurado_nombre = Domain_Asegurado::getNameById($solicitud->getModelPoliza()->asegurado_id);
+
+
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			$solicitud = $this->_services_solicitud->saveSolicitudIncendio($solicitud,$params);
+			$solicitud = $this->_services_solicitud->saveDetallePago($solicitud,$params);
+
+			$this->view->solicitud = $solicitud->getModelPoliza();
+			$this->view->poliza_valores = $solicitud->getModelPolizaValores();
+			$this->view->poliza_detalle = $solicitud->getModelDetalle();
+
+			$this->view->detalle_pago = $solicitud->getModelDetallePago();
+			//Por ahora es un metodo estatico, podria ponerlo dentro de la clase solicitud
+			$this->view->cantidad_cuotas = (int) Domain_DetallePago::getCantidadCuotas($solicitud->getModelDetallePago()->detalle_pago_id);
+			$this->view->valor_cuotas = (float)Domain_DetallePago::getValorCuotas($solicitud->getModelDetallePago()->detalle_pago_id);
+			$this->view->importe = $this->view->cantidad_cuotas * $this->view->valor_cuotas;
+			$this->view->asegurado_nombre = Domain_Asegurado::getNameById($solicitud->getModelPoliza()->asegurado_id);
+			$this->view->tipo_garantias = Domain_Helper::getHelperByDominio('tipo_garantia');
+			$this->view->motivo_garantias = Domain_MotivoGarantia::getMotivoGarantias();
+
+		}
+
+	}
+
+
+
 
 	public function aprobarSolicitudAction(){
 		$estado = Domain_EstadoPoliza::getIdByCodigo('SOLICITUD_CONFIRMADA');

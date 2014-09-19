@@ -1,12 +1,12 @@
 <?php echo $this->headScript()->appendFile('./js/gseguros.operaciones.cuenta-corriente.cc-asegurado.js');?>
 
 <b>Cliente:</b> <?=$this->asegurado?>
-<table>
+<table border= "1px solid" style="border-collapse: collapse;">
   <tr>
     <th>Moneda</th>
-    <th>Polizas Pago</th>
-    <th>Polizas Debe</th>
-    <th>Movimientos</th>
+    <th>Polizas Pagas</th>
+    <th>Polizas Adeudadas</th>
+    <th>Pagos realizados</th>
     <th>Saldo</th>
   </tr>
   <tr>
@@ -67,11 +67,12 @@ $datos_cheques = Domain_Movimiento::getDatosCheques($row['movimiento_id']);
     <td ><?=$moneda?></td>
     <td ><?=round($row['importe'],2)?></td>
     <td ><?=$row['descuento']?></td>
-		<td><input type="button" value="Ver Detalle" onClick="return viewDetalleMovimiento('./operaciones/cuenta-corriente/detalle-movimiento/movimiento_id/<?=$row['movimiento_id']?>')"> </input> </td>
-    <td><input type="button" class="imprimir_detalle_movimiento_asegurado_poliza" value="Ver Impresion Detalle" onClick="return false"> </input>
+		<!--td><input type="button" value="Ver Detalle" onClick="return viewDetalleMovimiento('./operaciones/cuenta-corriente/detalle-movimiento/movimiento_id/<?=$row[movimiento_id]?>')"> </input> </td-->
+    <td><input type="button" class="imprimir_detalle_movimiento_asegurado_poliza" value="Ver Detalle" onClick="return false"> </input>
        </td>
-        <td><input type="button" class="eliminar_movimiento_asegurado_poliza" value="Eliminar" onClick="return false"> </input>
-       </td> 
+<?if($this->perfil_id == 1):?>
+        <td><input type="button" class="eliminar_movimiento_asegurado_poliza" value="Eliminar" onClick="return false"> </input></td> 
+<?endif;?>
 	</tr>
 	<?endforeach;?>
 </tbody>

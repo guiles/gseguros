@@ -499,8 +499,6 @@ case 'VIDA':?>
 			<?endif;?>
 <?endif;
 break;
-
-
 case 'TRANSPORTE_MERCADERIA':?>
 <?if($this->operador):?>
 	<?if($this->perfil_id == 1):?>
@@ -526,6 +524,31 @@ case 'TRANSPORTE_MERCADERIA':?>
 			<?endif;?>
 <?endif;?>
 			<?break;
+case 'INCENDIO':?>
+<?if($this->operador):?>
+	<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-incendio/poliza_id/<?=$poliza['poliza_id']?>','Poliza Transporte Mercaderia','INCENDIO')">
+				</input>
+			</td>
+			<?endif;?>
+			<td><input type='button' value='Ver'
+				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-incendio/poliza_id/<?=$poliza['poliza_id']?>','Incendio','INCENDIO')">
+			</td>
+			
+			<?if($estado_codigo == 'VIGENTE'):?>
+			<?//Refacturar en este caso es renovar, @TODO: cambiar el nombre del metodo a uno mas generico?>
+			<!--  td><input type='button' value='RENOVAR'
+				onClick="return refacturaPoliza('./poliza/poliza/alta-poliza-responsabilidad-civil/poliza_id/<? //=$poliza['poliza_id']?>')">
+				</input>
+			</td>-->
+			<td><input type='button' value='BAJA'
+				onClick="return lbajaPoliza('./poliza/poliza/baja-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
+				</input>
+			</td>
+			<?endif;?>
+<?endif;?>
+<?break;			
 case 'AUTOMOTORES':?>
 			<td><input type='button' value='Ver'
 				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-automotores/poliza_id/<?=$poliza['poliza_id']?>','Automotores','AUTOMOTORES')">

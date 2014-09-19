@@ -32,7 +32,8 @@ class Operaciones_CuentaCorrienteController extends Operaciones_IndexController
 		} else {
 			//exit('no tiene permiso');
 		}
-			
+		$arr_perfil_id = $this->_usuario->getUserPerfilTemp();
+		$this->view->perfil_id = $arr_perfil_id[0];
 
 		$logger = Zend_Registry::get('logger');
 		$logger->log($this->_usuario->getEntidad() , Zend_Log::INFO);

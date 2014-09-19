@@ -60,11 +60,22 @@
 		return new Model_DetalleVida();
 		
 	}
- public function crearDetallePolizaIntegralComercio(){
+ 	public function crearDetallePolizaIntegralComercio(){
 
 		return new Model_DetalleIntegralComercio();
 		
 	}
+	public function crearDetallePolizaIncendio(){
+
+		return new Model_DetalleIncendio();
+		
+	}
+	public function crearDetallePolizaTecnico(){
+
+		return new Model_DetalleTecnico();
+		
+	}
+	
 	
 	
 }

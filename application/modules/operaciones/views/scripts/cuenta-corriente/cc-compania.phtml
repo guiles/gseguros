@@ -1,11 +1,11 @@
 <?php echo $this->headScript()->appendFile('./js/gseguros.operaciones.cuenta-corriente.cc-compania.js');?>
 
 <b>Cliente:</b> <?=$this->compania?>
-<table>
+<table border= "1px solid" style="border-collapse: collapse;">
   <tr>
     <th>Moneda</th>
-    <th>Polizas Pago</th>
-    <th>Polizas Debe</th>
+    <th>Polizas Pagas</th>
+    <th>Polizas Adeudadas</th>
     <!--  th>Movimientos</th>-->
     <th>Saldo</th>
   </tr>
@@ -73,8 +73,11 @@ $datos_cheques = Domain_Movimiento::getDatosCheques($row['movimiento_id']);
       <!--input type="button" value="Ver Detalle" onClick="return viewDetalleMovimientoCompania('./operaciones/cuenta-corriente/detalle-movimiento-compania/movimiento_id///$row['movimiento_id']')"> </input> </td-->
 	  <td><input type="button" class="imprimir_detalle_movimiento_poliza" value="Ver Detalle" onClick="return false"> </input>
        </td>
+
+     <?if($this->perfil_id == 1):?>
      <td><input type="button" class="eliminar_movimiento_poliza" value="Eliminar" onClick="return false"> </input>
        </td>   
+     <?endif;?>  
   <!--<A HREF="javascript:void(0)"
 onclick="window.open('./operaciones/cuenta-corriente/imprimir-detalle-movimiento-compania/movimiento_id/<?=$this->m_movimiento->movimiento_id?>')">Imprimir Detalle</A> -->
   

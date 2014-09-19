@@ -1934,6 +1934,46 @@ public function saveEditPolizaResponsabilidadCivil($poliza,$params){
 		return $poliza;
 	}
 	
+	public function saveViewPolizaIncendio($poliza,$params){
+
+
+		try{
+			$m_poliza_detalle = $poliza->getModelDetalle();
+			$m_poliza_detalle->documentacion_id=$params['documentacion_id'];
+			$m_poliza_detalle->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try{
+			$m_poliza_valores = $poliza->getModelPolizaValores();
+			$m_poliza_valores->iva=$params['iva'];
+			
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->prima_comision=$params['prima_comision'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
+			$m_poliza->save();
+				
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
 	
 	
 public function refacturarPolizaAlquiler($poliza){

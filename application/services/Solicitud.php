@@ -1153,7 +1153,97 @@ public function saveSolicitudJudiciales($solicitud,$params){
 		return $solicitud;
 	}
 
+
+/**
+* Metodo de alta de solicitud
+* @method saveSolicitudIntegralComercio
+*/
 	
+	public function saveSolicitudIncendio($solicitud,$params){
+
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('INCENDIO');
+		try {
+			//1. Poliza Detalle Seguro Comun (Ver si es para Caucion solamente)
+			$m_poliza_detalle = $solicitud->getModelDetallePoliza($tipo_poliza);
+			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
+			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			$m_poliza_detalle->domicilio_riesgo=$params['domicilio_riesgo'];
+			$m_poliza_detalle->localidad_riesgo=$params['localidad_riesgo'];
+			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
+			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
+
+
+			$m_poliza_detalle->save();
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $solicitud->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->moneda_id=$params['moneda_id'];
+			$m_poliza_valores->iva=$params['iva'];
+			$m_poliza_valores->prima_comision=$params['prima'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+			$m_solicitud = $solicitud->getModelPoliza();
+
+
+			if(empty($m_solicitud->poliza_id)){
+				$estado = Domain_EstadoPoliza::getIdByCodigo('SOLICITUD_PENDIENTE');
+				//Si es nueva traigo numero para actualizar y guardo
+				$talonario = Domain_Talonario::getInstance();
+					
+				$numero_solicitud = $talonario->getNumeroByCodigo('SOLICITUD');
+				//Guardo Numero de Solicitud
+				$m_solicitud->numero_solicitud = $numero_solicitud ;
+				$m_solicitud->estado_id = $estado;	
+				//actualiza numero de solicitud
+
+				$talonario->incrementaNumeroByCodigo('SOLICITUD');
+
+			}
+
+
+			$m_solicitud->asegurado_id=$params['asegurado_id'];
+			$m_solicitud->agente_id=$params['agente_id'];
+			$m_solicitud->compania_id=$params['compania_id'];
+			$m_solicitud->productor_id=$params['productor_id'];
+			$m_solicitud->cobrador_id=$params['cobrador_id'];
+			$m_solicitud->fecha_pedido=$params['fecha_pedido'];
+			$m_solicitud->periodo_id=$params['periodo_id'];
+			$m_solicitud->fecha_vigencia=$params['fecha_vigencia'];
+			$m_solicitud->fecha_vigencia_hasta=$fecha_vigencia_hasta;
+			$m_solicitud->observaciones_asegurado=$params['observaciones_asegurado'];
+			$m_solicitud->observaciones_compania=$params['observaciones_compania'];
+			$m_solicitud->tipo_poliza_id = $tipo_poliza; 
+			
+			$m_solicitud->endoso = 0;
+			//Guarda el ID de las tablas asociadas
+			$m_solicitud->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_solicitud->poliza_detalle_id = $m_poliza_detalle->detalle_incendio_id;
+			$m_solicitud->poliza_poliza_id = $params['poliza_renovada_id'];
+			$m_solicitud->save();
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+		return $solicitud;
+	}	
 
 //============================================================/
 	public function saveDetallePago($solicitud,$params){

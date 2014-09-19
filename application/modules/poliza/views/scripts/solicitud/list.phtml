@@ -234,7 +234,22 @@ function loadPageSolicitudIntegralComercio(url, title){
 				
 			return false;  	
 		}
-
+function loadPageSolicitudIncendio(url, title){
+	var existe=false;
+	tab_url = './poliza/solicitud/alta-incendio';
+	temp_url = './poliza/solicitud/alta-incendio';
+			$('div#CenterPane>div#tabs>ul.ui-tabs-nav>li a').each(function() {
+				
+		   var href = $(this).attr('tab_url');
+		   console.debug(href);
+				   if (href==temp_url)existe=true;
+				})
+				
+				if(!existe)$("#tabs").tabs("add",url,title);
+				if(existe)alert('Ya esta abierta la solapa, cerrala para poder ver la Solicitud');
+				
+			return false;  	
+		}
 
 
 function loadTabPage(url, title,tipo){
@@ -541,7 +556,12 @@ case 12:?>
 				</input>
 			</td>
 			<?break;						
-			
+	case 13:?>
+			<td><input type='button' value='Ver'
+				onClick="return loadPageSolicitudIncendio('./poliza/solicitud/alta-incendio/solicitud_id/<?=$solicitud['poliza_id']?>','Incendio')">
+				</input>
+			</td>
+			<?break;			
 default:
 	break;
 			}?>

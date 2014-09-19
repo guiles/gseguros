@@ -80,12 +80,11 @@ class Domain_Solicitud {
 	}
 
 		public function getModelDetallePoliza($tipo=null){
-		
 		//Simple Factory que devuelve la poliza
 		$factory_detalle_poliza = new Domain_FactoryDetallePoliza();
 		
 		$tipo_poliza = Domain_TipoPoliza::getNameById($tipo);
-		
+		echo $tipo_poliza;
 		//Por ahora con los ids
 		switch ($tipo_poliza) {
 			case '1':
@@ -241,6 +240,41 @@ class Domain_Solicitud {
 				->find($this->_model_poliza->poliza_detalle_id);
 					
 				break;
+
+
+					case 'INTEGRAL_COMERCIO':
+					
+				$m_detalle_poliza = $factory_detalle_poliza->crearDetallePolizaIntegralComercio();
+				
+				
+				//Si no tiene poliza_id devuelve el modelo solo
+				if($this->_model_poliza->poliza_id ==  null){
+
+					return $m_detalle_poliza;
+
+				}
+					
+				return $m_detalle_poliza->getTable()
+				->find($this->_model_poliza->poliza_detalle_id);
+					
+				break;
+			
+					case 'INCENDIO':
+					
+				$m_detalle_poliza = $factory_detalle_poliza->crearDetallePolizaIncendio();
+				
+				
+				//Si no tiene poliza_id devuelve el modelo solo
+				if($this->_model_poliza->poliza_id ==  null){
+
+					return $m_detalle_poliza;
+
+				}
+					
+				return $m_detalle_poliza->getTable()
+				->find($this->_model_poliza->poliza_detalle_id);
+					
+				break;		
 				
 			case 'AUTOMOTORES':
 					
