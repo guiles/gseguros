@@ -740,64 +740,87 @@ class Domain_Operador implements Domain_IEntidad {
 	//trae todas las polizas adeudadas
 	public function getListadoDeudaClienteByEntidadId($asegurado_id,$agente_id=null,$compania_id=null){
 
+		$estado_debe = Domain_Helper::getHelperIdByDominioAndName('estado_pago', 'DEBE');
+		
 		//Buscar el estado Vigente
-		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
+		/*$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
 		$estado_afectada = Domain_EstadoPoliza::getIdByCodigo('AFECTADA');
 		$estado_refacturado = Domain_EstadoPoliza::getIdByCodigo('REFACTURADO');
-		$estado_debe = Domain_Helper::getHelperIdByDominioAndName('estado_pago', 'DEBE');
 		$estado_baja_devolucion = Domain_EstadoPoliza::getIdByCodigo('BAJA_POR_DEVOLUCION');
 		$estado_baja_liberacion = Domain_EstadoPoliza::getIdByCodigo('BAJA_POR_LIBERACION');
 		$estado_renovada = Domain_EstadoPoliza::getIdByCodigo('RENOVADA');
 		$estado_no_renovado = Domain_EstadoPoliza::getIdByCodigo('NO_RENOVADO');
+		*/
+/** Estados que no tinen que estar en el listado
+* SOLICITUD PENDIENTE / SOLICITUD APROBADA / SOLICITUD ANULADA / BAJA DE OFICIO / ACEPTADA / DEVUELTA / RECHAZADA
+*/
 
+
+$estado_pendiente = Domain_EstadoPoliza::getIdByCodigo('SOLICITUD_PENDIENTE');
+$estado_aprobada = Domain_EstadoPoliza::getIdByCodigo('APROBADA');
+$estado_anulada = Domain_EstadoPoliza::getIdByCodigo('ANULADA');
+$estado_baja = Domain_EstadoPoliza::getIdByCodigo('BAJA');
+$estado_aceptada = Domain_EstadoPoliza::getIdByCodigo('ACEPTADA');
+$estado_devuelta = Domain_EstadoPoliza::getIdByCodigo('DEVUELTA');
+$estado_rechazada = Domain_EstadoPoliza::getIdByCodigo('RECHAZADA');
 
 		if( (empty($agente_id) AND empty($compania_id)) ){
 
 			$rows = Doctrine_Query::create()
 			->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 			->andWhere("dpc.pago_id = ? ", $estado_debe)
-			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
-			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion,$estado_renovada,$estado_no_renovado))
+			//->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
+			//,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion,$estado_renovada,$estado_no_renovado))
+			->andwhere('p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? 
+			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
+			,array($estado_pendiente,$estado_aprobada,$estado_anulada
+			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada))
 			->andWhere("p.asegurado_id = ? ", $asegurado_id)
 			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 
-
-		}elseif(empty($agente_id)){
-			//echo "agente is empty";
-			//exit;
+			}elseif(empty($agente_id)){
 
 			$rows = Doctrine_Query::create()
 			->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 			->andWhere("dpc.pago_id = ? ", $estado_debe)
-			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
-			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion,$estado_renovada,$estado_no_renovado))
+			//->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
+			//,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion,$estado_renovada,$estado_no_renovado))
+			->andwhere('p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? 
+			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
+			,array($estado_pendiente,$estado_aprobada,$estado_anulada
+			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada))
 			->andWhere("p.asegurado_id = ? and p.compania_id = ?", array($asegurado_id,$compania_id))
 			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 			//->getSqlQuery();
 
-
 		}elseif(empty($compania_id)){
 			$rows = Doctrine_Query::create()
 			->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 			->andWhere("dpc.pago_id = ? ", $estado_debe)
-			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
-			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion,$estado_renovada,$estado_no_renovado))
+			->andwhere('p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? 
+			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
+			,array($estado_pendiente,$estado_aprobada,$estado_anulada
+			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada))
 			->andWhere("p.asegurado_id = ? and p.agente_id = ?", array($asegurado_id,$agente_id))
 			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 
 		}else{
-
+			
 			$rows = Doctrine_Query::create()
 			->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 			->andWhere("dpc.pago_id = ? ", $estado_debe)
-			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
-			,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion,$estado_renovada,$estado_no_renovado))
+			//->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
+			//,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion,$estado_renovada,$estado_no_renovado))
+			->andwhere('p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? 
+			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
+			,array($estado_pendiente,$estado_aprobada,$estado_anulada
+			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada))
 			->andWhere("p.asegurado_id = ? and p.agente_id = ? and p.compania_id = ?", array($asegurado_id,$agente_id,$compania_id))
 			->orderBy("p.numero_poliza")
 			->execute()
@@ -805,7 +828,6 @@ class Domain_Operador implements Domain_IEntidad {
 			//->getSqlQuery();
 		}
 			
-
 		return $rows;
 	}
 	
