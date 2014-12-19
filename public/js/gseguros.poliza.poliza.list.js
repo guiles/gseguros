@@ -304,6 +304,9 @@ function loadTabPoliza(url, title, tipo_poliza) {
 	}else if (tipo_poliza == 'INTEGRAL_COMERCIO') {
 		tab_url = './poliza/poliza/view-poliza-integral-comercio';
 		temp_url = './poliza/poliza/view-poliza-integral-comercio';
+	}else if (tipo_poliza == 'INCENDIO') {
+		tab_url = './poliza/poliza/view-poliza-incendio';
+		temp_url = './poliza/poliza/view-poliza-incendio';
 	}
 
 	$('div#CenterPane>div#tabs>ul.ui-tabs-nav>li a').each(function() {

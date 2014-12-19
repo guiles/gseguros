@@ -1,83 +1,44 @@
+<script type="text/javascript">
+window.print();
+function imprimir(){
+window.print();
+}
+</script>
+<style type="text/css">
+@media print {
+	table {
+		border-collapse: collapse;
+		font-size:70%;
+	}
+	th {
+		border-bottom: 1px solid black;
+		font-size:70%;
+	}
+	
+	 .noprint { display: none; }
+	 
+}
+
+
+@media screen {
+table {
+		border-collapse: collapse;
+		font-size:80%;
+	}
+	th {
+		border-bottom: 1px solid black;
+		font-size:80%;
+	}
+}
+</style>
 <?php echo $this->headScript()->appendFile('./js/gseguros.poliza.poliza.search.js');?>
 
-<form action="" id="form_search_poliza">
-<input type="hidden" name="busqueda" value=true></input>
-	<table id="table_search_poliza">
-		<tr>
-			<td>Buscar Polizas:</td>
-			<td></td>
-		</tr>
-		<tr>	
-			<td>Tipo:</td>
-			<td><select name="tipo_poliza_id">
-								<option value="">Todos</option>
-								<? foreach($this->poliza_tipos as $row ):?>
-								<option value=<?=$row['t_poliza_id']?>>
-								<?=$row['nombre']?>
-								<? endforeach; ?>
-				</select>
-			</td>
-			<td>Estado:</td>
-			<td><select name="estado_id">
-								<option value="">Todos</option>
-								<? foreach($this->poliza_estados as $row ):?>
-								<option value=<?=$row['estado_id']?>>
-								<?=$row['nombre']?>
-								<? endforeach; ?>
-						</select>
-			</td>
-		</tr>
-		<tr>	
-			<td>Tipo Operacion:</td>
-			<td><select name="operacion_id">
-								<option value="">Todos</option>
-								<? foreach($this->operacion as $row ):?>
-								<option value=<?=$row['dominio_id']?>>
-								<?=$row['nombre']?>
-								<? endforeach; ?>
-				</select>
-			</td>
-			<td>Pago Compania:</td>
-			<td><select name="pago_compania_id">
-								<option value="">No</option>
-								<option value="1">Si</option>
-				</select>
-			</td>
-		</tr>
-		<tr>	
-			<td>Asegurado:</td>
-			<td><select name="asegurado_id">
-								<option value="">Todos</option>
-								<? foreach($this->asegurados as $row ):?>
-								<option value=<?=$row['asegurado_id']?>>
-								<?=$row['nombre']?>
-								<? endforeach; ?>
-				</select>
-			</td>
-			<td>Compania:</td>
-			<td><select name="compania_id">
-								<option value="">Todos</option>
-								<? foreach($this->companias as $row ):?>
-								<option value=<?=$row['compania_id']?>>
-								<?=$row['nombre']?>
-								<? endforeach; ?>
-				</select>
-			</td>
-		</tr>
-		<tr>
-		<td>Nro Factura:</td>
-			<td><input type="text" name="numero_factura" id="numero_factura"></input>
-			</td>
-		</tr>
-		<tr>
-		<td><input type="button" name="buscar" value="Buscar" id="confirm_search_poliza"></input></td>
-		</tr>
-	</table>
-</form>
-<?if($this->busqueda):?>
+
 <div id="div_table_poliza_search">
 <table id="poliza_search" class="ui-widget" cellspacing="1" cellpadding="0" border="0" >
-
+<!--
+tomador, nro poliza, nro endoso, compania, tipo cobertura, beneficiario, nro licitacion, objeto, expediente
+ -->
 	<thead  class="ui-widget-header" >
 		<tr>
 			<th>Tomador</th>
@@ -88,13 +49,10 @@
 			<th>Operacion</th>
 			<th>Secci&oacute;n</th>
 			<th>Tipo de Cobertura</th>
-			<th>Suma Asegurada</th>
-			<th>Prima</th>
-			<th>Premio</th>
-			<th>Plus</th>
-			<th>Estado</th>
-			<th>Fecha Baja</th>
-			<th>Nro Factura</th>
+			<th>Beneficiario</th>
+			<th>Nro Licitacion</th>
+			<th>Objeto</th>
+			<th>Expediente</th>
 		</tr>
 	</thead>
 	<tbody   class="ui-widget-content" >
@@ -117,7 +75,12 @@
 
 	$m_detalle_poliza = $d_poliza->getModelDetalle();
 	//Aca podria traer el objeto correspondiente en vez de instanciarlo por separado
-	
+	$beneficiario = Domain_Beneficiario::getNameById($m_detalle_poliza->beneficiario_id);
+	$numero_licitacion = (isset($m_detalle_poliza->numero_licitacion))? $m_detalle_poliza->numero_licitacion : '';
+
+	$objeto = (isset($m_detalle_poliza->objeto))? $m_detalle_poliza->objeto : '';
+	$expediente = (isset($m_detalle_poliza->expediente))? $m_detalle_poliza->expediente : '';
+
 	switch ($tipo_poliza) {
 		case 'AUTOMOTORES':
 
@@ -168,13 +131,10 @@
 			<td><?=$operacion?></td>
 			<td><?=$tipo_poliza?></td>
 			<td><?=$tipo_cobertura?></td>
-			<td><?=round($m_poliza_valores->monto_asegurado,2)?></td>
-			<td><?=round($m_poliza_valores->prima_comision,2)?></td>
-			<td><?=round($m_poliza_valores->premio_asegurado,2)?></td>
-			<td><?=round($m_poliza_valores->plus,2)?></td>
-			<td><?=$estado?></td>
-			<td><?=$poliza['fecha_baja']?></td>
-			<td><?=$poliza['numero_factura']?></td>
+			<td><?=$beneficiario?></td>
+			<td><?=$numero_licitacion?></td>
+			<td><?=$objeto?></td>
+			<td><?=$expediente?></td>
 		</tr>
 		<?endforeach; ?>
 	</tbody>
@@ -183,10 +143,8 @@
 <table>
 </div>
 	<tr>
-			<td><input type="button" name="atras" value="atras" id="tab_search_poliza"></input></td>
-			<td><a href='javascript:printContent("div_tabla_polizas_compania")' id='imprimir_search_poliza'>Imprimir Listado</a></td>
-			<td> <A HREF="javascript:void(0)"onclick="window.open('./poliza/poliza/imprimir-listado-poliza-detalle/tipo_poliza_id/<?=$this->searchParams[tipo_poliza_id]?>/estado_id/<?=$this->searchParams[estado_id]?>/operacion_id/<?=$this->searchParams[operacion_id]?>/pago_compania_id/<?=$this->searchParams[pago_compania_id]?>/asegurado_id/<?=$this->searchParams[asegurado_id]?>/compania_id/<?=$this->searchParams[compania_id]?>/numero_factura/<?=$this->searchParams[numero_factura]?>')">Imprimir Listado Detalle</a> </td>
+			<td><input class="noprint" type="button" onClick="imprimir()" value="Imprimir Informe"/>
+</td>
 	</tr>
 </table>
-<?endif;?>
 

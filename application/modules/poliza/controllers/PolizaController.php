@@ -141,9 +141,11 @@ class Poliza_PolizaController extends Poliza_IndexController
 		
 		if($params['busqueda']){
 		$this->view->busqueda = true;
+		//echo "<pre>";
 		
 		//print_r($params);
 		$array_parametros = array_slice($params, 4); //No se como hacer que solo me traiga los parametros 
+		$this->view->searchParams = $array_parametros;
 		//print_r($array_parametros);
 		//armo el array de busqueda
 		$array_busqueda = array();
@@ -187,6 +189,49 @@ class Poliza_PolizaController extends Poliza_IndexController
 	//	$paginator->setCurrentPageNumber($page);
 	//	
 	//	$this->view->rows = $paginator;
+	}
+
+	public function imprimirListadoPolizaDetalleAction()
+	{
+		
+	/*
+	 * @Params: Asegurado,Compania,Estado,Tipo Poliza
+	 */
+		
+		$this->view->poliza_estados= Domain_EstadoPoliza::getEstados();
+		$this->view->poliza_tipos= Domain_TipoPoliza::getTipos();
+		$this->view->operacion = Domain_Helper::getHelperByDominio('operacion');
+		
+		$cliente = new Domain_Cliente();
+		$this->view->asegurados= $cliente->getAsegurados();
+		$compania = new Domain_Compania();
+		$this->view->companias= $compania->getModel()->getTable()->findAll()->toArray();
+		//$this->_helper->viewRenderer->setNoRender();
+
+
+		$params = $this->_request->getParams();
+		
+		$this->view->busqueda = true;
+		//echo "<pre>";
+		//print_r($params);
+		
+		$array_parametros = array_slice($params, 3); //No se como hacer que solo me traiga los parametros 
+		//armo el array de busqueda
+		//print_r($array_parametros);
+		//exit;
+		$array_busqueda = array();
+		foreach ($array_parametros as $key=>$value) {
+		     //echo $key."=".$value;
+		     if(!empty($value)){
+		     $campos=array("nombre"=>$key,"valor"=>$value);	
+		     $array_busqueda[]=$campos;
+		     }
+		}
+		
+		$rows = $this->_t_usuario->searchPoliza($array_busqueda);
+	//print_r($rows);
+		//exit;
+		$this->view->rows = $rows;
 	}
 
 	public function altaAutomotoresAction()
@@ -1481,9 +1526,9 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->bajas = Domain_Helper::getHelperByDominio('tipo_baja_comunes');
 		$this->view->baja=false;
 		
-		echo "<pre>";
+		/*echo "<pre>";
 		print_r($params);
-
+*/
 			
 	
 		if(isset($params['baja'])){
@@ -1653,7 +1698,7 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
-
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
 
 		//Datos del seguro - detalle - valores
 		$poliza_valores = $d_poliza->getModelPolizaValores();

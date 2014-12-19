@@ -224,6 +224,43 @@
 							
 						</td>
 					</tr>
+					<tr>
+					<td>Despachante de Aduana:</td>
+					<td><select id="despachante_aduana_id" name="despachante_aduana_id">
+							<option value="0">Seleccione Despachante de Aduana</option>
+							<? foreach($this->despachante_aduanas as $row ):?>
+							<?if($this->poliza_detalle->despachante_aduana_id==$row['despachante_aduana_id']):?>
+							<option selected value=<?=$row['despachante_aduana_id']?>>
+							<?=$row['nombre']?>
+							<?else:?>
+							
+							<option value=<?=$row['despachante_aduana_id']?>>
+							<?=$row['nombre']?>
+							</option>
+							<?endif; ?>
+							<? endforeach; ?>
+					</select>
+					</td>
+					
+					<td>Beneficiario:</td>
+					<td><select id="beneficiario_id" name="beneficiario_id">
+							<option value="0">Seleccione Beneficiario</option>
+							<? foreach($this->beneficiarios as $row ):?>
+							<?if($this->poliza_detalle->beneficiario_id==$row['beneficiario_id']):?>
+							<option selected value=<?=$row['beneficiario_id']?>>
+							<?=$row['nombre']?>
+							<?else:?>
+							
+							<option value=<?=$row['beneficiario_id']?>>
+							<?=$row['nombre']?>
+							</option>
+							<?endif; ?>
+							<? endforeach; ?>
+					</select>
+					</td>
+					
+					</tr>
+					
 
 					<tr>
 						<td>Domicilio Riesgo:</td>
