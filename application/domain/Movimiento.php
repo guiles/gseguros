@@ -73,8 +73,16 @@ class Domain_Movimiento {
 		 
 		$m_poliza = new Model_Poliza();
 		$m_poliza = $m_poliza->getTable()->findOneBy('detalle_pago_id', $detalle_pago_cuota['detalle_pago_id']);
-		
-		$poliza = $m_poliza->toArray();
+	
+
+       		if(!empty($m_poliza) ){
+                $poliza = $m_poliza->toArray();
+                }else{
+                echo "No se encontro poliza para este pago";
+
+                echo "<pre>";
+                print_r($detalle_pago_cuota);
+                }
 		
 		return $poliza;
 	}
