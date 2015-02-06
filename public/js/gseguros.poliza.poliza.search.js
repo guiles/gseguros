@@ -53,8 +53,8 @@ $(document).ready(
 								// suponemos que el form es valido
 
 								var data = $('#form_search_poliza').serializeArray();
-
-
+								//console.debug('dataaaa');
+								//console.debug(data);
 								$.ajax({
 											url : "./poliza/poliza/search",
 											data : data,
