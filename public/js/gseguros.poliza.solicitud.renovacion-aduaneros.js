@@ -187,7 +187,7 @@ $(document).ready(
 			
 			// Guardar Solicitud
 			$('#save_solicitud_aduanero').click(function() {
-				
+				alert('asd');
 				if(!$("#solicitud_poliza_aduanero").valid())return false;	 
 
 								// alert('clic');

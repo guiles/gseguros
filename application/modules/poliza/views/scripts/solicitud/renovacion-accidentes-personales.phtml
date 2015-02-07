@@ -395,67 +395,56 @@
 
 			<input type="submit" name="save_solicitud_accidentes_personales"
 				id="save_solicitud_accidentes_personales" value="Guardar Cambios"></input>
-<?endif;?>
 				<?endif;?>
-			
-<?//pregunto si es operador, si no, no hace nada?>
-<?if($this->operador):?>
-			<?if(empty($this->solicitud->poliza_id)):?>
-			<input type="submit" name="save_solicitud_accidentes_personales" id="save_solicitud_accidentes_personales" value="Solicitar"></input>
-			<?elseif(!empty($this->solicitud->poliza_id)):?>
+				<?endif;?>
 
-			<input type="submit" name="save_solicitud_accidentes_personales" id="save_solicitud_accidentes_personales" value="Guardar Cambios"></input>
-			<?
-			$codigo_estado = Domain_EstadoPoliza::getCodigoById($this->solicitud->estado_id);
-			switch ($codigo_estado) {
-				case 'SOLICITUD_PENDIENTE':?>
-				
-			<input type='submit' name='aprobar_solicitud_accidentes_personales' id='aprobar_solicitud_accidentes_personales'
-				value='Aprobar Solicitud'
-				onClick="return false">
-			</input>
-			
-			<input type='submit' name='confirmar_solicitud_accidentes_personales' id='confirmar_solicitud_accidentes_personales'
-			 value='Aprobar Solicitud y Crear Poliza'
-				onClick="return false"> </input> 
-			
-			
-			<input type='submit'
-				name='enviar_compania_solicitud_accidentes_personales' id='enviar_compania_solicitud_accidentes_personales'
-				value='Enviar Solicitud Compania' onClick="return false" />
-			
-			
-			<input type='submit'
+				<?//pregunto si es operador, si no, no hace nada?>
+				<?if($this->operador):?>
+				<?if(empty($this->poliza_id)):?>
+			<input type="submit" name="save_solicitud_accidentes_personales"
+				id="save_solicitud_accidentes_personales" value="Solicitar"></input>
+				<?elseif(!empty($this->poliza_id)):?>
+
+			<input type="submit" name="save_solicitud_accidentes_personales"
+				id="save_solicitud_accidentes_personales" value="Guardar Cambios"></input>
+				<?
+				$codigo_estado = Domain_EstadoPoliza::getCodigoById($this->solicitud->estado_id);
+				switch ($codigo_estado) {
+					case 'SOLICITUD_PENDIENTE':?>
+
+			<input type='submit' name='aprobar_solicitud_accidentes_personales'
+				id='aprobar_solicitud_accidentes_personales' value='Aprobar Solicitud'
+				onClick="return false"> </input> <input type='submit'
+				name='confirmar_solicitud_accidentes_personales'
+				id='confirmar_solicitud_accidentes_personales'
+				value='Aprobar Solicitud y Crear Poliza' onClick="return false"> </input>
+
+			<input type='submit' name='anular_solicitud_accidentes_personales'
+				id='anular_solicitud_accidentes_personales' value='Anular Solicitud'
+				onClick="return false" />
+
+
+				<?break;
+case 'SOLICITUD_CONFIRMADA':?>
+			<input type='submit' name='confirmar_solicitud_accidentes_personales'
+				id='confirmar_solicitud_accidentes_personales' value='Crear Poliza'
+				onClick="return false"> </input> <input type='submit'
 				name='anular_solicitud_accidentes_personales' id='anular_solicitud_accidentes_personales'
 				value='Anular Solicitud' onClick="return false" />
-			
-		
-			<?break;
-			case 'SOLICITUD_CONFIRMADA':?>
-			<input type='submit' name='confirmar_solicitud_accidentes_personales' id='confirmar_solicitud_accidentes_personales'
-				value='Crear Poliza'
-				onClick="return false">
-			</input>
-			
-			<input type='submit'
-				name='anular_solicitud_accidentes_personales' id='anular_solicitud_accidentes_personales'
-				value='Anular Solicitud' onClick="return false" />
-			<?break;
-		default:
+				<?break;
+default:
 
-		break;
-			}?>
+	break;
+				}?>
 
 
-			<?endif;?>
+				<?endif;?>
 			<input type="button" name="Cancel" onclick="" value="Cancelar" />
-<?endif;?>
+			<?endif;?>
 
-<div id="show_result">
-			
-			</div>
+
+
 		</form>
 	</fieldset>
 </div>
-
 

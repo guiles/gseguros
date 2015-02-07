@@ -2,7 +2,7 @@
 <div id="content">
 
 	<fieldset>
-		<legend>Poliza Alquiler</legend>
+		<legend>Poliza Accidentes Personales</legend>
 
 		<!--  form action="./entidad/compania/add"  onSubmit="return editForm(this)">-->
 		<form id="poliza_poliza_accidentes_personales" name="poliza_poliza">
@@ -38,8 +38,13 @@
 						<td><input type="text" name="numero_poliza"
 							value="<?=$this->escape($this->poliza->numero_poliza)?>" />
 						</td>
-					</tr>
-						<tr>
+						<td>Poliza que renueva ID:</td>
+						<td><input type="text" name="poliza_poliza_id"
+								value="<?=$this->poliza->poliza_poliza_id?>"></input>
+						</td>
+						
+						</tr>
+							<tr>
 						<td>Número de factura:</td>
 						<td><input type="text" name="numero_factura"
 							value="<?=$this->escape($this->poliza->numero_factura)?>" /></td>

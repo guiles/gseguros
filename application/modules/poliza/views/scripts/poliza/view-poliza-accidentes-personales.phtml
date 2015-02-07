@@ -19,12 +19,12 @@
 						<td>Número de Solicitud:</td>
 						<td><?=$this->escape($this->poliza->numero_solicitud)?></td>
 
-<?if($this->renovada):?>
-<td>Renueva Poliza Nro:</td>
-<td>
-	<?=$this->poliza_renovada_numero_poliza?>
-</td>
-<?endif;?>
+					<?if($this->renovada):?>
+					<td>Renueva Poliza Nro:</td>
+					<td>
+						<?=$this->poliza_renovada_numero_poliza?>
+					</td>
+					<?endif;?>
 					</tr>
 					<tr>
 						<td>Número de poliza:</td>
@@ -34,6 +34,11 @@
 						<td><?=$this->escape($this->poliza->endoso)?></td>	
 						<td>Tipo:</td>
 						<td><?=$this->escape($this->tipo_endoso_text)?></td>
+					</tr>
+					<tr>
+						<td>Número de factura:</td>
+						<td><input type="text" name="numero_factura"
+							value="<?=$this->escape($this->poliza->numero_factura)?>" /></td>
 					</tr>
 
 					<tr>

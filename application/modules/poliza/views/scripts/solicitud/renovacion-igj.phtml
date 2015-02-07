@@ -452,7 +452,8 @@ echo $this->headScript()->appendFile('./js/gseguros.poliza.solicitud.renovacion-
 
 			</div>
 			<hr>
-
+<? echo 'de donde lo saco?'.$this->solicitud->poliza_id ?>
+			
 			<?if($this->isAgente):?>
 			<?if(empty($this->solicitud->poliza_id)):?>
 			<input type="submit" name="save_solicitud_igj"

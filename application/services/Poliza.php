@@ -884,6 +884,7 @@ public function saveViewPolizaAccidentesPersonales($poliza,$params){
 
 			$m_poliza = $poliza->getModelPoliza();
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
 			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];;
 			$m_poliza->observaciones_compania=$params['observaciones_compania'];;
@@ -952,6 +953,7 @@ public function saveEditPolizaAduaneros($poliza,$params){
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
 			$m_poliza->numero_factura=$params['numero_factura'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
@@ -1027,6 +1029,7 @@ public function saveEditPolizaAlquiler($poliza,$params){
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
 			$m_poliza->compania_id=$params['compania_id'];
@@ -1057,7 +1060,8 @@ public function saveEditPolizaAlquiler($poliza,$params){
 	}
 
 		public function saveEditPolizaAccidentesPersonales($poliza,$params){
-
+//echo "<pre>";
+//print_r($params);
 		$tipo_poliza = Domain_TipoPoliza::getIdByName('ACCIDENTES_PERSONALES');
 		try {
 		
@@ -1103,6 +1107,7 @@ public function saveEditPolizaAlquiler($poliza,$params){
 			$m_poliza->estado_id=$params['estado_poliza_id'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
 			$m_poliza->agente_id=$params['agente_id'];
 			$m_poliza->compania_id=$params['compania_id'];
 			$m_poliza->productor_id=$params['productor_id'];
@@ -1121,7 +1126,7 @@ public function saveEditPolizaAlquiler($poliza,$params){
 			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_accidentes_personales_id;
 		
 			$m_poliza->save();
-
+		//print_r($m_poliza->poliza_poliza_id);
 
 		} catch (Exception $e) {
 			echo $e->getMessage();
@@ -1183,6 +1188,7 @@ public function saveEditPolizaIgj($poliza,$params){
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
 			$m_poliza->compania_id=$params['compania_id'];
@@ -1264,6 +1270,7 @@ public function saveEditPolizaIgj($poliza,$params){
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
 			$m_poliza->compania_id=$params['compania_id'];
@@ -1345,6 +1352,7 @@ public function saveEditPolizaVida($poliza,$params){
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
 			$m_poliza->compania_id=$params['compania_id'];
@@ -1419,6 +1427,7 @@ public function saveEditPolizaIntegralComercio($poliza,$params){
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
 			$m_poliza->compania_id=$params['compania_id'];
@@ -1506,6 +1515,7 @@ public function saveEditPolizaTransporteMercaderia($poliza,$params){
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
 			$m_poliza->compania_id=$params['compania_id'];
@@ -1589,6 +1599,8 @@ public function saveEditPolizaTransporteMercaderia($poliza,$params){
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
 			$m_poliza->compania_id=$params['compania_id'];
@@ -1670,6 +1682,7 @@ public function saveEditPolizaResponsabilidadCivil($poliza,$params){
 
 			$m_poliza->estado_id=$params['estado_poliza_id'];
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->poliza_poliza_id = $params['poliza_poliza_id'];
 			$m_poliza->asegurado_id=$params['asegurado_id'];
 			$m_poliza->agente_id=$params['agente_id'];
 			$m_poliza->compania_id=$params['compania_id'];

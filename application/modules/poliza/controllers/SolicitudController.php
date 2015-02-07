@@ -1332,7 +1332,7 @@ public function altaIncendioAction()
 public function renovacionResponsabilidadCivilAction()
 	{
 		
-	$tipo_poliza_id = Domain_TipoPoliza::getIdByName('RESPONSABILIDAD_CIVIL');
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('RESPONSABILIDAD_CIVIL');
 		//1.traigo todos los helpers para dar el alta de la solicitud
 		$this->view->monedas = Domain_Helper::getHelperByDominio('moneda');
 		$this->view->periodos = Domain_Helper::getHelperByDominio('periodo');
@@ -1370,7 +1370,7 @@ public function renovacionResponsabilidadCivilAction()
 				//Si viene con ID es para guardar y traigo la solicitud con los datos, sobreescribo la variable
 		if(! empty($params['poliza_id']) )$solicitud = new Domain_Poliza($params['poliza_id']);
 
-	//echo "Este es el id".$params['poliza_id']. "<br>";
+		//echo "Este es el id".$params['poliza_id']. "<br>";
 
 		$this->view->solicitud = $solicitud->getModelPoliza();
 		$this->view->poliza_valores = $solicitud->getModelPolizaValores();
@@ -1390,8 +1390,8 @@ public function renovacionResponsabilidadCivilAction()
 			 * @param: Domain_Poliza,$params(datos del POST)
 			 */
 		//echo"<pre>";
-		//print_r($params);
-
+		//print_r($params['poliza_renovada_id']);
+		//exit;
 			$solicitud = $this->_services_solicitud->saveSolicitudResponsabilidadCivil($solicitud,$params);
 			$solicitud = $this->_services_solicitud->saveDetallePago($solicitud,$params);
 			
@@ -1475,6 +1475,7 @@ public function renovacionIgjAction()
 		/*Chequeo por las dudas pero siempre va a venir con solicitud/poliza ID
 		 * Me trae todos los datos de la poliza nueva a crear
 		 */
+
 		$this->view->solicitud_renovada = $params['poliza_id'];
 		
 		$solicitud = $this->_solicitud;
@@ -1579,6 +1580,7 @@ public function renovacionJudicialesAction()
 		/*Chequeo por las dudas pero siempre va a venir con solicitud/poliza ID
 		 * Me trae todos los datos de la poliza nueva a crear
 		 */
+
 		$this->view->solicitud_renovada = $params['poliza_id'];
 		
 		$solicitud = $this->_solicitud;
@@ -1682,6 +1684,7 @@ public function renovacionVidaAction()
 		/*Chequeo por las dudas pero siempre va a venir con solicitud/poliza ID
 		 * Me trae todos los datos de la poliza nueva a crear
 		 */
+
 		$this->view->solicitud_renovada = $params['poliza_id'];
 		
 		$solicitud = $this->_solicitud;
@@ -1789,6 +1792,8 @@ public function renovacionVidaAction()
 		/*Chequeo por las dudas pero siempre va a venir con solicitud/poliza ID
 		 * Me trae todos los datos de la poliza nueva a crear
 		 */
+		//echo "renueva esta?".$params['poliza_id'];
+		
 		$this->view->solicitud_renovada = $params['poliza_id'];
 		
 		$solicitud = $this->_solicitud;
@@ -1900,6 +1905,8 @@ public function renovacionIntegralComercioAction()
 		/*Chequeo por las dudas pero siempre va a venir con solicitud/poliza ID
 		 * Me trae todos los datos de la poliza nueva a crear
 		 */
+		//echo "renueva esta?".$params['poliza_id'];
+		
 		$this->view->solicitud_renovada = $params['poliza_id'];
 		
 		$solicitud = $this->_solicitud;
@@ -2004,6 +2011,8 @@ public function renovacionAccidentesPersonalesAction()
 		/*Chequeo por las dudas pero siempre va a venir con solicitud/poliza ID
 		 * Me trae todos los datos de la poliza nueva a crear
 		 */
+		//echo "renueva esta?".$params['poliza_id'];
+		
 		$this->view->solicitud_renovada = $params['poliza_id'];
 
 		//echo "solilcitud renovada".$this->view->solicitud_renovada;
@@ -2113,6 +2122,8 @@ public function renovacionAccidentesPersonalesAction()
 		/*Chequeo por las dudas pero siempre va a venir con solicitud/poliza ID
 		 * Me trae todos los datos de la poliza nueva a crear
 		 */
+		//echo "renueva esta?".$params['poliza_id'];
+		
 		$this->view->solicitud_renovada = $params['poliza_id'];
 		
 		$solicitud = $this->_solicitud;

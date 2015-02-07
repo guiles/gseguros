@@ -1730,9 +1730,17 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->despachante_aduana = Domain_DespachanteAduana::getNameById($poliza_detalle->despachante_aduana_id);
 
 
+		//Si se renovo que lo muestre
+		if(!empty($poliza->poliza_poliza_id)){
+			$this->view->renovada = true;
+			$poliza_poliza = new Domain_Poliza($poliza->poliza_poliza_id);
+
+			$this->view->poliza_renovada_numero_poliza = $poliza_poliza->getModelPoliza()->numero_poliza;
+		}
+
 		if($params['save']){
-			echo '<pre>';
-		print_r($params);
+			//echo '<pre>';
+		//print_r($params);
 		//exit;
 			/*
 			 * Service_Poliza::saveSolicitud()
@@ -3071,7 +3079,8 @@ public function enviarSolicitudEndosoCompaniaConstruccionAction(){
 			 * Service_Poliza::saveSolicitud()
 			 * @param: Domain_Poliza,$params(datos del POST)
 			 */
-
+//echo "<pre>";
+//print_r($params);
 			
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
 			$d_poliza = $this->_services_poliza->saveEditPolizaAccidentesPersonales($d_poliza,$params);
