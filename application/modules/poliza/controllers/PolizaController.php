@@ -2177,7 +2177,7 @@ public function viewPolizaVidaAction()
 	{
 		
 		//La Poliza siempre tiene poliza_id
-$tipo_poliza_id = Domain_TipoPoliza::getIdByName('TRANSPORTE_MERCADERIA');
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('TRANSPORTE_MERCADERIA');
 		$this->view->isAgente = false;
 		if($this->_t_usuario->getNombre()=='AGENTE'){
 
@@ -2192,8 +2192,8 @@ $tipo_poliza_id = Domain_TipoPoliza::getIdByName('TRANSPORTE_MERCADERIA');
 		$params = $this->_request->getParams();
 		$poliza = $this->_poliza;
 
-		echo '<pre>';
-		print_r($params);
+		//echo '<pre>';
+		//print_r($params);
 		
 		//3.Traigo la poliza
 		$d_poliza = new Domain_Poliza($params['poliza_id']);

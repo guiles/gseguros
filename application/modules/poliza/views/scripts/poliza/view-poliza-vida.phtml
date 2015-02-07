@@ -26,13 +26,18 @@
 						<td><input type="text" name="numero_poliza"
 							value="<?=$this->escape($this->poliza->numero_poliza)?>" /></td>
 							<?if($this->renovada):?>
-<td>Renueva Poliza Nro:</td>
-<td>
-	<?=$this->poliza_renovada_numero_poliza?>
-</td>
-<?endif;?>
+					<td>Renueva Poliza Nro:</td>
+					<td>
+						<?=$this->poliza_renovada_numero_poliza?>
+					</td>
+					<?endif;?>
 					</tr>
-
+					<tr>
+						<td>Número de factura:</td>
+						<td><input type="text" name="numero_factura"
+							value="<?=$this->escape($this->poliza->numero_factura)?>" /></td>
+					</tr>
+					
 					<tr>
 						<td>Cliente:</td>
 						<td><?=$this->escape($this->asegurado)?></td>

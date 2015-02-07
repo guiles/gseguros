@@ -115,6 +115,7 @@ function addSolicitudIgj(f) {
 			// Cabecera de la solicitud
 			,poliza_id : f.poliza_id.value
 			,numero_poliza : f.numero_poliza.value
+			,numero_factura : f.numero_factura.value
 			//,agente_id : f.agente_id.value
 			//,asegurado_id : f.asegurado_id.value
 			//,compania_id : f.compania_id.value

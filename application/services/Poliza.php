@@ -623,9 +623,9 @@ public function saveDetallePago($d_poliza,$params){
 
 		try {
 
-
 			$m_poliza = $poliza->getModelPoliza();
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
 			$m_poliza->save();
 				
@@ -667,6 +667,7 @@ public function saveDetallePago($d_poliza,$params){
 
 			$m_poliza = $poliza->getModelPoliza();
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
 			$m_poliza->save();
 				
@@ -707,6 +708,7 @@ public function saveViewPolizaVida($poliza,$params){
 
 			$m_poliza = $poliza->getModelPoliza();
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
 			$m_poliza->save();
 				
@@ -749,6 +751,7 @@ public function saveViewPolizaVida($poliza,$params){
 
 			$m_poliza = $poliza->getModelPoliza();
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
 			$m_poliza->save();
 				
@@ -790,6 +793,7 @@ public function saveViewPolizaVida($poliza,$params){
 
 			$m_poliza = $poliza->getModelPoliza();
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
 			$m_poliza->save();
 				
@@ -843,13 +847,13 @@ public function saveViewPolizaVida($poliza,$params){
 
 			$m_poliza = $poliza->getModelPoliza();
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
 			$m_poliza->save();
 				
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
-
 		return $poliza;
 	}
 	
@@ -1937,6 +1941,7 @@ public function saveEditPolizaResponsabilidadCivil($poliza,$params){
 
 			$m_poliza = $poliza->getModelPoliza();
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
 			$m_poliza->save();
 				
@@ -1978,6 +1983,7 @@ public function saveEditPolizaResponsabilidadCivil($poliza,$params){
 
 			$m_poliza = $poliza->getModelPoliza();
 			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->numero_factura=$params['numero_factura'];
 			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
 			$m_poliza->save();
 				
