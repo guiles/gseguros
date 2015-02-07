@@ -75,6 +75,11 @@
 		return new Model_DetalleTecnico();
 		
 	}
+	public function crearDetallePolizaSeguroTecnico(){
+
+		return new Model_DetalleSeguroTecnico();
+		
+	}
 	
 	
 	

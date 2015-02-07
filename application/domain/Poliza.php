@@ -259,6 +259,20 @@ class Domain_Poliza {
 				return $m_detalle_poliza->getTable()
 				->find($this->_model_poliza->poliza_detalle_id);
 					
+				break;
+				case 'SEGURO_TECNICO':
+				
+				$m_detalle_poliza = $factory_detalle_poliza->crearDetallePolizaSeguroTecnico();
+				//Si no tiene poliza_id devuelve el modelo solo
+				if($this->_model_poliza->poliza_id ==  null){
+
+					return $m_detalle_poliza;
+
+				}
+					
+				return $m_detalle_poliza->getTable()
+				->find($this->_model_poliza->poliza_detalle_id);
+					
 				break;	
 			case 'AUTOMOTORES':
 					

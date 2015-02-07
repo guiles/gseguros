@@ -596,6 +596,54 @@ public function saveDetallePago($d_poliza,$params){
 		return $poliza;
 	}
 	
+public function saveViewPolizaSeguroTecnico($poliza,$params){
+	
+		/*
+		 * Nº de poliza, Vigencia desde, BL,Factura,SIM,Prima,Premio Compañia
+		 * Premio,Plus
+		 */
+	
+
+		try{
+			$m_poliza_detalle = $poliza->getModelDetalle();
+			$m_poliza_detalle->documentacion_id = $params['documentacion_id'];
+			$m_poliza_detalle->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try{
+			$m_poliza_valores = $poliza->getModelPolizaValores();
+			$m_poliza_valores->iva=$params['iva'];
+			
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->prima_comision=$params['prima_comision'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_poliza=$params['numero_poliza'];
+			$m_poliza->numero_factura=$params['numero_factura'];
+			$m_poliza->fecha_vigencia=$params['fecha_vigencia'];
+			$m_poliza->save();
+				
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+	
+
 	public function saveViewPolizaIgj($poliza,$params){
 
 		try{
@@ -722,7 +770,7 @@ public function saveViewPolizaVida($poliza,$params){
 	
 		
 		public function saveViewPolizaResponsabilidadCivil($poliza,$params){
-		
+
 				try{
 			$m_poliza_detalle = $poliza->getModelDetalle();
 			$m_poliza_detalle->documentacion_id=$params['documentacion_id'];
@@ -1638,7 +1686,6 @@ public function saveEditPolizaTransporteMercaderia($poliza,$params){
 public function saveEditPolizaResponsabilidadCivil($poliza,$params){
 //echo "<pre>";
 //print_r($poliza);
-
 		$tipo_poliza = Domain_TipoPoliza::getIdByName('RESPONSABILIDAD_CIVIL');
 		try {
 			//1. Poliza Detalle Seguro Comun (Ver si es para Caucion solamente)

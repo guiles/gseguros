@@ -301,9 +301,10 @@
 					</tr>
 					<tr>
 						<td>Clausula Especial:</td>
-						<td><input type="text" id="clausula_especial_responsabilidad_civil"
-							name="clausula_especial"
-							value="<?=$this->escape($this->poliza_detalle->clausula_especial)?>" />
+						<td><textarea style="width: 400px; height: 350px;" 
+						id="clausula_especial_responsabilidad_civil"
+							name="clausula_especial">
+							<?=$this->escape($this->poliza_detalle->clausula_especial)?></textarea> 
 						</td>
 						<td>Personal:</td>
 						<td><input type="text" id="personal_responsabilidad_civil"

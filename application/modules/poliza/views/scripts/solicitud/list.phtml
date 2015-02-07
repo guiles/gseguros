@@ -131,6 +131,25 @@ function loadPageSolicitudTransporteMercaderia(url, title){
 
 
 
+function loadPageSolicitudSeguroTecnico(url, title){
+	var existe=false;
+	tab_url = './poliza/solicitud/alta-seguro-tecnico';
+	temp_url = './poliza/solicitud/alta-seguro-tecnico';
+			$('div#CenterPane>div#tabs>ul.ui-tabs-nav>li a').each(function() {
+				
+		   var href = $(this).attr('tab_url');
+		   console.debug(href);
+				   if (href==temp_url)existe=true;
+				})
+				
+				if(!existe)$("#tabs").tabs("add",url,title);
+				if(existe)alert('Ya esta abierta la solapa, cerrala para poder ver la Solicitud');
+				
+			return false;  	
+		}
+
+
+
 function loadPageSolicitudConstruccion(url, title){
 	var existe=false;
 	tab_url = './poliza/solicitud/alta-construccion';
@@ -430,6 +449,12 @@ $(document).ready(function()
 
 			$tipo_cobertura = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_poliza_detalle->motivo_garantia_id, $solicitud['tipo_poliza_id']);
 			break;
+	   case 'SEGURO_TECNICO':
+			$o_poliza_detalle = new Model_DetalleSeguroTecnico();
+			$m_poliza_detalle = $o_poliza_detalle->getTable()->find($solicitud['poliza_detalle_id']);
+
+			$tipo_cobertura = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_poliza_detalle->motivo_garantia_id, $solicitud['tipo_poliza_id']);
+			break;
 			
 			
 		default:
@@ -562,6 +587,12 @@ case 12:?>
 				</input>
 			</td>
 			<?break;			
+case 14:?>
+			<td><input type='button' value='Ver'
+				onClick="return loadPageSolicitudSeguroTecnico('./poliza/solicitud/alta-seguro-tecnico/solicitud_id/<?=$solicitud['poliza_id']?>','Seguro Tecnico')">
+				</input>
+			</td>
+			<?break;
 default:
 	break;
 			}?>

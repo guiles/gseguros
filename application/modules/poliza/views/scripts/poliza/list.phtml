@@ -121,7 +121,10 @@ Tomador / Compañia / Nº Solicitud / Nº Poliza / Endoso / Operación / Secció
 
 			$tipo_cobertura = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_detalle_poliza->motivo_garantia_id,$poliza['tipo_poliza_id']);
 			break;
+		case 'SEGURO_TECNICO':
 
+			$tipo_cobertura = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_detalle_poliza->motivo_garantia_id,$poliza['tipo_poliza_id']);
+			break;
 		case 'ALQUILER':
 
 			$tipo_cobertura = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_detalle_poliza->motivo_garantia_id, $poliza['tipo_poliza_id']);
@@ -295,6 +298,37 @@ case 'CONSTRUCCION':?>
 			<?endif;?>
 			<?endif;?>
 			<?break;
+
+case 'SEGURO_TECNICO':?>
+
+	<?if($this->perfil_id == 1):?>
+			<td><input type='button' value='Editar'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-seguro-tecnico/poliza_id/<?=$poliza['poliza_id']?>','Poliza Seguro Tecnico','SEGURO_TECNICO')">
+				</input>
+			</td>
+			<?endif;?>
+
+			<?if($this->operador):?>
+			<td><input type='button' value='Ver'
+				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-seguro-tecnico/poliza_id/<?=$poliza['poliza_id']?>','Seguro Tecnico','SEGURO_TECNICO')">
+			</td>
+			
+			<?if($estado_codigo == 'VIGENTE'):?>
+			<td><input type='button' value='REFACTURAR'
+				onClick="return refacturarPoliza('./poliza/poliza/refacturar-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
+				</input>
+			</td>
+			<td><input type='button' value='ENDOSO'
+				onClick="return endosoPoliza('./poliza/poliza/endoso-poliza-seguro-tecnico/poliza_id/<?=$poliza['poliza_id']?>','ENDOSO SEGURO TECNICO','SEGURO_TECNICO')">
+				</input>
+			</td>
+			<td><input type='button' value='BAJA'
+				onClick="return lbajaPoliza('./poliza/poliza/baja-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
+				</input>
+			</td>
+			<?endif;?>
+			<?endif;?>
+			<?break;			
 case 'ALQUILER':?>
 <?if($this->operador):?>
 	<?if($this->perfil_id == 1):?>

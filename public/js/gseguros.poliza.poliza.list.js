@@ -115,6 +115,9 @@ function renovarPoliza(url, title,tipo_poliza) {
 	}else if (tipo_poliza == 'VIDA') {
 		tab_url = './poliza/solicitud/renovacion-integral-comercio';
 		temp_url = './poliza/solicitud/renovacion-integral-comercio';
+	}else if (tipo_poliza == 'SEGURO_TECNICO') {
+		tab_url = './poliza/solicitud/renovacion-seguro-tecnico';
+		temp_url = './poliza/solicitud/renovacion-seguro-tecnico';
 	}
 
 	//console.debug('temp'+temp_url);
@@ -174,7 +177,11 @@ function endosoPoliza(url, title,tipo_poliza) {
 	}else if (tipo_poliza == 'CONSTRUCCION') {
 		tab_url = './poliza/solicitud/endoso-poliza-integral-comercio';
 		temp_url = './poliza/solicitud/endoso-poliza-integral-comercio';
+	}else if (tipo_poliza == 'SEGURO_TECNICO') {
+		tab_url = './poliza/solicitud/endoso-seguro-tecnico';
+		temp_url = './poliza/solicitud/endoso-seguro-tecnico';
 	}
+
 
 	//console.debug('temp'+temp_url);
 	
@@ -307,6 +314,9 @@ function loadTabPoliza(url, title, tipo_poliza) {
 	}else if (tipo_poliza == 'INCENDIO') {
 		tab_url = './poliza/poliza/view-poliza-incendio';
 		temp_url = './poliza/poliza/view-poliza-incendio';
+	}else if (tipo_poliza == 'SEGURO_TECNICO') {
+		tab_url = './poliza/solicitud/view-seguro-tecnico';
+		temp_url = './poliza/solicitud/view-seguro-tecnico';
 	}
 
 	$('div#CenterPane>div#tabs>ul.ui-tabs-nav>li a').each(function() {
