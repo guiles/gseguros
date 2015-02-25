@@ -139,14 +139,26 @@ class Poliza_PolizaController extends Poliza_IndexController
 
 		$params = $this->_request->getParams();
 		
+		$date = date("Y-m-d");
+		$fecha_desde = strtotime ( '-1 month' , strtotime ( $date ) ) ;
+		$fecha_desde = date ( 'Y-m-j' , $fecha_desde );
+
+		//Fechas de busqueda
+		$this->view->fecha_desde = $fecha_desde;	
+		
+		$this->view->fecha_hasta = date("Y-m-d");	
+		
 		if($params['busqueda']){
 		$this->view->busqueda = true;
 		//echo "<pre>";
-		
 		//print_r($params);
 		$array_parametros = array_slice($params, 4); //No se como hacer que solo me traiga los parametros 
 		$this->view->searchParams = $array_parametros;
 		//print_r($array_parametros);
+		//exit;
+		$fechas = array('fecha_desde'=>$params['fecha_desde'],'fecha_hasta'=>$params['fecha_hasta']);
+		unset($array_parametros['fecha_desde']);
+		unset($array_parametros['fecha_hasta']);
 		//armo el array de busqueda
 		$array_busqueda = array();
 		foreach ($array_parametros as $key=>$value) {
@@ -170,7 +182,7 @@ class Poliza_PolizaController extends Poliza_IndexController
 		//exit;
 		
 		
-		$rows = $this->_t_usuario->searchPoliza($array_busqueda);
+		$rows = $this->_t_usuario->searchPoliza($array_busqueda,$fechas);
 //		echo "<prr>";
 //		print_r($rows);
 //		
@@ -214,11 +226,16 @@ class Poliza_PolizaController extends Poliza_IndexController
 		$this->view->busqueda = true;
 		//echo "<pre>";
 		//print_r($params);
-		
+		//exit;
 		$array_parametros = array_slice($params, 3); //No se como hacer que solo me traiga los parametros 
 		//armo el array de busqueda
 		//print_r($array_parametros);
 		//exit;
+
+		$fechas = array('fecha_desde'=>$params['fecha_desde'],'fecha_hasta'=>$params['fecha_hasta']);
+		unset($array_parametros['fecha_desde']);
+		unset($array_parametros['fecha_hasta']);
+		
 		$array_busqueda = array();
 		foreach ($array_parametros as $key=>$value) {
 		     //echo $key."=".$value;
@@ -228,7 +245,7 @@ class Poliza_PolizaController extends Poliza_IndexController
 		     }
 		}
 		
-		$rows = $this->_t_usuario->searchPoliza($array_busqueda);
+		$rows = $this->_t_usuario->searchPoliza($array_busqueda,$fechas);
 	//print_r($rows);
 		//exit;
 		$this->view->rows = $rows;

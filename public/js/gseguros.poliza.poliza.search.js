@@ -1,7 +1,7 @@
 $(document).ready(
 		function() {
 			
-			$('#fecha_pedido').datepicker(
+			$('#s_fecha_desde').datepicker(
 					{
 						dateFormat : 'yy-mm-dd',
 						dayNamesMin : [ 'Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi',
@@ -12,7 +12,7 @@ $(document).ready(
 								'Diciembre' ]
 					});
 
-			$('#fecha_vigencia').datepicker(
+			$('#s_fecha_hasta').datepicker(
 					{
 						dateFormat : 'yy-mm-dd',
 						dayNamesMin : [ 'Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi',
@@ -22,19 +22,7 @@ $(document).ready(
 								'Septiembre', 'Octubre', 'Noviembre',
 								'Diciembre' ]
 					});
-
-			$('#fecha_vigencia_hasta').datepicker(
-					{
-						dateFormat : 'yy-mm-dd',
-						dayNamesMin : [ 'Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi',
-								'Sa' ],
-						monthNames : [ 'Enero', 'Febrero', 'Marzo', 'Abril',
-								'Mayo', 'Junio', 'Julio', 'Agosto',
-								'Septiembre', 'Octubre', 'Noviembre',
-								'Diciembre' ]
-					});
-
-
+			
 
 			
 			// Confirmo busqueda de polizas

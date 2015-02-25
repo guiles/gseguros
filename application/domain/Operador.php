@@ -71,7 +71,7 @@ class Domain_Operador implements Domain_IEntidad {
 	* Este metodo arma el array de busqueda, no tiene en cuenta el tipo de operacion
 	* Como me pidieron que a un campo le ponga un like, tuve que poner un if() dentro del for()
 	*/
-	public function searchPoliza($params){
+	public function searchPoliza($params,$fechas){
 
 		
 		$this->_model_poliza = new Model_Poliza();
@@ -80,6 +80,7 @@ class Domain_Operador implements Domain_IEntidad {
 		$query=$table_poliza->createQuery();
 		
 		foreach ($params as $arr) {
+
 			if($arr['nombre'] !== "numero_factura"){ 		//saco de params el numero de factura
 			$campo = $arr['nombre'];
 			$valor = $arr['valor'];
@@ -89,11 +90,14 @@ class Domain_Operador implements Domain_IEntidad {
 			$campo = $arr['nombre'];
 			$valor = $arr['valor'];
 			$query->addWhere("numero_factura like ? ", array("%$valor%") ) ;
-
 			}
 		}
+		//Siempre va a ser entre fechas
+		$query->andWhere("fecha_vigencia between ? AND ?", array($fechas['fecha_desde'],$fechas['fecha_hasta']));
 
 		//$q = $query->getSqlQuery();
+		//print_r($q);
+		//exit;
 		$q = $query->execute()->toArray();
 		
 		return $q;
