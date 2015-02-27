@@ -2239,6 +2239,117 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 		
 		return $poliza_endosada;
 	}
+
+
+public function endosarPolizaSeguroTecnico($d_poliza,$params){
+		//Pongo como endosada a la poliza vieja y la nueva es afectada
+		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
+
+		//1. Traigo la poliza actual		
+		$poliza_a_endosar = new Domain_Poliza($params['poliza_id']);  
+		
+		
+		//Traigo la poliza que tengo que copiar
+		$model_poliza = $poliza_a_endosar->getModelPoliza();
+		$model_poliza->estado_id=$estado_endosada;
+		$model_poliza->save();
+		
+		//1.1 Traigo detalle poliza a endosar
+		$poliza_detalle = $d_poliza->getModelDetalle();
+		
+		//2. Creo nueva poliza
+		$poliza_endosada = new Domain_Poliza(); 
+
+		//Tipo Alquiler
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('SEGURO_TECNICO');
+		
+		//Estado Afectada
+		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
+		
+		$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Endoso');
+
+		try {
+			//3. Guardo detalle poliza			
+			$m_poliza_detalle = $poliza_endosada->getModelDetallePoliza($tipo_poliza);
+			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
+			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			$m_poliza_detalle->domicilio_riesgo=$params['domicilio_riesgo'];
+			$m_poliza_detalle->localidad_riesgo=$params['localidad_riesgo'];
+			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
+			$m_poliza_detalle->numero_licitacion=$params['numero_licitacion'];
+			$m_poliza_detalle->obra=$params['obra'];
+			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
+			$m_poliza_detalle->expediente=$params['expediente'];
+			$m_poliza_detalle->objeto=$params['objeto'];
+			$m_poliza_detalle->apertura_licitacion=$params['apertura_licitacion'];
+			$m_poliza_detalle->clausula_especial=$params['clausula_especial'];
+			$m_poliza_detalle->certificaciones=$params['certificaciones'];
+
+			
+			$m_poliza_detalle->save();
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $poliza_endosada->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
+			$m_poliza_valores->moneda_id=$poliza_valores->moneda_id;
+			$m_poliza_valores->iva=$params['iva'];
+			$m_poliza_valores->prima_comision=$params['prima_comision'];
+			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
+			$m_poliza_valores->premio_compania=$params['premio_compania'];
+			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
+			$m_poliza_valores->plus=$params['plus'];
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+			
+			$m_poliza = $poliza_endosada->getModelPoliza();
+			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
+			$m_poliza->asegurado_id=$model_poliza->asegurado_id;
+			$m_poliza->agente_id=$model_poliza->agente_id;
+			$m_poliza->compania_id=$model_poliza->compania_id;
+			$m_poliza->productor_id=$model_poliza->productor_id;
+			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
+			$m_poliza->fecha_pedido=$params['fecha_pedido']; //fecha de pedido se modifica
+			$m_poliza->periodo_id=$model_poliza->periodo_id; // El resto de las fechas no se modifica
+			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
+			$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
+			$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
+			$m_poliza->tipo_poliza_id = $tipo_poliza; 
+			$m_poliza->estado_id = $estado_vigente;
+			$m_poliza->tipo_endoso_id = $params['tipo_endoso_id'];
+			$m_poliza->operacion_id = $operacion_id;
+			$m_poliza->endoso = $model_poliza->endoso+1;
+			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];
+			$m_poliza->observaciones_compania=$params['observaciones_compania'];
+			//Guarda el ID de las tablas asociadas
+			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_seguro_tecnico_id;
+			$m_poliza->save();
+			//Guardo Numero de Poliza
+			$m_poliza->numero_poliza = $model_poliza->numero_poliza ;
+			$m_poliza->save();
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+		
+		return $poliza_endosada;
+	}
+
 	public function endosarPolizaConstruccion($d_poliza,$params){
 		//Pongo como endosada a la poliza vieja y la nueva es afectada
 		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');

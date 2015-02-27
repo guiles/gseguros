@@ -1,4 +1,4 @@
-//gseguros.poliza.poliza.endoso-poliza-accidentes_personales.js
+//gseguros.poliza.poliza.endoso-poliza-seguro-tecnico.js
 $(document).ready(
 		function() {
 			function confirmar() {
@@ -74,8 +74,8 @@ $(document).ready(
 			//$('#detalle_riesgo').toggle();
 			//$('#valores_seguro').toggle();
 			// $('#datos_solicitud').toggle();
-			//$('#observaciones_seguro_accidentes_personales').toggle();
-			//$('#valores_seguro_accidentes_personales').toggle();
+			//$('#observaciones_seguro_seguro_tecnico').toggle();
+			//$('#valores_seguro_seguro_tecnico').toggle();
 
 			$('#datos_seguro_show').click(function() {
 				$('#datos_seguro').toggle();
@@ -86,19 +86,19 @@ $(document).ready(
 			$('#datos_solicitud_show').click(function() {
 				$('#datos_solicitud').toggle();
 			});
-			$('#valores_seguro_accidentes_personales_show').click(function() {
-				$('#valores_seguro_accidentes_personales').toggle();
+			$('#valores_seguro_seguro_tecnico_show').click(function() {
+				$('#valores_seguro_seguro_tecnico').toggle();
 			});
 
 			$('#datos_solicitud_show').click(function() {
 				$('#datos_solicitud').toggle();
 			});
 
-			$('#observaciones_seguro_accidentes_personales_show').click(function() {
-				$('#observaciones_seguro_accidentes_personales').toggle();
+			$('#observaciones_seguro_seguro_tecnico_show').click(function() {
+				$('#observaciones_seguro_seguro_tecnico').toggle();
 			});
-			$('#detalle_riesgo_accidentes_personales_show').click(function() {
-				$('#detalle_riesgo_accidentes_personales').toggle();
+			$('#detalle_riesgo_seguro_tecnico_show').click(function() {
+				$('#detalle_riesgo_seguro_tecnico').toggle();
 			});
 			
 			$("#datos_tarjeta_show").hide();
@@ -119,7 +119,7 @@ $(document).ready(
 					function() {
 
 						var s_plus = $('#plus_endoso'),
-						s_importe = $('#importe_accidentes_personales_endoso');
+						s_importe = $('#importe_seguro_tecnico_endoso');
 						 
 						var plus= parseFloat(s_plus.val());
 						var importe = parseFloat(s_importe.val());
@@ -137,7 +137,7 @@ $(document).ready(
 					function() {
 
 						var s_premio_asegurado = $('#premio_asegurado_endoso'),
-						s_importe = $('#importe_accidentes_personales_endoso');
+						s_importe = $('#importe_seguro_tecnico_endoso');
 						 
 						var premio_asegurado= parseFloat(s_premio_asegurado.val());
 						var importe = parseFloat(s_importe.val());
@@ -154,12 +154,12 @@ $(document).ready(
 			
 
 			//cuando modifica los valores
-			$('#valor_cuota_accidentes_personales_endoso')
+			$('#valor_cuota_seguro_tecnico_endoso')
 					.change(
 							function() {
 
-								var s_cuotas = $('#cuotas_accidentes_personales_endoso'),
-								s_valor_cuota = $('#valor_cuota_accidentes_personales_endoso');
+								var s_cuotas = $('#cuotas_seguro_tecnico_endoso'),
+								s_valor_cuota = $('#valor_cuota_seguro_tecnico_endoso');
 								var importe=0;
 								var cuotas=0;
 								var valor_cuota = 0;
@@ -169,17 +169,17 @@ $(document).ready(
 
 								if ((cuotas != 0 && valor_cuota != 0)) {
 									importe = (valor_cuota * cuotas);
-									$('#importe_accidentes_personales_endoso').val(importe);
+									$('#importe_seguro_tecnico_endoso').val(importe);
 								}
 
 							});
 
-			$('#cuotas_accidentes_personales_endoso')
+			$('#cuotas_seguro_tecnico_endoso')
 					.change(
 							function() {
 
-								var s_cuotas = $('#cuotas_accidentes_personales_endoso'), 
-								s_valor_cuota = $('#valor_cuota_accidentes_personales_endoso');
+								var s_cuotas = $('#cuotas_seguro_tecnico_endoso'), 
+								s_valor_cuota = $('#valor_cuota_seguro_tecnico_endoso');
 								var importe=0;
 								var cuotas=0;
 								var valor_cuota = 0;
@@ -189,7 +189,7 @@ $(document).ready(
 
 								if ((cuotas != 0 && valor_cuota != 0)) {
 									importe = (valor_cuota * cuotas);
-									$('#importe_accidentes_personales_endoso').val(importe);
+									$('#importe_seguro_tecnico_endoso').val(importe);
 								}
 
 							});
@@ -220,8 +220,8 @@ $(document).ready(
 			
 			
 			// Guardar Solicitud
-			$('#save_endoso_poliza_accidentes_personales').click(function() {
-			//	alert('clic');
+			$('#save_endoso_poliza_seguro_tecnico').click(function() {
+				
 								// trae id de tab
 								var tabs_sel = $('#tabs').tabs();
 								var idx = tabs_sel.tabs('option',
@@ -234,11 +234,11 @@ $(document).ready(
 
 								// suponemos que el form es valido
 
-								var data = $('#endoso_poliza_accidentes_personales').serializeArray();
+								var data = $('#endoso_poliza_seguro_tecnico').serializeArray();
 								// console.debug(data);
 
 								$.ajax({
-											url : "./poliza/poliza/endoso-poliza-accidentes-personales",
+											url : "./poliza/poliza/endoso-poliza-seguro-tecnico",
 											data : data,
 											success : function(result) {
 												$(href).html(result);
@@ -288,8 +288,8 @@ $(document).ready(
 				// //console.debug($('#tabs ul li a'));
 				var href = $(tab).attr('href');
 
-				var importe_accidentes_personales = $('#importe_accidentes_personales').val();
-				if(importe_accidentes_personales <= 0 ){
+				var importe_seguro_tecnico = $('#importe_seguro_tecnico').val();
+				if(importe_seguro_tecnico <= 0 ){
 					alert('No se puede crear la poliza - El importe debe ser mayor a cero!');
 					return false;
 				}
@@ -334,7 +334,7 @@ $(document).ready(
 			
 			
 			// Enviar Solicitud Compania
-			$('#enviar_compania_endoso_poliza_accidentes_personales').click(function() {
+			$('#enviar_compania_endoso_poliza_seguro_tecnico').click(function() {
 
 				//$(show_result).html('');
 				// busca el id de la solicitud a confirmar
@@ -350,7 +350,7 @@ $(document).ready(
 				var show_result = href+' #show_result';	
 
 				$.ajax({
-					url : "./poliza/poliza/enviar-solicitud-endoso-compania-accidentes_personales",
+					url : "./poliza/poliza/enviar-solicitud-endoso-compania-seguro-tecnico",
 					data : {
 						poliza_id : poliza_id
 					},
