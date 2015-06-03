@@ -2,6 +2,7 @@
 class Domain_Compania {
 	private $_model ;
 
+	private $_nombre = "COMPANIA";
 
 	public function __construct($id=null){
 
@@ -9,6 +10,9 @@ class Domain_Compania {
 		$this->_model = ($id==null)?new $model: $model->getTable()->find($id) ;
 
 
+	}
+	public function getNombre(){
+		return $this->_nombre;
 	}
 	public function getModel(){
 		return $this->_model;
@@ -228,6 +232,56 @@ class Domain_Compania {
 		//Redondeo dos decimales
 		return round($debe[0]['debe'],2);
 	}
+
+	public function findSolicitudByNumero($numero){
+
+		//$estado = Domain_EstadoPoliza::getIdByCodigo('SOLICITUD_PENDIENTE');
+
+		$this->_model_poliza = new Model_Poliza();
+		$row = $this->_model_poliza
+		->getTable()
+		->createQuery()
+		->Where('estado_id in (0,1)')
+		->andWhere('numero_solicitud like ? OR numero_poliza like ?',array("%$numero%","%$numero%"))
+		->andWhere('compania_id = ?',$this->_model->compania_id)
+		->orderBy('numero_solicitud DESC')
+		->execute()
+		->toArray();
+		//->getSqlQuery();
+		//echo "<pre>";
+		//print_r($row);
+		//exit;
+		return $row;
+
+	}
+
+
+	public function getPolizasDefault(){
+
+		$estado = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
+		$estado_caucion = Domain_EstadoPoliza::getIdByCodigo('AFECTADA');
+		$estado_refacturado = Domain_EstadoPoliza::getIdByCodigo('REFACTURADO');
+
+		$this->_model_poliza = new Model_Poliza();
+		$row = $this->_model_poliza
+		->getTable()
+		->createQuery()
+		->Where('estado_id not in (0,1)' )
+		->andWhere('compania_id = ?',$this->_model->compania_id)
+		//->Where('estado_id = ? OR estado_id = ? OR estado_id = ?',array($estado,$estado_caucion,$estado_refacturado))
+		//->andWhere('numero_solicitud like ? OR numero_poliza like ?',array("%$numero%","%$numero%"))
+		->limit(50)
+		->orderBy('numero_solicitud DESC')
+		->execute()
+		->toArray();
+		//->getSqlQuery();
+		//echo "<pre>";
+		//print_r($row);
+		//exit;
+		return $row;
+
+	}
+
 	
 	
 }

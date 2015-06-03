@@ -26,7 +26,7 @@ function buscarAsegurado(f){
 	//Trae el tab correspondiente
 	var tab = $('#tabs ul li a')[idx];
 	var href = $(tab).attr('href') ;                       
-	
+
     $.ajax({url: url,
         data:{
             buscar:f.buscar.value
@@ -89,7 +89,7 @@ $(document).ready(function()
   <tr>
     <th>asegurado_id</th>
     <th>Nombre</th>
-    <?if($this->isOperador):?>
+    <?if($this->isOperador or $this->isAgente):?>
     <th>Pesos</th>
     <th>Dolar</th>
     <th>Euro</th>
@@ -113,7 +113,7 @@ $(document).ready(function()
   <tr>
     <td><?=$asegurado['asegurado_id'] ?></td>
     <td><?=$asegurado['nombre']?></td>
-    <?if($this->isOperador):?>
+    <?if($this->isOperador OR $this->isAgente):?>
     <td><?=$debe_pesos?></td>
     <td><?=$debe_dolar?></td>
     <td><?=$debe_euro?></td>

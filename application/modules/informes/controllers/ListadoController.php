@@ -434,6 +434,9 @@ class Informes_ListadoController extends Informes_IndexController
 		 * / Tipo de cobertura / Tipo de seguro (aca tenemos que ver si hace falta agregar algo)
 		 *  / Suma asegurada / Vigencia del seguro / Observaciones
 		 */
+
+
+
 		/*
 		 * Busca siempre por cliente y despues puede ser por agente o compania
 		 */
@@ -457,7 +460,7 @@ class Informes_ListadoController extends Informes_IndexController
 			$this->view->compania_id=$params['compania_id'];
 			$this->view->agente_id=$params['agente_id'];
 			$this->view->asegurado_nombre = Domain_Asegurado::getNameById($params['asegurado_id']);
-				
+			
 			$listado_deuda_cliente = $this->_t_usuario->getListadoDeudaClienteByEntidadId($params['asegurado_id'],$params['agente_id'],$params['compania_id']);
 		}else{
 				
