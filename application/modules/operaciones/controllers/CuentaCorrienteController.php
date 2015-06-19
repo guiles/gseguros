@@ -321,17 +321,19 @@ public function detalleMovimientoAction(){
 		$this->view->pago_euro = Domain_Compania::getPagoPremioCompaniaByCompaniaIdAndMoneda($params['compania_id'],$moneda_euro);
 	
 
-
-
-				//if($params['busqueda_poliza']){
+		//Si es Compania que muestre los ultimos dos meses
+		//Arreglo rapido
+		$es_compania = ($this->_usuario->getTipoUsuario()->getNombre() == 'COMPANIA')? 1 : 0;
+		
 			if($params['numero_poliza']!=''){
 
-					$rows = Domain_Compania::getMovimientosByCompaniaIdAndPoliza($params['compania_id'],$params['numero_poliza']);
+					$rows = Domain_Compania::getMovimientosByCompaniaIdAndPoliza($params['compania_id'],$params['numero_poliza'],$es_compania);
 
 
-				}else{
-					$rows = Domain_Compania::getMovimientosByCompaniaId($params['compania_id']);
-				}
+			}else{
+					$rows = Domain_Compania::getMovimientosByCompaniaId($params['compania_id'],$es_compania);
+			}
+
 		$page=$this->_getParam('page',1);
 		$paginator = Zend_Paginator::factory($rows);
 		$paginator->setItemCountPerPage(10);
@@ -442,8 +444,8 @@ public function detalleMovimientoAction(){
 
 	public function imprimirDetalleMovimientoAseguradoAction(){
 		$params = $this->_request->getParams();
-	//	echo "<pre>";
-	//	print_r($params);
+		echo "<pre>";
+		print_r($params);
 
 	    $rows = Domain_Movimiento::getPolizasByMovimiento($params['movimiento_id']);
 		
@@ -453,7 +455,7 @@ public function detalleMovimientoAction(){
 		$this->view->datos_cheques = Domain_Movimiento::getDatosCheques($params['movimiento_id']);
 
 		$array_detalle_poliza = $rows[0]['Model_MovimientoPoliza'];
-		
+		print_r($array_detalle_poliza);
 		$polizas_result = array();
 	    //Trae el nombre del asegurado
 	    foreach ($array_detalle_poliza as $value) {

@@ -133,18 +133,39 @@ class Domain_Compania {
 		return round($debe[0]['debe'],2);
 	}
 	
-	public static function getMovimientosByCompaniaId($id){
+	public static function getMovimientosByCompaniaId($id,$es_compania=null){
 		$m_movimiento = new Model_Movimiento();
+		
+		$fecha_hasta = date('Y-m-d');
+		$fecha_desde = date("Y-m-d", strtotime ("-2months")); 
+
+		if($es_compania){
+//echo $id;
 		$rows = $m_movimiento->getTable()
 		->createQuery()
 		->where('compania_id = ?',$id)
-		->orderBy('movimiento_id desc')
+		//->andWhere('compania_id = ?',$this->_model->compania_id)
+		//->where("fecha_pago between ? AND ?", array($fecha_desde,$fecha_hasta))
+		->limit(15)
+		->orderBy('fecha_pago desc')
 		->execute()
 		->toArray();	
+		
+		}else{
+
+		$rows = $m_movimiento->getTable()
+		->createQuery()
+		->where('compania_id = ?',$id)
+		->orderBy('fecha_pago desc')
+		->execute()
+		->toArray();	
+		
+		}
+		
 		return $rows;
 	}
 
-	public static function getMovimientosByCompaniaIdAndPoliza($id,$numero_poliza=null){
+	public static function getMovimientosByCompaniaIdAndPoliza($id,$numero_poliza=null,$es_compania=null){
 //SELECT * FROM movimiento m, movimiento_poliza mp, 
 //poliza p where m.movimiento_id=mp.movimiento_id and mp.poliza_id=p.poliza_id and numero_poliza like'%1234%'
 	
@@ -154,7 +175,7 @@ class Domain_Compania {
 		->where('m.compania_id = ?',array($id))
 		->andWhere('p.numero_poliza like ? ',array("%$numero_poliza%"))
 		->andWhere('m.tipo_movimiento_id = ?',1)
-		->orderBy('m.movimiento_id desc')
+		->orderBy('m.fecha_pago desc')
 		->execute()
 		->toArray();
 		//->getSqlQuery();
@@ -282,6 +303,16 @@ class Domain_Compania {
 
 	}
 
-	
+		public function findCompaniaByNombre($nombre){
+
+		$compania = new Model_Compania();
+		$rows = $compania->getTable()
+		->createQuery()
+		->where('nombre like ?',"%$nombre%")
+		->andWhere('compania_id = ?',$this->_model->compania_id)
+		->execute()
+		->toArray();
+		return $rows;
+	}
 	
 }
