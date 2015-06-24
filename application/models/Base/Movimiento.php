@@ -84,7 +84,15 @@ abstract class Model_Base_Movimiento extends Doctrine_Record
              'notnull' => true,
              'primary' => false,
              'autoincrement' => false,
-            ));
+        ));
+        $this->hasColumn('cotizacion_divisa', 'string', 255, array(
+             'type' => 'string',
+             'length' => '255',
+             'fixed' => false,
+             'notnull' => true,
+             'primary' => false,
+             'autoincrement' => false,
+        ));
 		$this->hasColumn('descuento', 'string', 255, array(
              'type' => 'string',
              'length' => '255',

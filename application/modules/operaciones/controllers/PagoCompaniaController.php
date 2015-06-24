@@ -127,6 +127,7 @@ print_r($params);
 			$m_movimiento = new Model_Movimiento();
 			$m_movimiento->importe = $params['importe'];
 			$m_movimiento->importe_efectivo = $params['importe_efectivo'];
+			$m_movimiento->cotizacion_divisa = $params['cotizacion_divisa'];
 			$m_movimiento->compania_id = $params['compania_id'];
 			$m_movimiento->fecha_pago = $params['fecha_pago'];
 			$m_movimiento->moneda_id = $params['moneda_id'];
@@ -138,8 +139,24 @@ print_r($params);
 			 * Guardo datos del cheque, por ahora lo hago asi, no se que mierda le pasa que 
 			 * no puedo pasar un array
 			 * */
-			
+			//echo "<pre>";
+			for($i=0;$i<6;$i++){
+
 			$m_datos_cheque = new Model_DatosCheque();
+			$m_datos_cheque->movimiento_id = $m_movimiento->movimiento_id;
+			$importe_cheque_compania = 'importe_cheque_compania_'.$i;
+			$banco_cheque_compania = 'banco_cheque_compania_'.$i;
+			$nro_cheque_compania = 'nro_cheque_compania_'.$i;
+
+			$m_datos_cheque->importe = $params[$importe_cheque_compania]; 
+			$m_datos_cheque->banco = $params[$banco_cheque_compania];
+			$m_datos_cheque->numero = $params[$nro_cheque_compania];
+			
+			$m_datos_cheque->save();
+			}
+			//print_r($params);
+
+			/*$m_datos_cheque = new Model_DatosCheque();
 			$m_datos_cheque->movimiento_id = $m_movimiento->movimiento_id;
 			$m_datos_cheque->importe = $params['importe_cheque_0']; 
 			$m_datos_cheque->banco = $params['banco_cheque_0'];
@@ -162,7 +179,7 @@ print_r($params);
 			$m_datos_cheque->numero = $params['nro_cheque_2'];
 			
 			$m_datos_cheque->save();
-			
+			*/
 			/*
 			 * Fin guardo datos de cheques
 			 */

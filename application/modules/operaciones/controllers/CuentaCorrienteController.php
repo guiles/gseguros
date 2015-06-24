@@ -444,8 +444,8 @@ public function detalleMovimientoAction(){
 
 	public function imprimirDetalleMovimientoAseguradoAction(){
 		$params = $this->_request->getParams();
-		echo "<pre>";
-		print_r($params);
+		//echo "<pre>";
+	//	print_r($params);
 
 	    $rows = Domain_Movimiento::getPolizasByMovimiento($params['movimiento_id']);
 		
@@ -455,7 +455,7 @@ public function detalleMovimientoAction(){
 		$this->view->datos_cheques = Domain_Movimiento::getDatosCheques($params['movimiento_id']);
 
 		$array_detalle_poliza = $rows[0]['Model_MovimientoPoliza'];
-		print_r($array_detalle_poliza);
+		//print_r($array_detalle_poliza);
 		$polizas_result = array();
 	    //Trae el nombre del asegurado
 	    foreach ($array_detalle_poliza as $value) {

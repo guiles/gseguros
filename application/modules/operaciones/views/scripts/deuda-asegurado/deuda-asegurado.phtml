@@ -164,14 +164,24 @@ $('#confirmar_pago').click(function() {
     fecha_pago = $('#fecha_pago');
 	importe_cheque_0 = $('#importe_cheque_0'),
 	importe_cheque_1 = $('#importe_cheque_1'),
-	importe_cheque_2 = $('#importe_cheque_2')
+	importe_cheque_2 = $('#importe_cheque_2'),
+	importe_cheque_3 = $('#importe_cheque_3'),
+	importe_cheque_4 = $('#importe_cheque_4'),
+	importe_cheque_5 = $('#importe_cheque_5'),
 	nro_cheque_0 = $('#nro_cheque_0'),
 	nro_cheque_1 = $('#nro_cheque_1'),
-	nro_cheque_2 = $('#nro_cheque_2')
+	nro_cheque_2 = $('#nro_cheque_2'),
+	nro_cheque_3 = $('#nro_cheque_3'),
+	nro_cheque_4 = $('#nro_cheque_4'),
+	nro_cheque_5 = $('#nro_cheque_5'),
 	banco_cheque_0 = $('#banco_cheque_0'),
 	banco_cheque_1 = $('#banco_cheque_1'),
 	banco_cheque_2 = $('#banco_cheque_2'),
+	banco_cheque_3 = $('#banco_cheque_3'),
+	banco_cheque_4 = $('#banco_cheque_4'),
+	banco_cheque_5 = $('#banco_cheque_5'),
 	numero_factura = $('#numero_factura'),
+	cotizacion_divisa = $('#cotizacion_divisa'),
 	descuento = $('#descuento');
 
 	//var importe_total_a_pagar = 0;
@@ -257,12 +267,22 @@ $.ajax({
     	,importe_cheque_0 :importe_cheque_0.val()
 		,importe_cheque_1 : importe_cheque_1.val()
 		,importe_cheque_2 : importe_cheque_2.val()
+    	,importe_cheque_3 :importe_cheque_3.val()
+		,importe_cheque_4 : importe_cheque_4.val()
+		,importe_cheque_5 : importe_cheque_5.val()
 		,nro_cheque_0 :nro_cheque_0.val()
 		,nro_cheque_1 : nro_cheque_1.val()
 		,nro_cheque_2 : nro_cheque_2.val()
+		,nro_cheque_3 :nro_cheque_3.val()
+		,nro_cheque_4 : nro_cheque_4.val()
+		,nro_cheque_5 : nro_cheque_5.val()
 		,banco_cheque_0 : banco_cheque_0.val()
 		,banco_cheque_1 : banco_cheque_1.val()
 		,banco_cheque_2 : banco_cheque_2.val()
+		,banco_cheque_3 : banco_cheque_3.val()
+		,banco_cheque_4 : banco_cheque_4.val()
+		,banco_cheque_5 : banco_cheque_5.val()
+		,cotizacion_divisa : cotizacion_divisa.val()
 		,numero_factura : numero_factura.val()    	
         }
 
@@ -394,6 +414,10 @@ $.ajax({
 	<td>Descuento:</td>
 	<td><input value="" id="descuento" name="descuento"></input></td>
 	</tr>
+	<tr>
+	<td>Cotizaci&oacute;n Divisa:</td>
+	<td><input value="" id="cotizacion_divisa" name="cotizacion_divisa"></input></td>
+	</tr>
 </table>
 </div>
 <h4 id="div_form_cheques_show">Datos Cheques</h4>
@@ -437,6 +461,42 @@ $.ajax({
 		</input></td>
 		<td>Importe:</td>
 		<td><input type="text" name="importe_cheque_2" id="importe_cheque_2"
+			value="0"> </input></td>
+	</tr>
+
+	<tr>
+		<td>Banco:</td>
+		<td><input type="text" name="banco_cheque_3" id="banco_cheque_3"
+			value=""> </input></td>
+		<td>Nro:</td>
+		<td><input type="text" name="nro_cheque_3" id="nro_cheque_3" value="">
+		</input></td>
+		<td>Importe:</td>
+		<td><input type="text" name="importe_cheque_3" id="importe_cheque_3"
+			value="0"> </input></td>
+	</tr>
+
+	<tr>
+		<td>Banco:</td>
+		<td><input type="text" name="banco_cheque_4" id="banco_cheque_4"
+			value=""> </input></td>
+		<td>Nro:</td>
+		<td><input type="text" name="nro_cheque_4" id="nro_cheque_4" value="">
+		</input></td>
+		<td>Importe:</td>
+		<td><input type="text" name="importe_cheque_4" id="importe_cheque_4"
+			value="0"> </input></td>
+	</tr>
+
+	<tr>
+		<td>Banco:</td>
+		<td><input type="text" name="banco_cheque_5" id="banco_cheque_5"
+			value=""> </input></td>
+		<td>Nro:</td>
+		<td><input type="text" name="nro_cheque_5" id="nro_cheque_5" value="">
+		</input></td>
+		<td>Importe:</td>
+		<td><input type="text" name="importe_cheque_5" id="importe_cheque_5"
 			value="0"> </input></td>
 	</tr>
 </table>
