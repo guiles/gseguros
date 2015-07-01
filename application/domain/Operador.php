@@ -767,6 +767,8 @@ $estado_baja = Domain_EstadoPoliza::getIdByCodigo('BAJA');
 $estado_aceptada = Domain_EstadoPoliza::getIdByCodigo('ACEPTADA');
 $estado_devuelta = Domain_EstadoPoliza::getIdByCodigo('DEVUELTA');
 $estado_rechazada = Domain_EstadoPoliza::getIdByCodigo('RECHAZADA');
+$estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
+
 
 		if( (empty($agente_id) AND empty($compania_id)) ){
 
@@ -776,9 +778,9 @@ $estado_rechazada = Domain_EstadoPoliza::getIdByCodigo('RECHAZADA');
 			//->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
 			//,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion,$estado_renovada,$estado_no_renovado))
 			->andwhere('p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? 
-			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
+			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
 			,array($estado_pendiente,$estado_aprobada,$estado_anulada
-			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada))
+			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada,$estado_baja_oficio))
 			->andWhere("p.asegurado_id = ? ", $asegurado_id)
 			->orderBy("p.numero_poliza")
 			->execute()
@@ -792,9 +794,9 @@ $estado_rechazada = Domain_EstadoPoliza::getIdByCodigo('RECHAZADA');
 			//->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
 			//,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion,$estado_renovada,$estado_no_renovado))
 			->andwhere('p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? 
-			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
+			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
 			,array($estado_pendiente,$estado_aprobada,$estado_anulada
-			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada))
+			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada,$estado_baja_oficio))
 			->andWhere("p.asegurado_id = ? and p.compania_id = ?", array($asegurado_id,$compania_id))
 			->orderBy("p.numero_poliza")
 			->execute()
@@ -806,9 +808,9 @@ $estado_rechazada = Domain_EstadoPoliza::getIdByCodigo('RECHAZADA');
 			->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 			->andWhere("dpc.pago_id = ? ", $estado_debe)
 			->andwhere('p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? 
-			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
+			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
 			,array($estado_pendiente,$estado_aprobada,$estado_anulada
-			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada))
+			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada,$estado_baja_oficio))
 			->andWhere("p.asegurado_id = ? and p.agente_id = ?", array($asegurado_id,$agente_id))
 			->orderBy("p.numero_poliza")
 			->execute()
@@ -822,9 +824,9 @@ $estado_rechazada = Domain_EstadoPoliza::getIdByCodigo('RECHAZADA');
 			//->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
 			//,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion,$estado_baja_liberacion,$estado_renovada,$estado_no_renovado))
 			->andwhere('p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? 
-			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
+			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
 			,array($estado_pendiente,$estado_aprobada,$estado_anulada
-			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada))
+			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada,$estado_baja_oficio))
 			->andWhere("p.asegurado_id = ? and p.agente_id = ? and p.compania_id = ?", array($asegurado_id,$agente_id,$compania_id))
 			->orderBy("p.numero_poliza")
 			->execute()
@@ -851,6 +853,11 @@ $estado_rechazada = Domain_EstadoPoliza::getIdByCodigo('RECHAZADA');
 		$estado_endosada =  Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
 		$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
 		$estado_no_refacturado = Domain_EstadoPoliza::getIdByCodigo('NO_REFACTURADO');
+		$estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
+
+		$estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
+		$estado_anulada = Domain_EstadoPoliza::getIdByCodigo('ANULADA');
+
 
 		$rows = Doctrine_Query::create()
 		->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
@@ -862,6 +869,7 @@ $estado_rechazada = Domain_EstadoPoliza::getIdByCodigo('RECHAZADA');
 			$estado_baja_devolucion,$estado_baja_liberacion,
 			$estado_renovada,$estado_no_renovado
 			,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado))
+		->andwhere('p.estado_id <> ? OR p.estado_id <>?',array($estado_anulada,$estado_baja_oficio))
 		->andWhere("p.asegurado_id = ? ", $asegurado_id)
 		->orderBy("p.fecha_pedido")
 		->limit(100)
@@ -888,10 +896,10 @@ public function getListadoDeudaCompaniaByEntidadId($compania_id,$agente_id=null,
 		$estado_renovada = Domain_EstadoPoliza::getIdByCodigo('RENOVADA');
 		$estado_no_renovado = Domain_EstadoPoliza::getIdByCodigo('NO_RENOVADO');
 
-$estado_endosada =  Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
-$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
-$estado_no_refacturado = Domain_EstadoPoliza::getIdByCodigo('NO_REFACTURADO');
-
+		$estado_endosada =  Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
+		$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
+		$estado_no_refacturado = Domain_EstadoPoliza::getIdByCodigo('NO_REFACTURADO');
+		$estado_nota_credito = Domain_EstadoPoliza::getIdByCodigo('NOTA_DE_CREDITO');
 
 		if( (empty($agente_id) AND empty($asegurado_id)) ){
 
@@ -900,10 +908,10 @@ $estado_no_refacturado = Domain_EstadoPoliza::getIdByCodigo('NO_REFACTURADO');
 			->andWhere("p.pago_compania_id = ? ", $estado_debe)
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? 
 				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?
-				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
+				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?  OR p.estado_id =?'
 			,array($estado_vigente,$estado_afectada,$estado_refacturado
 			,$estado_baja_devolucion,$estado_renovada,$estado_no_renovado
-			,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado))
+			,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado,$estado_nota_credito))
 			->andWhere("p.compania_id = ? ", $compania_id)
 			->orderBy("p.numero_poliza")
 			->execute()
@@ -919,10 +927,10 @@ $estado_no_refacturado = Domain_EstadoPoliza::getIdByCodigo('NO_REFACTURADO');
 			->andWhere("p.pago_compania_id = ? ", $estado_debe)
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? 
 				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?
-				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
+				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
 			,array($estado_vigente,$estado_afectada,$estado_refacturado
 				,$estado_baja_devolucion,$estado_renovada,$estado_no_renovado
-				,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado))
+				,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado,$estado_nota_credito))
 			->andWhere("p.asegurado_id = ? and p.compania_id = ?", array($asegurado_id,$compania_id))
 			->orderBy("p.numero_poliza")
 			->execute()
@@ -937,10 +945,10 @@ $estado_no_refacturado = Domain_EstadoPoliza::getIdByCodigo('NO_REFACTURADO');
 			->andWhere("p.pago_compania_id = ? ", $estado_debe)
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? 
 				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?
-				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
+				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
 			,array($estado_vigente,$estado_afectada,$estado_refacturado,
 				$estado_baja_devolucion,$estado_renovada,$estado_no_renovado
-				,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado))
+				,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado,$estado_nota_credito))
 			->andWhere("p.compania_id = ? and p.agente_id = ?", array($compania_id,$agente_id))
 			->orderBy("p.numero_poliza")
 			->execute()
@@ -953,11 +961,11 @@ $estado_no_refacturado = Domain_EstadoPoliza::getIdByCodigo('NO_REFACTURADO');
 			->andWhere("p.pago_compania_id = ? ", $estado_debe)
 			->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? 
 				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?
-				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
+				OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
 			,array($estado_vigente,$estado_afectada,
 				$estado_refacturado,$estado_baja_devolucion
 				,$estado_renovada,$estado_no_renovado
-				,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado))
+				,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado,$estado_nota_credito))
 			->andWhere("p.asegurado_id = ? and p.agente_id = ? and p.compania_id = ?", array($asegurado_id,$agente_id,$compania_id))
 			->orderBy("p.numero_poliza")
 			->execute()
@@ -983,19 +991,21 @@ $estado_no_refacturado = Domain_EstadoPoliza::getIdByCodigo('NO_REFACTURADO');
 		$estado_no_renovado = Domain_EstadoPoliza::getIdByCodigo('NO_RENOVADO');
 
 
-$estado_endosada =  Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
-$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
-$estado_no_refacturado = Domain_EstadoPoliza::getIdByCodigo('NO_REFACTURADO');
+		$estado_endosada =  Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
+		$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
+		$estado_no_refacturado = Domain_EstadoPoliza::getIdByCodigo('NO_REFACTURADO');
+		$estado_nota_credito = Domain_EstadoPoliza::getIdByCodigo('NOTA_DE_CREDITO');
+
 
 		$rows = Doctrine_Query::create()
 		->from('Model_Poliza p, p.Model_PolizaValores pv')
 		->andWhere("p.pago_compania_id = ? ", $estado_debe)
 		->andwhere('p.estado_id = ? OR p.estado_id = ? OR p.estado_id = ? 
 			OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?
-			OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
+			OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
 		,array($estado_vigente,$estado_afectada,$estado_refacturado,$estado_baja_devolucion
 			,$estado_renovada,$estado_no_renovado
-			,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado))
+			,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado,$estado_nota_credito))
 		->andWhere("p.compania_id = ? ", $compania_id)
 		->orderBy("p.fecha_pedido")
 		->limit(100)
