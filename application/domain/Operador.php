@@ -782,10 +782,12 @@ $estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
 			,array($estado_pendiente,$estado_aprobada,$estado_anulada
 			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada,$estado_baja_oficio))
 			->andWhere("p.asegurado_id = ? ", $asegurado_id)
+			->andwhere("p.estado_id <> 7")
 			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
-
+			//->getSqlQuery();
+			//echo "<pre>"; print_r($rows); exit;
 			}elseif(empty($agente_id)){
 
 			$rows = Doctrine_Query::create()
