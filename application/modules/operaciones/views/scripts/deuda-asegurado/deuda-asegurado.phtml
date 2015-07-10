@@ -238,7 +238,9 @@ $('#confirmar_pago').click(function() {
 	//Importe total que ingresa el usuario(Efectivo+Cheques)
 	var importe_total = 0;
 	importe_total = parseFloat(importe.val()) +	parseFloat(importe_cheque_0.val()) + 
-	parseFloat(importe_cheque_1.val()) + parseFloat(importe_cheque_2.val())	;
+	parseFloat(importe_cheque_1.val()) + parseFloat(importe_cheque_2.val())	
+	+ parseFloat(importe_cheque_3.val()) + parseFloat(importe_cheque_4.val())
+	+ parseFloat(importe_cheque_5.val());
 
 	// alert(importe_total);
 	if(importe_total != importe_total_a_pagar){

@@ -771,7 +771,6 @@ $estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
 
 
 		if( (empty($agente_id) AND empty($compania_id)) ){
-
 			$rows = Doctrine_Query::create()
 			->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 			->andWhere("dpc.pago_id = ? ", $estado_debe)
@@ -782,14 +781,13 @@ $estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
 			,array($estado_pendiente,$estado_aprobada,$estado_anulada
 			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada,$estado_baja_oficio))
 			->andWhere("p.asegurado_id = ? ", $asegurado_id)
-			->andwhere("p.estado_id <> 7")
+			->andwhere("p.estado_id <> ? AND p.estado_id <> ?",array($estado_anulada,$estado_baja_oficio))
 			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 			//->getSqlQuery();
 			//echo "<pre>"; print_r($rows); exit;
 			}elseif(empty($agente_id)){
-
 			$rows = Doctrine_Query::create()
 			->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 			->andWhere("dpc.pago_id = ? ", $estado_debe)
@@ -800,6 +798,8 @@ $estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
 			,array($estado_pendiente,$estado_aprobada,$estado_anulada
 			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada,$estado_baja_oficio))
 			->andWhere("p.asegurado_id = ? and p.compania_id = ?", array($asegurado_id,$compania_id))
+			->andwhere("p.estado_id <> ? AND p.estado_id <> ?",array($estado_anulada,$estado_baja_oficio))
+
 			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
@@ -813,13 +813,13 @@ $estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
 			 OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ? OR p.estado_id <> ?' 
 			,array($estado_pendiente,$estado_aprobada,$estado_anulada
 			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada,$estado_baja_oficio))
+			->andwhere("p.estado_id <> ? AND p.estado_id <> ?",array($estado_anulada,$estado_baja_oficio))
 			->andWhere("p.asegurado_id = ? and p.agente_id = ?", array($asegurado_id,$agente_id))
 			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
 
 		}else{
-			
 			$rows = Doctrine_Query::create()
 			->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 			->andWhere("dpc.pago_id = ? ", $estado_debe)
@@ -830,6 +830,7 @@ $estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
 			,array($estado_pendiente,$estado_aprobada,$estado_anulada
 			,$estado_baja,$estado_aceptada,$estado_devuelta,$estado_rechazada,$estado_baja_oficio))
 			->andWhere("p.asegurado_id = ? and p.agente_id = ? and p.compania_id = ?", array($asegurado_id,$agente_id,$compania_id))
+			->andwhere("p.estado_id <> ? AND p.estado_id <> ?",array($estado_anulada,$estado_baja_oficio))
 			->orderBy("p.numero_poliza")
 			->execute()
 			->toArray();
@@ -840,7 +841,6 @@ $estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
 	}
 	
 	public function getListadoDeudaCliente($asegurado_id){
-
 
 		//Buscar el estado Vigente
 		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
@@ -871,7 +871,7 @@ $estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
 			$estado_baja_devolucion,$estado_baja_liberacion,
 			$estado_renovada,$estado_no_renovado
 			,$estado_endosada,$estado_vigencia_cumplida,$estado_no_refacturado))
-		->andwhere('p.estado_id <> ? OR p.estado_id <>?',array($estado_anulada,$estado_baja_oficio))
+		->andwhere('p.estado_id <> ? AND p.estado_id <>?',array($estado_anulada,$estado_baja_oficio))
 		->andWhere("p.asegurado_id = ? ", $asegurado_id)
 		->orderBy("p.fecha_pedido")
 		->limit(100)

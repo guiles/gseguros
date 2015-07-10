@@ -228,7 +228,9 @@ $('#confirmar_pago_compania').click(function() {
 	//Importe total que ingresa el usuario(Efectivo+cheque_companias_compania)
 	var importe_total = 0;
 	importe_total = parseFloat(importe.val()) +	parseFloat(importe_cheque_compania_0.val()) + 
-	parseFloat(importe_cheque_compania_1.val()) + parseFloat(importe_cheque_compania_2.val())	;
+	parseFloat(importe_cheque_compania_1.val()) + parseFloat(importe_cheque_compania_2.val())
+	+ parseFloat(importe_cheque_compania_3.val()) + parseFloat(importe_cheque_compania_4.val())
+	+ parseFloat(importe_cheque_compania_5.val())	;
 
 	// alert(importe_total);
 	if(importe_total != importe_total_a_pagar){

@@ -182,6 +182,9 @@ function realizarPagoAsegurado(){
 			importe_cheque_0 = $('#importe_cheque_0'),
 			importe_cheque_1 = $('#importe_cheque_1'),
 			importe_cheque_2 = $('#importe_cheque_2'),
+			importe_cheque_2 = $('#importe_cheque_3'),
+			importe_cheque_2 = $('#importe_cheque_4'),
+			importe_cheque_2 = $('#importe_cheque_5'),
 			numero_factura = $('#numero_factura');
 			
 			var importe_total_a_pagar = 0;
@@ -276,9 +279,11 @@ function realizarPagoAsegurado(){
 			
 			var importe_total = 0;
 			importe_total = parseFloat(importe.val()) +	parseFloat(importe_cheque_0.val()) + 
-			parseFloat(importe_cheque_1.val()) + parseFloat(importe_cheque_2.val())	;
+			parseFloat(importe_cheque_1.val()) + parseFloat(importe_cheque_2.val())
+			+ parseFloat(importe_cheque_3.val())+ parseFloat(importe_cheque_4.val())	
+			+ parseFloat(importe_cheque_5.val());
 			
-			// alert(importe_total);
+			 alert(importe_total);
 			
 			$.ajax({
 				
