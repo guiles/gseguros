@@ -258,8 +258,8 @@ if($motivo_garantia_id == $solvencia_economica_aduaneros):?>
 				onClick="return bajaLiberacionPoliza('./poliza/poliza/baja-liberacion-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
 				</input>
 			</td>
-			
-			<?elseif($estado_codigo=='BAJA_POR_LIBERACION' OR $estado=='BAJA_POR_DEVOLUCION'):?>
+			<!--//Para que no entre le pongo AND porque creo que este boton va en todas las polizas-->
+			<?elseif($estado_codigo=='BAJA_POR_LIBERACION' AND $estado_codigo=='BAJA_POR_DEVOLUCION'):?>
 			<td><input type='button' value='NOTA CREDITO'
 				onClick="return notaCreditoPoliza('./poliza/poliza/nota-credito-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
 				</input>
@@ -609,7 +609,13 @@ default:
 			</td>
 			<!--  td><input type='button' value='Refacturar' onClick="return false;"> </input>
 			</td>-->
-
+		
+		<?if($estado_codigo=='BAJA_POR_LIBERACION' OR $estado_codigo=='BAJA_POR_DEVOLUCION'):?>
+			<td><input type='button' value='NOTA CREDITO'
+				onClick="return notaCreditoPoliza('./poliza/poliza/nota-credito-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
+				</input>
+			</td>
+		<?endif?>
 		</tr>
 
 		<?endforeach; ?>

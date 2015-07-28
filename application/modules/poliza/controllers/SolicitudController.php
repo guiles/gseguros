@@ -2131,8 +2131,7 @@ public function renovacionAccidentesPersonalesAction()
 			 * Service_Poliza::saveSolicitud()
 			 * @param: Domain_Poliza,$params(datos del POST)
 			 */
-		    //echo "<pre>";
-		    //print_r($params);
+
 
 			$solicitud = $this->_services_solicitud->saveSolicitudAccidentesPersonales($solicitud,$params);
 			$solicitud = $this->_services_solicitud->saveDetallePago($solicitud,$params);
@@ -2343,7 +2342,6 @@ public function renovacionAutomotoresAction()
 		
 		$solicitud = $this->_solicitud;
 		
-		
 				//Si viene con ID es para guardar y traigo la solicitud con los datos, sobreescribo la variable
 		if(! empty($params['poliza_id']) )$solicitud = new Domain_Poliza($params['poliza_id']);
 
@@ -2357,6 +2355,9 @@ public function renovacionAutomotoresAction()
 		$this->view->importe = $this->view->cantidad_cuotas * $this->view->valor_cuotas;
 		$this->view->asegurado_nombre = Domain_Asegurado::getNameById($solicitud->getModelPoliza()->asegurado_id);
 		
+		$this->view->numero_poliza = $solicitud->getModelPoliza()->numero_poliza;
+		$this->view->endoso = $solicitud->getModelPoliza()->endoso;
+
 		
 		if($params['save']){
 			/*
@@ -2383,12 +2384,22 @@ public function renovacionAutomotoresAction()
 			//print_r($params);
 		
 		if( empty($params['poliza_id']) ){
-				//echo "entro aca para renovar la poliza";
+			//echo "entro aca para renovar la poliza";
+			//Guardo la poliza que renovo
+			$poliza_poliza_id = $solicitud->getModelPoliza()->poliza_id;
+			//echo "renovo?";
+			//echo $poliza_poliza_id;
+
 			$estado_id = Domain_EstadoPoliza::getIdByCodigo('RENOVADA');
 			$poliza_renovada = new Domain_Poliza($params['poliza_renovada_id']);
 			$poliza_renovada_model = $poliza_renovada->getModelPoliza();
+			$poliza_renovada_model->poliza_poliza_id = $poliza_poliza_id;
 			$poliza_renovada_model->estado_id = $estado_id;
 			$poliza_renovada_model->save();
+			
+			$this->view->numero_poliza = $poliza_renovada_model->numero_poliza;
+			$this->view->endoso = $poliza_renovada_model->endoso;
+
 			}
 			
 			/*

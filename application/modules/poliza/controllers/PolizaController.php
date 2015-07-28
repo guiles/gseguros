@@ -1514,8 +1514,8 @@ public function endosoPolizaJudicialesAction()
 		$this->_helper->viewRenderer->setNoRender();
 		$params = $this->_request->getParams();
 
-		echo "<pre>";
-		print_r($params);
+		//echo "<pre>";
+		//print_r($params);
 
 		//exit;		
 		$poliza = new Domain_Poliza($params['poliza_id']);
@@ -1532,12 +1532,12 @@ public function endosoPolizaJudicialesAction()
 					
 			case 'AUTOMOTORES':
 				//$poliza = $this->_services_poliza->refacturarPolizaConstruccion($poliza);
-					
+				echo "En contruccion...";
 				break;
 
 			case 'ALQUILER':
 				//$poliza = $this->_services_poliza->refacturarPolizaAlquiler($poliza);
-					
+				echo "En contruccion...";	
 				break;
 
 			default:
@@ -1547,7 +1547,7 @@ public function endosoPolizaJudicialesAction()
 
 
 		$nro_poliza = $poliza->getModelPoliza()->numero_poliza;
-		echo "Poliza $nro_poliza refacturada con exito ;)";
+		echo "Nota de cr&eacute;dito creada - Poliza: $nro_poliza";
 
 	}
 	
@@ -1699,8 +1699,8 @@ public function bajaLiberacionPolizaAction(){
 		//1. Traigo el POST
 		$params = $this->_request->getParams();
 		$poliza = $this->_poliza;
-//echo "<pre>";
-//print_r($params);
+		//echo "<pre>";
+		//print_r($params);
 		//3.Traigo la poliza
 		$d_poliza = new Domain_Poliza($params['poliza_id']);
 		$poliza = $d_poliza->getModelPoliza();
@@ -1751,6 +1751,16 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->estado_cubiertas_automotor = Domain_Helper::getHelperNameById('estado_vehiculo_automotores',$poliza_detalle->estado_cubiertas_id);
 		$this->view->tipo_combustion_automotor = Domain_Helper::getHelperNameById('tipo_combustion_automotores',$poliza_detalle->tipo_combustion_id);
 		$this->view->sistema_seguridad_automotor = Domain_Helper::getHelperNameById('sistema_seguridad_automotores',$poliza_detalle->sistema_seguridad_id);
+
+			//Si se renovo que lo muestre
+		if(!empty($poliza->poliza_poliza_id)){
+			$this->view->renovada = true;
+			$poliza_poliza = new Domain_Poliza($poliza->poliza_poliza_id);
+
+			$this->view->poliza_renovada_numero_poliza = $poliza_poliza->getModelPoliza()->numero_poliza;
+		}
+
+
 
 		if($params['save']){
 			/*
