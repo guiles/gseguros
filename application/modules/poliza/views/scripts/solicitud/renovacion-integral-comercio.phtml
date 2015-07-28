@@ -136,11 +136,11 @@
 						<td>Fecha de pedido:</td>
 						<td><?if($this->isAgente):?> <input readonly type="text"
 							id="fecha_pedido_agente" name="fecha_pedido"
-							value="<?=$this->solicitud->fecha_vigencia_hasta?>" />
+							value="<?=Domain_Util::today()?>" />
 						</td>
 						<?else:?>
 						<input type="text" id="fecha_pedido" name="fecha_pedido"
-							value="<?=$this->solicitud->fecha_vigencia_hasta?>" />
+							value="<?=Domain_Util::today()?>" />
 						</td>
 						<?endif;?>
 					</tr>
@@ -155,7 +155,7 @@
 					<tr>
 						<td>Fecha Vigencia:</td>
 						<td><input type="text" id="fecha_vigencia" name="fecha_vigencia"
-							value="<?=$this->solicitud->fecha_vigencia_hasta?>" />
+							value="<?=Domain_Util::today()?>" />
 						</td>
 					</tr>
 

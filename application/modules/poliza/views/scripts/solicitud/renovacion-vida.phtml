@@ -132,14 +132,14 @@ echo $this->headScript()->appendFile('./js/gseguros.poliza.solicitud.renovacion-
 				<table>
 					<tr>
 						<td>Fecha de pedido:</td>
-						<td><?if($this->isAgente):?> <input readonly type="text"
+						<?if($this->isAgente):?><td> <input readonly type="text"
 							id="fecha_pedido_agente_vida"
-							name="fecha_pedido" value="<?=$this->solicitud->fecha_vigencia_hasta?>" />
+							name="fecha_pedido" value="<?=Domain_Util::today()?>" />
 						</td>
 						<?else:?>
 						<td>
 						<input type="text" id="fecha_pedido_vida"
-							name="fecha_pedido" value="<?=$this->solicitud->fecha_vigencia_hasta?>" />
+							name="fecha_pedido" value="<?=Domain_Util::today()?>" />
 						</td>
 						<?endif;?>
 					</tr>
@@ -155,7 +155,7 @@ echo $this->headScript()->appendFile('./js/gseguros.poliza.solicitud.renovacion-
 						<td>Fecha Vigencia:</td>
 						<td><input type="text" id="fecha_vigencia_vida"
 							name="fecha_vigencia"
-							value="<?=$this->solicitud->fecha_vigencia_hasta?>" />
+							value="<?=Domain_Util::today()?>" />
 						</td>
 					</tr>
 
