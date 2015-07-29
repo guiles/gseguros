@@ -1590,7 +1590,7 @@ public function endosoPolizaJudicialesAction()
 		$m_poliza->estado_id = $estado_baja_oficio;
 		$m_poliza->fecha_baja = $params['fecha_baja'];
 		$m_poliza->save();
-		$this->view->baja=true;
+		$this->view->baja = true;
 		echo "Poliza $nro_poliza modificada con exito ;)";
 		}
 	}
@@ -3171,7 +3171,7 @@ public function enviarSolicitudEndosoCompaniaConstruccionAction(){
 			
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
 			$d_poliza = $this->_services_poliza->saveEditPolizaAduaneros($d_poliza,$params);
-			$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
+			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 			
 
 			$this->view->poliza = $d_poliza->getModelPoliza();
@@ -3273,7 +3273,7 @@ public function enviarSolicitudEndosoCompaniaConstruccionAction(){
 			
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
 			$d_poliza = $this->_services_poliza->saveEditPolizaAccidentesPersonales($d_poliza,$params);
-			$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
+			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 			
 
 			$this->view->poliza = $d_poliza->getModelPoliza();
@@ -3367,7 +3367,7 @@ public function editPolizaIgjAction()
 
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
 			$d_poliza = $this->_services_poliza->saveEditPolizaIgj($d_poliza,$params);
-			$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
+			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 			
 
 			$this->view->poliza = $d_poliza->getModelPoliza();
@@ -3460,7 +3460,7 @@ public function editPolizaIgjAction()
 
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
 			$d_poliza = $this->_services_poliza->saveEditPolizaIgj($d_poliza,$params);
-			$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
+			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 			
 
 			$this->view->poliza = $d_poliza->getModelPoliza();
@@ -3554,7 +3554,7 @@ public function editPolizaVidaAction()
 
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
 			$d_poliza = $this->_services_poliza->saveEditPolizaVida($d_poliza,$params);
-			$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
+			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 			
 
 			$this->view->poliza = $d_poliza->getModelPoliza();
@@ -3648,7 +3648,7 @@ public function editPolizaTransporteMercaderiaAction()
 
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
 			$d_poliza = $this->_services_poliza->saveEditPolizaTransporteMercaderia($d_poliza,$params);
-			$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
+			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 			
 
 			$this->view->poliza = $d_poliza->getModelPoliza();
@@ -3741,7 +3741,7 @@ public function editPolizaIntegralComercioAction()
 
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
 			$d_poliza = $this->_services_poliza->saveEditPolizaIntegralComercio($d_poliza,$params);
-			$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
+			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 			
 
 			$this->view->poliza = $d_poliza->getModelPoliza();
@@ -3844,7 +3844,7 @@ public function editPolizaIntegralComercioAction()
 			
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
 			$d_poliza = $this->_services_poliza->saveEditPolizaAlquiler($d_poliza,$params);
-			$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
+			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 			
 
 			$this->view->poliza = $d_poliza->getModelPoliza();
@@ -3957,7 +3957,7 @@ public function editPolizaIntegralComercioAction()
 			
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
 			$d_poliza = $this->_services_poliza->saveEditPolizaConstruccion($d_poliza,$params);
-			$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
+			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 			
 
 			$this->view->poliza = $d_poliza->getModelPoliza();
@@ -4072,10 +4072,9 @@ public function editPolizaIntegralComercioAction()
 			 * @param: Domain_Poliza,$params(datos del POST)
 			 */
 
-echo"<pre>";
-print_r();
+
 			$d_poliza = $this->_services_poliza->saveEditPolizaResponsabilidadCivil($d_poliza,$params);
-			$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
+			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 
 
 			//Datos del seguro - detalle - valores
