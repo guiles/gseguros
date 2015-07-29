@@ -1539,6 +1539,16 @@ public function endosoPolizaJudicialesAction()
 				//$poliza = $this->_services_poliza->refacturarPolizaAlquiler($poliza);
 				echo "En contruccion...";	
 				break;
+			case 'CONSTRUCCION':
+				
+				$poliza = $this->_services_poliza->notaCreditoPolizaConstruccion($poliza);
+				
+				break;
+			case 'JUDICIALES':
+				
+				$poliza = $this->_services_poliza->notaCreditoPolizaJudiciales($poliza);
+				
+				break;	
 
 			default:
 				;
