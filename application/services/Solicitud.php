@@ -108,6 +108,7 @@ class Services_Solicitud
 			//Guarda el ID de las tablas asociadas
 			$m_solicitud->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
 			$m_solicitud->poliza_detalle_id = $m_poliza_detalle->detalle_automotor_id;
+			$m_solicitud->poliza_poliza_id = $params['poliza_renovada_id'];
 			$m_solicitud->save();
 
 

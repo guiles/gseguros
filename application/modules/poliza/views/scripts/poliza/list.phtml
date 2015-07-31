@@ -512,6 +512,12 @@ case 'JUDICIALES':?>
 				</input>
 			</td>
 			<?endif;?>
+			<?if($estado_codigo=='BAJA_POR_DEVOLUCION'):?>
+			<td><input type='button' value='NOTA CREDITO'
+				onClick="return notaCreditoPoliza('./poliza/poliza/nota-credito-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
+				</input>
+			</td>
+			<?endif?>
 <?endif;
 break;
 

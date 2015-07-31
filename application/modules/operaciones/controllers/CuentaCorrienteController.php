@@ -455,12 +455,14 @@ public function detalleMovimientoAction(){
 		$this->view->datos_cheques = Domain_Movimiento::getDatosCheques($params['movimiento_id']);
 
 		$array_detalle_poliza = $rows[0]['Model_MovimientoPoliza'];
+		
+		//echo "<pre>";
 		//print_r($array_detalle_poliza);
 		$polizas_result = array();
 	    //Trae el nombre del asegurado
 	    foreach ($array_detalle_poliza as $value) {
+	    	//print_r($value);
 
-	    	
 	    	$d = Domain_Movimiento::getPolizaByDetallePagoId($value['poliza_id']);
 	    	$polizas_result[]=$d;
     	
