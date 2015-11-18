@@ -2687,6 +2687,7 @@ public function endosarPolizaJudiciales($d_poliza,$params){
 
 		//Traigo la poliza que tengo que copiar
 		$model_poliza = $poliza_a_endosar->getModelPoliza();
+		$poliza_valores = $poliza_a_endosar->getModelPolizaValores();
 		$model_poliza->estado_id=$estado_endosada;
 		$model_poliza->save();
 		
@@ -3117,12 +3118,13 @@ public function endosarPolizaIntegralComercio($d_poliza,$params){
 public function saveDetallePagoEndoso($d_poliza,$params){
 
 		$m_poliza = $d_poliza->getModelPoliza();
-
 		//1. Borra los datos de pago
 		Domain_DetallePago::deleteDetallePago($m_poliza->poliza_id);
 
-		//echo "<pre>";
-		//print_r($params);
+		$n_poliza = new Domain_Poliza($params['poliza_id']);
+
+		$m_detalle_pago = $n_poliza->getModelDetallePago();
+
 		$fecha_vigencia = $m_poliza->fecha_vigencia;
 
 
@@ -3131,8 +3133,8 @@ public function saveDetallePagoEndoso($d_poliza,$params){
 			//echo "Guarda la forma de pago Efectivo";
 			//Guardo el tipo de pago
 			$detalle_pago = new Model_DetallePago();
-			$detalle_pago->forma_pago_id = $params['forma_pago_id'];
-			$detalle_pago->moneda_id = $params['moneda_id'];
+			$detalle_pago->forma_pago_id = $m_detalle_pago->forma_pago_id;
+			$detalle_pago->moneda_id = $m_detalle_pago->moneda_id;
 			$detalle_pago->save();
 			//Guardo en la poliza el id para asociarlo
 

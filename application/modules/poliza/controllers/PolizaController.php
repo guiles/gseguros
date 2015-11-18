@@ -2178,13 +2178,14 @@ public function bajaLiberacionPolizaAction(){
 		//2.Traigo los datos de las tablas asociadas
 		$this->view->moneda = Domain_Helper::getHelperNameById('moneda', $poliza_valores->moneda_id);
 		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $poliza->periodo_id);
-		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $poliza->forma_pago_id);
+		//$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $poliza->forma_pago_id);
 
 		//Motivo de garantia son diferentes
 		$this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
 		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($poliza_detalle->motivo_garantia_id,$tipo_poliza_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
-
+		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $d_poliza->getModelDetallePago()->forma_pago_id);
+		
 //Si se renovo que lo muestre
 		if(!empty($poliza->poliza_poliza_id)){
 			$this->view->renovada = true;
