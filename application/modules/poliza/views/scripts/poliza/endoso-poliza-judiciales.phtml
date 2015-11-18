@@ -152,7 +152,12 @@ Luego el resto ordenando en 2 columnas
 						<td>Motivo de Garantia:</td>
 						<td><?=$this->motivo_garantia?></td>
 					</tr>
-					
+					<tr>
+						<td>Beneficiario:</td>
+						<td><?=$this->beneficiario?></td>
+
+					</tr>
+
 					<tr>					
 						<td>Domicilio Riesgo:</td>
 						<td><?=$this->escape($this->poliza_detalle->domicilio_riesgo)?> 
@@ -160,8 +165,8 @@ Luego el resto ordenando en 2 columnas
 						<td>Localidad Riesgo:</td>
 						<td><?=$this->escape($this->poliza_detalle->localidad_riesgo)?>
 						</td>
-</tr>
-<tr>
+					</tr>
+					<tr>
 						<td>Provincia Riesgo:</td>
 						<td><?=$this->escape($this->poliza_detalle->provincia_riesgo)?>
 						</td>									
@@ -169,7 +174,10 @@ Luego el resto ordenando en 2 columnas
 						<td><?=$this->escape($this->poliza_detalle->descripcion_adicional)?>
 						</td>
 					</tr>
-					
+					<tr>
+						<td>Objeto:</td>
+						<td><?=$this->escape($this->poliza_detalle->objeto)?></td>
+					</tr>
 
 				</table>
 			</div>

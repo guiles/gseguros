@@ -1393,9 +1393,9 @@ public function endosoPolizaJudicialesAction()
 		$d_poliza = new Domain_Poliza($params['poliza_id']);
 		$m_poliza = $d_poliza->getModelPoliza();
 		//echo "<pre>";
-		//print_r($params);
+		//print_r($m_poliza->tipo_garantia);
 		//Datos de la poliza
-
+		//exit;
 		$this->view->asegurado= Domain_Asegurado::getNameById($m_poliza->asegurado_id);
 		$this->view->compania= Domain_Compania::getNameById($m_poliza->compania_id);
 		$this->view->productor= Domain_Productor::getNameById($m_poliza->productor_id);
@@ -1422,6 +1422,11 @@ public function endosoPolizaJudicialesAction()
 		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $m_poliza->periodo_id);
 		$this->view->cuotas = Domain_Helper::getHelperByDominio('cuota');
 
+		$poliza_detalle = $d_poliza->getModelDetalle();
+		//Motivo de garantia son diferentes
+		$this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
+		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($poliza_detalle->motivo_garantia_id,$tipo_poliza_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
 
 		if($params['save']){
 
@@ -2176,9 +2181,10 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $poliza->forma_pago_id);
 
 		//Motivo de garantia son diferentes
-		$this->view->tipo_garantia = $this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
+		$this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
 		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($poliza_detalle->motivo_garantia_id,$tipo_poliza_id);
-		//$this->view->despachante_aduana = Domain_DespachanteAduana::getNameById($poliza_detalle->despachante_aduana_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
 //Si se renovo que lo muestre
 		if(!empty($poliza->poliza_poliza_id)){
 			$this->view->renovada = true;

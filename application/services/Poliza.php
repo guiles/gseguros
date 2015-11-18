@@ -2684,19 +2684,23 @@ public function endosarPolizaJudiciales($d_poliza,$params){
 
 		//1. Traigo la poliza actual		
 		$poliza_a_endosar = new Domain_Poliza($params['poliza_id']);  
-   	//	echo "<pre>"	;
-	//	print_r($params);
 
 		//Traigo la poliza que tengo que copiar
 		$model_poliza = $poliza_a_endosar->getModelPoliza();
 		$model_poliza->estado_id=$estado_endosada;
 		$model_poliza->save();
 		
-		//1.1 Traigo detalle poliza a endosar
-		$m_poliza_detalle = $d_poliza->getModelDetalle();
-	
+		
 		//2. Creo nueva poliza
 		$poliza_endosada = new Domain_Poliza(); 
+
+		//1.1 Traigo detalle poliza a endosar
+		$m_poliza_detalle = $poliza_endosada->getModelDetalle();
+		//echo "<pre>";
+		//print_r($poliza_endosada);
+
+		//1.1 Traigo detalle poliza a endosar
+		$poliza_detalle = $d_poliza->getModelDetalle();
 
 		//Tipo Alquiler
 		$tipo_poliza = Domain_TipoPoliza::getIdByName('JUDICIALES');
@@ -2705,24 +2709,27 @@ public function endosarPolizaJudiciales($d_poliza,$params){
 		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
 		
 		$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Endoso');
-
+		//echo "<pre>";
 		try {
 			//3. Guardo detalle poliza						
-			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
-			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
-			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
-			$m_poliza_detalle->domicilio_riesgo=$params['domicilio_riesgo'];
-			$m_poliza_detalle->localidad_riesgo=$params['localidad_riesgo'];
-			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
-			$m_poliza_detalle->numero_licitacion=$params['numero_licitacion'];
-			$m_poliza_detalle->obra=$params['obra'];
-			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
-			$m_poliza_detalle->expediente=$params['expediente'];
-			$m_poliza_detalle->objeto=$params['objeto'];
-			$m_poliza_detalle->apertura_licitacion=$params['apertura_licitacion'];
-			$m_poliza_detalle->clausula_especial=$params['clausula_especial'];
-			$m_poliza_detalle->certificaciones=$params['certificaciones'];
+			$m_poliza_detalle = $poliza_endosada->getModelDetallePoliza($tipo_poliza);
+			$m_poliza_detalle->motivo_garantia_id= $poliza_detalle->motivo_garantia_id;
+			$m_poliza_detalle->tipo_garantia_id= $poliza_detalle->tipo_garantia_id;
+			$m_poliza_detalle->motivo_garantia_id=$poliza_detalle->motivo_garantia_id;
+			$m_poliza_detalle->beneficiario_id=$poliza_detalle->beneficiario_id;
+			$m_poliza_detalle->domicilio_riesgo=$poliza_detalle->domicilio_riesgo;
+			$m_poliza_detalle->localidad_riesgo=$poliza_detalle->localidad_riesgo;
+			$m_poliza_detalle->provincia_riesgo=$poliza_detalle->provincia_riesgo;
+			$m_poliza_detalle->numero_licitacion=$poliza_detalle->numero_licitacion;
+			$m_poliza_detalle->obra=$poliza_detalle->obra;
+			$m_poliza_detalle->descripcion_adicional=$poliza_detalle->descripcion_adicional;
+			$m_poliza_detalle->expediente=$poliza_detalle->expediente;
+			$m_poliza_detalle->objeto=$poliza_detalle->objeto;
+			$m_poliza_detalle->apertura_licitacion=$poliza_detalle->apertura_licitacion;
+			$m_poliza_detalle->clausula_especial=$poliza_detalle->clausula_especial;
+			$m_poliza_detalle->certificaciones=$poliza_detalle->certificaciones;
 			$m_poliza_detalle->save();
+			
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
