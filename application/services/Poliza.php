@@ -2145,8 +2145,7 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 
 		//1. Traigo la poliza actual		
 		$poliza_a_endosar = new Domain_Poliza($params['poliza_id']);  
-		
-		
+
 		//Traigo la poliza que tengo que copiar
 		$model_poliza = $poliza_a_endosar->getModelPoliza();
 		$model_poliza->estado_id=$estado_endosada;
@@ -2154,7 +2153,9 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 		
 		//1.1 Traigo detalle poliza a endosar
 		$poliza_detalle = $d_poliza->getModelDetalle();
-		
+		//echo "<pre>";
+		//print_r($poliza_detalle);
+		//exit;
 		//2. Creo nueva poliza
 		$poliza_endosada = new Domain_Poliza(); 
 
@@ -2175,6 +2176,7 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
 			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
 			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			$m_poliza_detalle->despachante_aduana_id=$params['despachante_aduana_id'];
 			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
 			
 			
@@ -2187,9 +2189,10 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 		 * 2- Poliza Valores
 		 */
 		try{
+
 			$m_poliza_valores = $poliza_endosada->getModelPolizaValores();
 			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
-			$m_poliza_valores->moneda_id=$poliza_valores->moneda_id;
+			$m_poliza_valores->moneda_id=$params['moneda_id'];
 			$m_poliza_valores->iva=$params['iva'];
 			$m_poliza_valores->prima_comision=$params['prima_comision'];
 			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
@@ -2202,8 +2205,8 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 		}
 
 		try {
-
-            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+			//$model_poliza->fecha_vigencia
+            $fecha_vigencia_desde = $this->calcularPeriodo($params['fecha_vigencia'], $model_poliza->periodo_id);
 			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
 			
 			$m_poliza = $poliza_endosada->getModelPoliza();
@@ -2214,8 +2217,8 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 			$m_poliza->productor_id=$model_poliza->productor_id;
 			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
 			$m_poliza->fecha_pedido=$params['fecha_pedido']; //fecha de pedido se modifica
-			$m_poliza->periodo_id=$model_poliza->periodo_id; // El resto de las fechas no se modifica
-			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->periodo_id= $params['periodo_id'];//$model_poliza->periodo_id; // El resto de las fechas no se modifica
+			$m_poliza->fecha_vigencia= $params['fecha_vigencia'];//$fecha_vigencia_desde;
 			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
 			$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
 			$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
@@ -2684,24 +2687,19 @@ public function endosarPolizaJudiciales($d_poliza,$params){
 
 		//1. Traigo la poliza actual		
 		$poliza_a_endosar = new Domain_Poliza($params['poliza_id']);  
+   	//	echo "<pre>"	;
+	//	print_r($params);
 
 		//Traigo la poliza que tengo que copiar
 		$model_poliza = $poliza_a_endosar->getModelPoliza();
-		$poliza_valores = $poliza_a_endosar->getModelPolizaValores();
 		$model_poliza->estado_id=$estado_endosada;
 		$model_poliza->save();
 		
-		
+		//1.1 Traigo detalle poliza a endosar
+		$m_poliza_detalle = $d_poliza->getModelDetalle();
+	
 		//2. Creo nueva poliza
 		$poliza_endosada = new Domain_Poliza(); 
-
-		//1.1 Traigo detalle poliza a endosar
-		$m_poliza_detalle = $poliza_endosada->getModelDetalle();
-		//echo "<pre>";
-		//print_r($poliza_endosada);
-
-		//1.1 Traigo detalle poliza a endosar
-		$poliza_detalle = $d_poliza->getModelDetalle();
 
 		//Tipo Alquiler
 		$tipo_poliza = Domain_TipoPoliza::getIdByName('JUDICIALES');
@@ -2710,27 +2708,24 @@ public function endosarPolizaJudiciales($d_poliza,$params){
 		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
 		
 		$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Endoso');
-		//echo "<pre>";
+
 		try {
 			//3. Guardo detalle poliza						
-			$m_poliza_detalle = $poliza_endosada->getModelDetallePoliza($tipo_poliza);
-			$m_poliza_detalle->motivo_garantia_id= $poliza_detalle->motivo_garantia_id;
-			$m_poliza_detalle->tipo_garantia_id= $poliza_detalle->tipo_garantia_id;
-			$m_poliza_detalle->motivo_garantia_id=$poliza_detalle->motivo_garantia_id;
-			$m_poliza_detalle->beneficiario_id=$poliza_detalle->beneficiario_id;
-			$m_poliza_detalle->domicilio_riesgo=$poliza_detalle->domicilio_riesgo;
-			$m_poliza_detalle->localidad_riesgo=$poliza_detalle->localidad_riesgo;
-			$m_poliza_detalle->provincia_riesgo=$poliza_detalle->provincia_riesgo;
-			$m_poliza_detalle->numero_licitacion=$poliza_detalle->numero_licitacion;
-			$m_poliza_detalle->obra=$poliza_detalle->obra;
-			$m_poliza_detalle->descripcion_adicional=$poliza_detalle->descripcion_adicional;
-			$m_poliza_detalle->expediente=$poliza_detalle->expediente;
-			$m_poliza_detalle->objeto=$poliza_detalle->objeto;
-			$m_poliza_detalle->apertura_licitacion=$poliza_detalle->apertura_licitacion;
-			$m_poliza_detalle->clausula_especial=$poliza_detalle->clausula_especial;
-			$m_poliza_detalle->certificaciones=$poliza_detalle->certificaciones;
+			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
+			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
+			$m_poliza_detalle->domicilio_riesgo=$params['domicilio_riesgo'];
+			$m_poliza_detalle->localidad_riesgo=$params['localidad_riesgo'];
+			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
+			$m_poliza_detalle->numero_licitacion=$params['numero_licitacion'];
+			$m_poliza_detalle->obra=$params['obra'];
+			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
+			$m_poliza_detalle->expediente=$params['expediente'];
+			$m_poliza_detalle->objeto=$params['objeto'];
+			$m_poliza_detalle->apertura_licitacion=$params['apertura_licitacion'];
+			$m_poliza_detalle->clausula_especial=$params['clausula_especial'];
+			$m_poliza_detalle->certificaciones=$params['certificaciones'];
 			$m_poliza_detalle->save();
-			
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
@@ -3118,13 +3113,12 @@ public function endosarPolizaIntegralComercio($d_poliza,$params){
 public function saveDetallePagoEndoso($d_poliza,$params){
 
 		$m_poliza = $d_poliza->getModelPoliza();
+
 		//1. Borra los datos de pago
 		Domain_DetallePago::deleteDetallePago($m_poliza->poliza_id);
 
-		$n_poliza = new Domain_Poliza($params['poliza_id']);
-
-		$m_detalle_pago = $n_poliza->getModelDetallePago();
-
+		//echo "<pre>";
+		//print_r($params);
 		$fecha_vigencia = $m_poliza->fecha_vigencia;
 
 
@@ -3133,8 +3127,8 @@ public function saveDetallePagoEndoso($d_poliza,$params){
 			//echo "Guarda la forma de pago Efectivo";
 			//Guardo el tipo de pago
 			$detalle_pago = new Model_DetallePago();
-			$detalle_pago->forma_pago_id = $m_detalle_pago->forma_pago_id;
-			$detalle_pago->moneda_id = $m_detalle_pago->moneda_id;
+			$detalle_pago->forma_pago_id = $params['forma_pago_id'];
+			$detalle_pago->moneda_id = $params['moneda_id'];
 			$detalle_pago->save();
 			//Guardo en la poliza el id para asociarlo
 

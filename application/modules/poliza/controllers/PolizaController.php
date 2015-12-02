@@ -871,6 +871,12 @@ public function endosoPolizaAduanerosAction()
 		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $m_poliza->periodo_id);
 		$this->view->cuotas = Domain_Helper::getHelperByDominio('cuota');
 
+		$this->view->moneda = Domain_Helper::getHelperNameById('moneda', $d_poliza->getModelPolizaValores()->moneda_id);
+		$despachante_aduana = new Domain_DespachanteAduana();
+		$this->view->despachante_aduanas= $despachante_aduana->getModel()->getTable()->findAll()->toArray();
+		$beneficiario = new Domain_Beneficiario();
+		$this->view->beneficiarios= $beneficiario->getModel()->getTable()->findAll()->toArray();
+
 
 		if($params['save']){
 
@@ -1393,9 +1399,9 @@ public function endosoPolizaJudicialesAction()
 		$d_poliza = new Domain_Poliza($params['poliza_id']);
 		$m_poliza = $d_poliza->getModelPoliza();
 		//echo "<pre>";
-		//print_r($m_poliza->tipo_garantia);
+		//print_r($params);
 		//Datos de la poliza
-		//exit;
+
 		$this->view->asegurado= Domain_Asegurado::getNameById($m_poliza->asegurado_id);
 		$this->view->compania= Domain_Compania::getNameById($m_poliza->compania_id);
 		$this->view->productor= Domain_Productor::getNameById($m_poliza->productor_id);
@@ -1422,11 +1428,6 @@ public function endosoPolizaJudicialesAction()
 		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $m_poliza->periodo_id);
 		$this->view->cuotas = Domain_Helper::getHelperByDominio('cuota');
 
-		$poliza_detalle = $d_poliza->getModelDetalle();
-		//Motivo de garantia son diferentes
-		$this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
-		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($poliza_detalle->motivo_garantia_id,$tipo_poliza_id);
-		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
 
 		if($params['save']){
 
@@ -2178,14 +2179,12 @@ public function bajaLiberacionPolizaAction(){
 		//2.Traigo los datos de las tablas asociadas
 		$this->view->moneda = Domain_Helper::getHelperNameById('moneda', $poliza_valores->moneda_id);
 		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $poliza->periodo_id);
-		//$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $poliza->forma_pago_id);
+		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $poliza->forma_pago_id);
 
 		//Motivo de garantia son diferentes
-		$this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
+		$this->view->tipo_garantia = $this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
 		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($poliza_detalle->motivo_garantia_id,$tipo_poliza_id);
-		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
-		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $d_poliza->getModelDetallePago()->forma_pago_id);
-		
+		//$this->view->despachante_aduana = Domain_DespachanteAduana::getNameById($poliza_detalle->despachante_aduana_id);
 //Si se renovo que lo muestre
 		if(!empty($poliza->poliza_poliza_id)){
 			$this->view->renovada = true;
