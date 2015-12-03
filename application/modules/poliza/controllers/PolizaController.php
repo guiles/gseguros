@@ -876,8 +876,8 @@ public function endosoPolizaAduanerosAction()
 		$this->view->despachante_aduanas= $despachante_aduana->getModel()->getTable()->findAll()->toArray();
 		$beneficiario = new Domain_Beneficiario();
 		$this->view->beneficiarios= $beneficiario->getModel()->getTable()->findAll()->toArray();
-
-
+		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $d_poliza->getModelDetallePago()->forma_pago_id);
+		$this->view->forma_pago_id = $d_poliza->getModelDetallePago()->forma_pago_id;
 		if($params['save']){
 
 		//1. Traigo el POST
@@ -1851,7 +1851,8 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
 		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($poliza_detalle->motivo_garantia_id, $tipo_poliza_id);
 		$this->view->despachante_aduana = Domain_DespachanteAduana::getNameById($poliza_detalle->despachante_aduana_id);
-
+		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $d_poliza->getModelDetallePago()->forma_pago_id);
+		$this->view->forma_pago_id = $d_poliza->getModelDetallePago()->forma_pago_id;
 
 		//Si se renovo que lo muestre
 		if(!empty($poliza->poliza_poliza_id)){
