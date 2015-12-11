@@ -194,12 +194,11 @@
 			<h3 id="valores_seguro_construccion_show">Valores del seguro</h3>
 			<div id="valores_seguro_construccion">
 				<table>
-					<tr>
-						<td>Forma de Pago:</td>
-					</tr>
+
 					<tr id="forma_pago">
-						<td>Pago:</td>
-						<td><?=$this->forma_pago?>
+						<td>Forma de Pago:</td>
+						<td><input type="hidden" value="<?=$this->forma_pago_id?>" name="forma_pago_id">
+							<?=$this->forma_pago?> 
 						</td>
 					</tr>
 					<tr id="view_cuotas_construccion">

@@ -998,6 +998,11 @@ public function endosoPolizaConstruccionAction()
 		$this->view->productor= Domain_Productor::getNameById($m_poliza->productor_id);
 		$this->view->agente= Domain_Agente::getNameById($m_poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($m_poliza->cobrador_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($m_poliza->cobrador_id);
+		
+		$beneficiario = new Domain_Beneficiario();
+		$this->view->beneficiarios= $beneficiario->getModel()->getTable()->findAll()->toArray();
+
 
 		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$m_poliza->tipo_endoso_id);
 		/*Chequeo por las dudas pero siempre va a venir con solicitud/poliza ID
@@ -1018,6 +1023,10 @@ public function endosoPolizaConstruccionAction()
 		$this->view->documentacion = Domain_Helper::getHelperByDominio('documentacion');
 		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $m_poliza->periodo_id);
 		$this->view->cuotas = Domain_Helper::getHelperByDominio('cuota');
+
+		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $d_poliza->getModelDetallePago()->forma_pago_id);
+		$this->view->forma_pago_id = $d_poliza->getModelDetallePago()->forma_pago_id;
+		$this->view->moneda = Domain_Helper::getHelperNameById('moneda', $d_poliza->getModelPolizaValores()->moneda_id);
 
 
 		if($params['save']){
@@ -1062,7 +1071,7 @@ public function endosoPolizaConstruccionAction()
 		$this->view->tipo_garantias = Domain_TipoGarantia::getTipoGarantiaByTipoPoliza($tipo_poliza_id);
 		
 		$this->view->motivo_garantias = Domain_MotivoGarantia::getMotivoGarantiasByTipoPoliza($tipo_poliza_id);
-
+		
 		
 		//echo "<pre>";
 		//print_r($params);
@@ -1939,13 +1948,12 @@ public function bajaLiberacionPolizaAction(){
 		//2.Traigo los datos de las tablas asociadas
 		$this->view->moneda = Domain_Helper::getHelperNameById('moneda', $poliza_valores->moneda_id);
 		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $poliza->periodo_id);
-		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $poliza->forma_pago_id);
+		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $d_poliza->getModelDetallePago()->forma_pago_id);
 
 		//Motivo de garantia son diferentes
 		$this->view->tipo_garantia = $this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
 		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($poliza_detalle->motivo_garantia_id,$tipo_poliza_id);
 		//$this->view->despachante_aduana = Domain_DespachanteAduana::getNameById($poliza_detalle->despachante_aduana_id);
-
 
 		if($params['save']){
 			/*
