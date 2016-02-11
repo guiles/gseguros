@@ -61,6 +61,7 @@ fecha / Vigencia /Nº de solicitud / Nº de poliza /
 		<th>Plus</th>
 		<?endif;?>
 		<th>Cuota</th>
+		<th>Moneda</th>
 		<th>Importe Cuota</th>
 		<th>Estado</th>
 		<th>Fecha Baja</th>
@@ -91,6 +92,22 @@ fecha / Vigencia /Nº de solicitud / Nº de poliza /
 	
 	<?foreach ($rows as $row):
 	$vigencia = $poliza['fecha_vigencia']." a ".$poliza['fecha_vigencia_hasta'];
+
+	switch ($m_detalle_pago->moneda_id) {
+		case '1':
+			$total_pesos = $total_pesos + $row['importe'];
+			break;
+		case '2':
+			$total_dolar = $total_dolar + $row['importe'];
+			break;
+		case '3':
+			$total_euro = $total_euro + $row['importe'];
+			break;
+		default:
+			
+			break;
+	}
+
 	?>	
 		<tr>
 			<td><?=$poliza['fecha_pedido']?></td>
@@ -105,6 +122,7 @@ fecha / Vigencia /Nº de solicitud / Nº de poliza /
 			<td><?=$m_poliza_valores->plus?></td>
 			<?endif;?>
 			<td><?=$row['cuota_id']?></td>
+			<td><?=Domain_Helper::getHelperNameById('moneda', $m_detalle_pago->moneda_id);?></td>
 			<td><?=$row['importe']?></td>
 			<td><?=$estado_poliza?></td>
 			<td><?=$poliza['fecha_baja']?></td>
@@ -112,6 +130,60 @@ fecha / Vigencia /Nº de solicitud / Nº de poliza /
 		</tr>
 	<?endforeach;?>
 		<?endforeach;?>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b>Total ARS</b></td>
+			<td><?=$total_pesos?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b>Total DOL</b></td>
+			<td><?=$total_dolar?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b>Total EURO</b></td>
+			<td><?=$total_euro?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
 	</tbody>
 </table>
 		<?//endif;?>
