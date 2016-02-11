@@ -160,11 +160,10 @@ Imprimir Informe</A>
 		<th>Nro Factura</th>
 	</thead>
 	<tbody class="ui-widget-content">
-	<?
-	//echo"<pre>";
-	//print_r($this->listado_deuda_cliente);
-	//exit;
 	
+	
+	<? $total_pesos=0;$total_dolar=0;$total_euro=0;?>
+	<?
 	foreach ($this->listado_deuda_cliente as $poliza):
 	
 	//$asegurado_nombre = Domain_Asegurado::getNameById($poliza['asegurado_id']);
@@ -186,7 +185,22 @@ Imprimir Informe</A>
 	
 	<?foreach ($rows as $row):
 	$vigencia = $poliza['fecha_vigencia']." a ".$poliza['fecha_vigencia_hasta'];
+	switch ($m_detalle_pago->moneda_id) {
+		case '1':
+			$total_pesos = $total_pesos + $row['importe'];
+			break;
+		case '2':
+			$total_dolar = $total_dolar + $row['importe'];
+			break;
+		case '3':
+			$total_euro = $total_euro + $row['importe'];
+			break;
+		default:
+			
+			break;
+	}
 	?>	
+	<? ?>
 		<tr>
 			<td><?=$poliza['fecha_pedido']?></td>
 			<td><?=$vigencia?></td>
@@ -208,8 +222,63 @@ Imprimir Informe</A>
 		</tr>
 	<?endforeach;?>
 		<?endforeach;?>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b>Total ARS</b></td>
+			<td><?=$total_pesos?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b>Total DOL</b></td>
+			<td><?=$total_dolar?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b>Total EURO</b></td>
+			<td><?=$total_euro?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
 	</tbody>
 </table>
+
 		<?//endif;?>
 
 <!--   //$this->paginationControl($this->rows, 'Sliding', 'paginator.phtml',array('criterio'=>$this->criterio)); -->
