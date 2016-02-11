@@ -153,6 +153,7 @@ Imprimir Informe</A>
 		<th>Plus</th>
 		<?endif;?>
 		<th>Cuota</th>
+		<th>Moneda</th>
 		<th>Importe Cuota</th>
 		<th>Estado</th>
 		<th>Fecha Baja</th>
@@ -199,6 +200,7 @@ Imprimir Informe</A>
 			<td><?=$m_poliza_valores->plus?></td>
 			<?endif;?>
 			<td><?=$row['cuota_id']?></td>
+			<td><?=Domain_Helper::getHelperNameById('moneda', $m_detalle_pago->moneda_id);?></td>
 			<td><?=$row['importe']?></td>
 			<td><?=$estado_poliza?></td>
 			<td><?=$poliza['fecha_baja']?></td>
