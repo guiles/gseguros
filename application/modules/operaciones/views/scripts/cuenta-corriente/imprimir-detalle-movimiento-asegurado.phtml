@@ -139,7 +139,8 @@ $moneda = Domain_Helper::getHelperNameById('moneda', $this->m_movimiento->moneda
 		<?endforeach; ?>
 	</tbody>
 </table>
-<input type="button" value="Atras" onClick="return listarCuentaCorriente('./operaciones/cuenta-corriente/cc-asegurado/asegurado_id/<?=$this->asegurado_id ?>')"/>
+
+<input type="button" value="Atras" onClick="return listarCuentaCorriente('./operaciones/cuenta-corriente/cc-asegurado/asegurado_id/<?=$this->asegurado_id ?>/numero_poliza/<?=$this->numero_poliza_busqueda ?>')"/>
  <A HREF="javascript:void(0)"
 onclick="window.open('./operaciones/cuenta-corriente/impresion-detalle-movimiento-asegurado/movimiento_id/<?=$this->m_movimiento->movimiento_id?>')">
 Imprimir Detalle</A>

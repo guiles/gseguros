@@ -133,6 +133,9 @@ class Operaciones_CuentaCorrienteController extends Operaciones_IndexController
 			if($params['numero_poliza']!=''){
 				//echo "<pre>";
 				//print_r($params);
+				
+				$this->view->busqueda_numero_poliza = $params['numero_poliza'];
+
 				$rows = Domain_Asegurado::getMovimientosByAseguradoIdAndPoliza($params['asegurado_id'],$params['numero_poliza']);
 
 
@@ -469,6 +472,8 @@ public function detalleMovimientoAction(){
 	    }
 	    $this->view->rows = $polizas_result;
 	    $this->view->asegurado_id = $rows[0]['asegurado_id']; 
+	    $this->view->numero_poliza_busqueda = $params['numero_poliza_busqueda']; 
+	    
 	   // print_r($rows[0]['asegurado_id']);
 	   // print_r($this->view->rows);
 	}

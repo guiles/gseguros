@@ -73,8 +73,9 @@ $(document).ready(
             $('.imprimir_detalle_movimiento_asegurado_poliza').click(function(x){
                
                var movimiento_id = x.target.parentNode.parentNode.id;
-               //console.debug(x.target);
-
+               var buscar_poliza_anterior = $('#buscar_poliza_anterior').val();
+              // console.debug(buscar_poliza_anterior);
+              // return false;
                 var tabs_sel = $('#tabs').tabs();
                 var idx = tabs_sel.tabs('option', 'selected');
 
@@ -82,7 +83,7 @@ $(document).ready(
                 var tab = $('#tabs ul li a')[idx]; 
                 var href = $(tab).attr('href') ;
                  $.ajax({
-                     url : "./operaciones/cuenta-corriente/imprimir-detalle-movimiento-asegurado/movimiento_id/"+movimiento_id,
+                     url : "./operaciones/cuenta-corriente/imprimir-detalle-movimiento-asegurado/movimiento_id/"+movimiento_id+"/numero_poliza_busqueda/"+buscar_poliza_anterior,
                    //  data : compania_id,
                      success : function(result) {
                      $(href).html(result);
