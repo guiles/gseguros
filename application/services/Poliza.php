@@ -1957,6 +1957,111 @@ public function saveEditPolizaResponsabilidadCivil($poliza,$params){
 		return $refactura_poliza;
 	}
 
+/*
+Refacturar Poliza Judiciales
+*/
+
+
+
+
+	public function refacturarPolizaJudiciales($poliza){
+//AAA
+		$estado_refacturado = Domain_EstadoPoliza::getIdByCodigo('REFACTURADO');
+		//Traigo la poliza que tengo que copiar
+		$model_poliza = $poliza->getModelPoliza();
+		$model_poliza->estado_id=$estado_refacturado;
+		$model_poliza->save();
+		$poliza_valores = $poliza->getModelPolizaValores();
+		$poliza_detalle = $poliza->getModelDetalle();
+		$detalle_pago = $poliza->getModelDetallePago();
+
+		//Creo nueva poliza
+		$refactura_poliza = new Domain_Poliza(); 
+		
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('JUDICIALES');
+		$estado = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
+		$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Refacturacion');
+		try {
+			
+			$m_poliza_detalle = $refactura_poliza->getModelDetallePoliza($tipo_poliza);
+			
+			$m_poliza_detalle->tipo_garantia_id = $poliza_detalle->tipo_garantia_id;
+			$m_poliza_detalle->motivo_garantia_id = $poliza_detalle->motivo_garantia_id;
+			$m_poliza_detalle->beneficiario_id = $poliza_detalle->beneficiario_id;
+			$m_poliza_detalle->domicilio_riesgo= $poliza_detalle->domicilio_riesgo;
+			$m_poliza_detalle->localidad_riesgo= $poliza_detalle->localidad_riesgo;
+			$m_poliza_detalle->provincia_riesgo= $poliza_detalle->provincia_riesgo;
+			$m_poliza_detalle->numero_licitacion= $poliza_detalle->numero_licitacion;
+			$m_poliza_detalle->obra= $poliza_detalle->obra;
+			$m_poliza_detalle->descripcion_adicional= $poliza_detalle->descripcion_adicional;
+			$m_poliza_detalle->expediente= $poliza_detalle->expediente;
+			$m_poliza_detalle->objeto= $poliza_detalle->objeto;
+			$m_poliza_detalle->apertura_licitacion= $poliza_detalle->apertura_licitacion;
+			$m_poliza_detalle->clausula_especial= $poliza_detalle->clausula_especial;
+			$m_poliza_detalle->certificaciones= $poliza_detalle->certificaciones;
+			$m_poliza_detalle->save();
+
+				
+			$m_poliza_detalle->save();
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		/*
+		 * 2- Poliza Valores
+		 */
+		try{
+			$m_poliza_valores = $refactura_poliza->getModelPolizaValores();
+			$m_poliza_valores->monto_asegurado=$poliza_valores->monto_asegurado;
+			$m_poliza_valores->moneda_id=$poliza_valores->moneda_id;
+			$m_poliza_valores->iva=$poliza_valores->iva;
+			$m_poliza_valores->prima_comision=$poliza_valores->prima_comision;
+			$m_poliza_valores->prima_tarifa=$poliza_valores->prima_tarifa;
+			$m_poliza_valores->premio_compania=$poliza_valores->premio_compania;
+			$m_poliza_valores->premio_asegurado=$poliza_valores->premio_asegurado;
+			$m_poliza_valores->plus=$poliza_valores->plus;
+			$m_poliza_valores->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		try {
+
+            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+			
+			$m_poliza = $refactura_poliza->getModelPoliza();
+			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
+			$m_poliza->asegurado_id=$model_poliza->asegurado_id;
+			$m_poliza->agente_id=$model_poliza->agente_id;
+			$m_poliza->compania_id=$model_poliza->compania_id;
+			$m_poliza->productor_id=$model_poliza->productor_id;
+			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
+			$m_poliza->fecha_pedido=$model_poliza->fecha_vigencia_hasta;
+			$m_poliza->periodo_id=$model_poliza->periodo_id;
+			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
+			$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
+			$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
+			$m_poliza->tipo_poliza_id = $tipo_poliza;
+			$m_poliza->estado_id = $estado;
+			$m_poliza->operacion_id = $operacion_id;
+			$m_poliza->endoso = $model_poliza->endoso+1;
+			//Guarda el ID de las tablas asociadas
+			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_judiciales_id;
+			$m_poliza->save();
+			//Guardo Numero de Poliza
+			$m_poliza->numero_poliza = $model_poliza->numero_poliza ;
+			$m_poliza->save();
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+		$this->saveDetallePagoRefacturar($m_poliza, $detalle_pago);
+		
+		return $refactura_poliza;
+	}
 
 	public function saveViewPolizaIntegralComercio($poliza,$params){
 

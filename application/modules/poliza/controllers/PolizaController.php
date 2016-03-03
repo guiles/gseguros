@@ -352,11 +352,17 @@ class Poliza_PolizaController extends Poliza_IndexController
 				$poliza = $this->_services_poliza->refacturarPolizaAlquiler($poliza);
 					
 				break;
+			
 			case 'CONSTRUCCION':
 				$poliza = $this->_services_poliza->refacturarPolizaConstruccion($poliza);
 					
 				break;
-				
+			
+			case 'JUDICIALES':
+				$poliza = $this->_services_poliza->refacturarPolizaJudiciales($poliza);
+					
+				break;
+
 			default:
 				;
 				break;

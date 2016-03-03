@@ -499,14 +499,19 @@ case 'JUDICIALES':?>
 			
 			<?if($estado_codigo == 'VIGENTE'):?>
 			<?//Refacturar en este caso es renovar, @TODO: cambiar el nombre del metodo a uno mas generico?>
-			<td><input type='button' value='RENOVAR'
+			<!--td><input type='button' value='RENOVAR'
 				onClick="return renovarPoliza('./poliza/solicitud/renovacion-judiciales/poliza_id/<?=$poliza['poliza_id']?>','RENOVACION JUDICIALES','JUDICIALES')">
+				</input>
+			</td-->
+			<td><input type='button' value='REFACTURAR'
+				onClick="return refacturarPoliza('./poliza/poliza/refacturar-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
 				</input>
 			</td>
 			<td><input type='button' value='ENDOSO'
 				onClick="return endosoPoliza('./poliza/poliza/endoso-poliza-judiciales/poliza_id/<?=$poliza['poliza_id']?>','ENDOSO JUDICIALES','JUDICIALES')">
 				</input>
 			</td>
+			
 			<td><input type='button' value='BAJA'
 				onClick="return lbajaPoliza('./poliza/poliza/baja-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
 				</input>
