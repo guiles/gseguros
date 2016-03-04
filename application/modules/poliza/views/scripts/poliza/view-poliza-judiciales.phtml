@@ -157,12 +157,10 @@
 			<h3 id="valores_seguro_judiciales_show">Valores del seguro</h3>
 			<div id="valores_seguro_judiciales">
 				<table>
-					<tr>
-						<td>Forma de Pago:</td>
-					</tr>
 					<tr id="forma_pago">
-						<td>Pago:</td>
-						<td><?=$this->forma_pago?>
+						<td>Forma de Pago:</td>
+						<td><input type="hidden" value="<?=$this->forma_pago_id?>" name="forma_pago_id">
+							<?=$this->forma_pago?> 
 						</td>
 					</tr>
 					<tr id="view_cuotas_judiciales">
