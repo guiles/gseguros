@@ -168,8 +168,8 @@ class Poliza_PolizaController extends Poliza_IndexController
 		     $array_busqueda[]=$campos;
 		     }
 		}
-	//	echo "<pre>";
-		//	print_r($array_busqueda);
+		//echo "<pre>";
+		//print_r($array_busqueda);
 		
 		//$poliza = new Domain_Poliza();
 		
@@ -181,7 +181,7 @@ class Poliza_PolizaController extends Poliza_IndexController
 		//print_r($array_busqueda);
 		//exit;
 		
-		
+		$this->view->arrayBusqueda = json_encode($array_busqueda);
 		$rows = $this->_t_usuario->searchPoliza($array_busqueda,$fechas);
 //		echo "<prr>";
 //		print_r($rows);
@@ -201,6 +201,65 @@ class Poliza_PolizaController extends Poliza_IndexController
 	//	$paginator->setCurrentPageNumber($page);
 	//	
 	//	$this->view->rows = $paginator;
+	}
+
+	public function resSearchAction()
+	{
+		
+	/*
+	 * @Params: Asegurado,Compania,Estado,Tipo Poliza
+	 */
+		
+		$this->view->poliza_estados= Domain_EstadoPoliza::getEstados();
+		$this->view->poliza_tipos= Domain_TipoPoliza::getTipos();
+		$this->view->operacion = Domain_Helper::getHelperByDominio('operacion');
+		
+		$cliente = new Domain_Cliente();
+		$this->view->asegurados= $cliente->getAsegurados();
+		$compania = new Domain_Compania();
+		$this->view->companias= $compania->getModel()->getTable()->findAll()->toArray();
+		//$this->_helper->viewRenderer->setNoRender();
+
+
+		$params = $this->_request->getParams();
+		
+		$date = date("Y-m-d");
+		$fecha_desde = strtotime ( '-1 month' , strtotime ( $date ) ) ;
+		$fecha_desde = date ( 'Y-m-j' , $fecha_desde );
+
+		//Fechas de busqueda
+		$this->view->fecha_desde = $fecha_desde;	
+		
+		$this->view->fecha_hasta = date("Y-m-d");	
+		
+		if($params['busqueda']){
+		$this->view->busqueda = true;
+		//echo "<pre>";
+		//print_r($params);
+		$array_parametros = array_slice($params, 4); //No se como hacer que solo me traiga los parametros 
+		$this->view->searchParams = $array_parametros;
+		//print_r($array_parametros);
+		//exit;
+		$fechas = array('fecha_desde'=>$params['fecha_desde'],'fecha_hasta'=>$params['fecha_hasta']);
+		unset($array_parametros['fecha_desde']);
+		unset($array_parametros['fecha_hasta']);
+		//armo el array de busqueda
+		$array_busqueda = array();
+		foreach ($array_parametros as $key=>$value) {
+		     //echo $key."=".$value;
+		     if(!empty($value)){
+		     $campos=array("nombre"=>$key,"valor"=>$value);	
+		     $array_busqueda[]=$campos;
+		     }
+		}
+		
+		$this->view->arrayBusqueda = json_encode($array_busqueda);
+		$rows = $this->_t_usuario->searchPoliza($array_busqueda,$fechas);
+	
+		
+		}	
+		$this->view->rows = $rows;
+	
 	}
 
 	public function imprimirListadoPolizaDetalleAction()

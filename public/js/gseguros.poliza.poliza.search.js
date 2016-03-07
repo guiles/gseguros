@@ -44,17 +44,18 @@ $(document).ready(
 								//console.debug('dataaaa');
 								//console.debug(data);
 								$.ajax({
-											url : "./poliza/poliza/search",
+											url : "./poliza/poliza/res-search",
 											data : data,
 											success : function(result) {
-												$(href).html(result);
+												//$(href).html(result);
+												$("#g_res_search").html(result);
 											}
 										});
 
 							});
 			
 				$('#tab_search_poliza').click(function() {
-				
+					
 					// trae id de tab
 					var tabs_sel = $('#tabs').tabs();
 					var idx = tabs_sel.tabs('option',
@@ -64,16 +65,19 @@ $(document).ready(
 					var tab = $('#tabs ul li a')[idx];
 					// //console.debug($('#tabs ul li a'));
 					var href = $(tab).attr('href');
-	
+					//var searchParams = JSON.parse( $('#g_search_params').val() );
+					
+					//console.debug(searchParams);
+
 					$.ajax({
-								url : "./poliza/poliza/search",
-								success : function(result) {
+								url : "./poliza/poliza/search"
+								//,params: searchParams
+								,success : function(result) {
 									$(href).html(result);
 								}
 							});
 
 				});
-
 			
 				/*
 				 * 
