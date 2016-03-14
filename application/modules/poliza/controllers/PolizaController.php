@@ -2259,7 +2259,7 @@ public function bajaLiberacionPolizaAction(){
 		//Motivo de garantia son diferentes
 		$this->view->tipo_garantia = $this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($poliza_detalle->tipo_garantia_id, $tipo_poliza_id);
 		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($poliza_detalle->motivo_garantia_id,$tipo_poliza_id);
-		//$this->view->despachante_aduana = Domain_DespachanteAduana::getNameById($poliza_detalle->despachante_aduana_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
 		//Si se renovo que lo muestre
 		if(!empty($poliza->poliza_poliza_id)){
 			$this->view->renovada = true;
@@ -3550,7 +3550,7 @@ public function editPolizaIgjAction()
 			 */
 
 			//Hago un save distinto por ahora, para salir del paso, estoy cansado
-			$d_poliza = $this->_services_poliza->saveEditPolizaIgj($d_poliza,$params);
+			$d_poliza = $this->_services_poliza->saveEditPolizaJudiciales($d_poliza,$params);
 			//$d_poliza = $this->_services_poliza->saveDetallePago($d_poliza,$params);
 			
 

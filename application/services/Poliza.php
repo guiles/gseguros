@@ -1273,7 +1273,7 @@ public function saveEditPolizaIgj($poliza,$params){
 
 		public function saveEditPolizaJudiciales($poliza,$params){
 
-		$tipo_poliza = Domain_TipoPoliza::getIdByName('IGJ');
+		$tipo_poliza = Domain_TipoPoliza::getIdByName('JUDICIALES');
 		try {
 		
 			$m_poliza_detalle = $poliza->getModelDetallePoliza($tipo_poliza);
@@ -1340,7 +1340,7 @@ public function saveEditPolizaIgj($poliza,$params){
 			//$m_poliza->endoso = 0;
 			//Guarda el ID de las tablas asociadas
 			$m_poliza->poliza_valores_id = $m_poliza_valores->poliza_valores_id;
-			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_igj_id;
+			$m_poliza->poliza_detalle_id = $m_poliza_detalle->detalle_judiciales_id;
 		
 			$m_poliza->save();
 

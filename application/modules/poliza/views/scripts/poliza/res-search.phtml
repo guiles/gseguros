@@ -106,12 +106,25 @@
 
 <table>
 </div>
+<script>
+function printContent()
+{
+   var divToPrint = document.getElementById("div_table_poliza_search");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+}
+
+
+
+</script>
 	<tr>
 			<td><input type="button" name="atras" value="atras" id="tab_search_poliza"></input></td>
 			<input id="g_search_params" type="hidden" value='<?=$this->arrayBusqueda?>' </input>
 
 			
-			<!--td><a href='javascript:printContent("div_tabla_polizas_compania")' id='imprimir_search_poliza'>Imprimir Listado</a></td-->
+			<td><a href='javascript:printContent("div_table_poliza_search")' id='imprimir_search_poliza'>Imprimir Listado</a></td>
 			<td> <A HREF="javascript:void(0)"onclick="window.open('./poliza/poliza/imprimir-listado-poliza-detalle/tipo_poliza_id/<?=$this->searchParams[tipo_poliza_id]?>/estado_id/<?=$this->searchParams[estado_id]?>/operacion_id/<?=$this->searchParams[operacion_id]?>/pago_compania_id/<?=$this->searchParams[pago_compania_id]?>/asegurado_id/<?=$this->searchParams[asegurado_id]?>/compania_id/<?=$this->searchParams[compania_id]?>/numero_factura/<?=$this->searchParams[numero_factura]?>/fecha_desde/<?=$this->searchParams[fecha_desde]?>/fecha_hasta/<?=$this->searchParams[fecha_hasta]?>')">Imprimir Listado Detalle</a> </td>
 	</tr>
 </table>

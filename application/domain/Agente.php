@@ -121,6 +121,8 @@ class Domain_Agente implements Domain_IEntidad {
         ->innerJoin('p.Model_Agente ag')
         ->where('ag.agente_id = ?',$this->_model->agente_id)
         ->andWhere('a.nombre like ?',"%$nombre%")
+       // ->limit(10)
+        //->getSqlQuery();
         ->execute()
         ->toArray();
 
@@ -137,6 +139,7 @@ class Domain_Agente implements Domain_IEntidad {
 		* 1. saco la data de mas
 		* 2. saco lo repetido
 		*/
+		
 		$asegurados = array();
 		foreach ($rows as $key => $value) {
 		$asegurados[]=$value[Model_Asegurado];	
@@ -150,6 +153,7 @@ class Domain_Agente implements Domain_IEntidad {
 				$asegurados_norep[] = $value;
 		}
 		
+
 		return $asegurados_norep;
 	}
 
