@@ -3707,7 +3707,21 @@ public function notaCreditoPolizaJudiciales($poliza){
 
 		return $poliza;
 	}
+/**************Servicio para modificar poliza super admin*******************/
+	public function editPolizaFacturaAduaneros($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
 
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
   
 private function calcularPeriodo($fecha_desde,$periodo){
 

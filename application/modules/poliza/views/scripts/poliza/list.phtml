@@ -202,12 +202,22 @@ case 'ADUANEROS':?>
 			</td>
 			<?endif;?>
 
+
+
 <?if($this->operador):?>
 			
+			<?if($this->isOperadorSolicitud):?>
+			<td><input type='button' value='Ver'
+				onClick="return loadTabPoliza('./poliza/poliza/edit-poliza-factura-aduaneros/poliza_id/<?=$poliza['poliza_id']?>','Aduaneros','ADUANEROS')">
+				</input>
+			</td>
+			<?else:?>
+
 			<td><input type='button' value='Ver'
 				onClick="return loadTabPoliza('./poliza/poliza/view-poliza-aduaneros/poliza_id/<?=$poliza['poliza_id']?>','Aduaneros','ADUANEROS')">
 				</input>
 			</td>
+			<?endif;?>
 			<!-- 
 			Pregunto por el estado: 
 			ACEPTADA->BAJA OFICIO

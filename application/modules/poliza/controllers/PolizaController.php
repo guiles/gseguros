@@ -32,6 +32,12 @@ class Poliza_PolizaController extends Poliza_IndexController
 		$arr_perfil_id = $this->_usuario->getUserPerfilTemp();
 		$this->view->perfil_id = $arr_perfil_id[0];
 
+				
+		$perfil = $this->_usuario->getAcl()->userPerfil;
+		
+		$this->view->isOperadorSolicitud = false;
+		if(!empty($perfil['OPERADOR_SOLICITUD'])) $this->view->isOperadorSolicitud = true;
+
 		if( $this->_usuario->getAcl()->hasPermission('solicitud') ) {
 
 			//exit('tiene permiso');
@@ -45,6 +51,7 @@ class Poliza_PolizaController extends Poliza_IndexController
 		$this->view->isOperador = false;
 		$this->view->isCliente = false;
 		$rol_usuario = $this->_t_usuario->getNombre();
+		
 		if($rol_usuario=='AGENTE'){
 
 			$this->view->isAgente = true;
@@ -1952,9 +1959,62 @@ public function bajaLiberacionPolizaAction(){
 			$this->view->detalle_pago = $d_poliza->getModelDetallePago();
 
 		}
+	}
 
+	public function editPolizaFacturaAduanerosAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('ADUANEROS');
+		$this->view->isAgente = false;
+		if($this->_t_usuario->getNombre()=='AGENTE'){
+
+			$this->view->isAgente = true;
+			$this->view->agente_id = $this->_usuario->getModel()->usuario_tipo_id;
+			$this->view->agente_nombre = Domain_Agente::getNameById($this->_usuario->getModel()->usuario_tipo_id);
+			//print_r($this->view->agente_nombre);
+		}
+
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+		//echo '<pre>';
+		//print_r($params);
+		//exit;
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaAduaneros($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
 
 	}
+
 
 
 	public function viewPolizaConstruccionAction()
