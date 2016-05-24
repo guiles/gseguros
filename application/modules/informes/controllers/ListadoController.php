@@ -633,7 +633,7 @@ class Informes_ListadoController extends Informes_IndexController
     $xmlRoot = $xml_ssn->appendChild($xml_cabecera);
     //Creo elemento Version
     
-    $xml_cabecera->appendChild($domtree->createElement("Version",'1'));
+    //$xml_cabecera->appendChild($domtree->createElement("Version",'1'));//NOVAMAS
     $xml_productor = $domtree->createElement("Productor");
     $xml_productor->setAttribute('TipoPersona', $productor->getModel()->tipo_persona_id); 
     $xml_productor->setAttribute('Matricula', $productor->getModel()->matricula);
@@ -715,7 +715,7 @@ class Informes_ListadoController extends Informes_IndexController
 	
 	$xml_registro = $xml_detalle->appendChild($domtree->createElement("Registro"));
 		
-    $xml_registro->appendChild($domtree->createElement("NroOrden",$numero_orden));
+    //$xml_registro->appendChild($domtree->createElement("NroOrden",$numero_orden));//NOVAMAS
     $xml_registro->appendChild($domtree->createElement("FechaRegistro",$fecha_registro));
     
     $asegurados = $domtree->createElement("Asegurados");
@@ -748,28 +748,28 @@ class Informes_ListadoController extends Informes_IndexController
 	
 	$xml_registro->appendChild($domtree->createElement("SumaAseguradaTipo",'1'));
 	
-	$xml_cobertura = $domtree->createElement("Cobertura");
-    $xml_cobertura->setAttribute('FechaDesde',$fecha_vigencia_desde);
-    $xml_cobertura->setAttribute('FechaHasta',$fecha_vigencia_hasta);
-   	$xml_registro->appendChild($xml_cobertura);
-   	
-   	$xml_observacion = $domtree->createElement("Observacion");
+	$xml_cobertura_desde = $domtree->createElement("CoberturaFechaDesde",$fecha_vigencia_desde); //AGREGO
+    $xml_cobertura_hasta = $domtree->createElement("CoberturaFechaHasta",$fecha_vigencia_hasta); //AGREGO
+    $xml_registro->appendChild($xml_cobertura_desde); //MODIFICO
+   	$xml_registro->appendChild($xml_cobertura_hasta);
+
+  // 	$xml_observacion = $domtree->createElement("Observacion");
 	
-	//Modificacion en la creacion del xml ( El original no era asi)
-	//<Observacion Tipo="" Poliza="" NroOrdenAnulaModifica=””
 
-   	$xml_observacion->setAttribute('Tipo',$observacion_tipo);
+  // 	$xml_observacion->setAttribute('Tipo',$observacion_tipo);
 
-   	if($observacion_tipo == 5 || $observacion_tipo == 6)
-    $xml_observacion->setAttribute('NroOrdenAnulaModifica',$numero_orden);
+  // 	if($observacion_tipo == 5 || $observacion_tipo == 6)
+  //  $xml_observacion->setAttribute('NroOrdenAnulaModifica',$numero_orden);
 
-   	if($observacion_tipo <> 1) $xml_observacion->setAttribute('Poliza',$numero_poliza);
-   	
+   	//if($observacion_tipo <> 1) $xml_observacion->setAttribute('Poliza',$numero_poliza);
+   	//if($observacion_tipo <> 1) 
+   		
    	$xml_registro->appendChild($xml_observacion);
    	
+	$xml_registro->appendChild($domtree->createElement("TipoOperacion",'2')); // MODIFICO (OperacionOrigen = 1)
+    $xml_registro->appendChild($domtree->createElement("Poliza",$numero_poliza));
    	$xml_registro->appendChild($domtree->createElement("Flota",'0'));
-	$xml_registro->appendChild($domtree->createElement("OperacionOrigen",'3')); // ???
-    
+
     $numero_orden++;
 	}
     
