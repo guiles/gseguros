@@ -738,8 +738,18 @@ class Informes_ListadoController extends Informes_IndexController
     $xml_codigo_postal = $xml_registro->appendChild($domtree->createElement("CodigosPostales"));
     $xml_codigo_postal->appendChild($domtree->createElement("CPA",$asegurado->getModel()->codigo_postal));
     $xml_registro->appendChild($domtree->createElement("CiaID",$compania->getModel()->afip_id));//falta agregar campo
+	
+
+    $xml_organizador = $domtree->createElement("Organizador");
+    $xml_organizador->setAttribute('TipoPersona', $productor->getModel()->tipo_persona_id); 
+    $xml_organizador->setAttribute('Matricula', $productor->getModel()->matricula);
+    $xml_registro->appendChild($xml_organizador);
+
+
+
+
 	$xml_registro->appendChild($domtree->createElement("BienAsegurado",$riesgo));
-	$xml_registro->appendChild($domtree->createElement("Ramo",$tipo_poliza_id));
+	//$xml_registro->appendChild($domtree->createElement("Ramo",$tipo_poliza_id));
 	
 	//Evito todos los errores que pueda traer el "punto"
 	$monto_asegurado =  str_replace(".",",",$monto_asegurado);
@@ -747,7 +757,7 @@ class Informes_ListadoController extends Informes_IndexController
 	$xml_registro->appendChild($domtree->createElement("SumaAsegurada",$monto_asegurado));
 	
 	$xml_registro->appendChild($domtree->createElement("SumaAseguradaTipo",'1'));
-	
+
 	$xml_cobertura_desde = $domtree->createElement("CoberturaFechaDesde",$fecha_vigencia_desde); //AGREGO
     $xml_cobertura_hasta = $domtree->createElement("CoberturaFechaHasta",$fecha_vigencia_hasta); //AGREGO
     $xml_registro->appendChild($xml_cobertura_desde); //MODIFICO
@@ -769,6 +779,7 @@ class Informes_ListadoController extends Informes_IndexController
 	$xml_registro->appendChild($domtree->createElement("TipoOperacion",'2')); // MODIFICO (OperacionOrigen = 1)
     $xml_registro->appendChild($domtree->createElement("Poliza",$numero_poliza));
    	$xml_registro->appendChild($domtree->createElement("Flota",'0'));
+	$xml_registro->appendChild($domtree->createElement("TipoContacto",'1'));
 
     $numero_orden++;
 	}
