@@ -84,7 +84,6 @@ class Entidad_AgenteController extends Entidad_IndexController
 		$this->_services_simple_crud->save($this->_agente->getModel(),$values);
 		$this->view->params = $params;
 		
-
 	}
 	public function deleteAction()
 	{

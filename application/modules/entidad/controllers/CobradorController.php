@@ -60,6 +60,7 @@ class Entidad_CobradorController extends Entidad_IndexController
 	{
 
 		$params = $this->_request->getParams();
+
 		$row = $this->_services_simple_crud
 		->getById($this->_cobrador->getModel(),array('primary_key'=>'cobrador_id','value'=>$params['id']));
 

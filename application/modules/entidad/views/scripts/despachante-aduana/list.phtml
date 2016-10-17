@@ -104,8 +104,8 @@ function listAgente(f){
     <td><?=$row['telefono'] ?></td>
     <td><?=$row['email'] ?></td>
     <td><?=$row['fecha_nacimiento'] ?></td>
-    <td><input type="button" value="Ver" url="./entidad/despachante-aduana/view/id/<?=$row['despachante-aduana_id']?>" onClick="return despachanteAduana(this)"> </input> </td>
-    <td><input type="button" value="Eliminar" url="./entidad/despachante-aduana/delete/id/<?=$row['despachante-aduana_id']?>" onClick="return despachanteAduana(this)"> </input> </td>
+    <td><input type="button" value="Ver" url="./entidad/despachante-aduana/view/id/<?=$row['despachante_aduana_id']?>" onClick="return despachanteAduana(this)"> </input> </td>
+    <td><input type="button" value="Eliminar" url="./entidad/despachante-aduana/delete/id/<?=$row['despachante_aduana_id']?>" onClick="return despachanteAduana(this)"> </input> </td>
   </tr>
 
 <?endforeach;?>

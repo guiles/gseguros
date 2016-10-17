@@ -19,9 +19,34 @@ function listPaginator(g){
 	}
 	
 function cobrador(f){
-	var url = $(f).attr('./poliza/solicitud/alta-automotores/');
+	//var url = $(f).attr('./poliza/solicitud/alta-automotores/');
+	/*if(url == null){
+		url="./entidad/cobrador/add";
+	}*/
+
+	var url = $(f).attr('url');
 	if(url == null){
 		url="./entidad/cobrador/list";
+	}
+	
+	var tabs_sel = $('#tabs').tabs();
+	var idx = tabs_sel.tabs('option', 'selected');
+
+	//Trae el tab correspondiente
+	var tab = $('#tabs ul li a')[idx];
+	var href = $(tab).attr('href') ;                       
+
+	    $.ajax({url: url,success:function(result){
+	        $(href).html(result);
+	      }});
+
+	    return false;
+	}
+
+function editCobrador(f){
+	//var url = $(f).attr('./poliza/solicitud/alta-automotores/');
+	if(url == null){
+		url="./entidad/cobrador/edit";
 	}
 	var tabs_sel = $('#tabs').tabs();
 	var idx = tabs_sel.tabs('option', 'selected');

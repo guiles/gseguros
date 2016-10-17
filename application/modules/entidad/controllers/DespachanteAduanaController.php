@@ -63,6 +63,7 @@ class Entidad_DespachanteAduanaController extends Entidad_IndexController
 		$row = $this->_services_simple_crud
 		->getById($this->_despachante_aduana->getModel(),array('primary_key'=>'despachante_aduana_id','value'=>$params['id']));
 
+		
 		$this->view->row = $row;
 
 	}
@@ -80,7 +81,9 @@ class Entidad_DespachanteAduanaController extends Entidad_IndexController
 	{
 		
 		$params = $this->_request->getParams();
+		
 		$values =  array_slice($params,3); //saca la data de mas
+
 		$this->_services_simple_crud->save($this->_despachante_aduana->getModel(),$values);
 		$this->view->params = $params;
 		
