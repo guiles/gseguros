@@ -146,8 +146,9 @@ Imprimir Informe</A>
 		<th>Prima</th>
 		<th>Plus</th>
 		<?endif;?>
-		<th>Cuota</th>
+		<!--th>Cuota</th-->
 		<th>Importe Cuota</th>
+		<th>Moneda</th>
 		<th>Estado</th>
 		<th>Fecha Baja</th>
 		<th>N&uacute;mero Factura</th>
@@ -178,6 +179,22 @@ Imprimir Informe</A>
 	//echo "<pre>";
 	
 	$vigencia = $poliza['fecha_vigencia']." a ".$poliza['fecha_vigencia_hasta'];
+
+
+	switch ($m_detalle_pago->moneda_id) {
+		case '1':
+			$total_pesos = $total_pesos + $m_poliza_valores->premio_asegurado;
+			break;
+		case '2':
+			$total_dolar = $total_dolar + $m_poliza_valores->premio_asegurado;
+			break;
+		case '3':
+			$total_euro = $total_euro + $m_poliza_valores->premio_asegurado;
+			break;
+		default:
+			
+			break;
+	}
 ?>
 		<tr>
 			<td><?=$poliza['fecha_pedido']?></td>
@@ -191,13 +208,67 @@ Imprimir Informe</A>
 			<td><?=$m_poliza_valores->prima_comision?></td>
 			<td><?=$m_poliza_valores->plus?></td>
 			<?endif;?>
-			<td></td>
 			<td><?=$m_poliza_valores->premio_asegurado?></td>
+			<td><?=Domain_Helper::getHelperNameById('moneda', $m_detalle_pago->moneda_id);?></td>
 			<td><?=$estado_poliza?></td>
 			<td><?=$poliza['fecha_baja']?></td>
 			<td><?=$m_poliza->numero_factura?></td>
 		</tr>
 		<?endforeach;?>
+				<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b>Total ARS</b></td>
+			<td><?=$total_pesos?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b>Total DOL</b></td>
+			<td><?=$total_dolar?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><b>Total EURO</b></td>
+			<td><?=$total_euro?></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
 	</tbody>
 </table>
 		<?//endif;?>
