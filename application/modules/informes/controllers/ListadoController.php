@@ -749,7 +749,7 @@ class Informes_ListadoController extends Informes_IndexController
 
 
 	$xml_registro->appendChild($domtree->createElement("BienAsegurado",$riesgo));
-	//$xml_registro->appendChild($domtree->createElement("Ramo",$tipo_poliza_id));
+	$xml_registro->appendChild($domtree->createElement("Ramo",$tipo_poliza_id));
 	
 	//Evito todos los errores que pueda traer el "punto"
 	$monto_asegurado =  str_replace(".",",",$monto_asegurado);
