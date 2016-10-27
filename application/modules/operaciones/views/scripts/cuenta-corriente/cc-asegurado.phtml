@@ -6,7 +6,7 @@
     <th>Moneda</th>
     <th>Polizas Pagas</th>
     <th>Pagos realizados</th>
-    <th>Saldo</th>
+    <th>Dif. A/C</th>
     <th>Polizas Adeudadas</th>
     <th>Saldo</th>
   </tr>
@@ -14,7 +14,7 @@
     <td>Pesos</td>
     <td><?=(empty($this->pago_pesos))?'0': money_format('%.2n', $this->pago_pesos)?></td>
     <td><?=(empty($this->suma_movimientos_pesos))?'0': money_format('%.2n', $this->suma_movimientos_pesos )?></td>
-    <td><?= money_format('%.2n',  ( ($this->debe_pesos+$this->pago_pesos) - $this->suma_movimientos_pesos ) )?></td>
+    <td><?= money_format('%.2n',  ( $this->pago_pesos - $this->suma_movimientos_pesos ) )?></td>
     <td><?=(empty($this->debe_pesos))?'0': money_format('%.2n', $this->debe_pesos )?></td>
     <td><?= money_format('%.2n',  ( ($this->debe_pesos+$this->pago_pesos) - $this->suma_movimientos_pesos ) )?></td>
   </tr>
@@ -22,7 +22,7 @@
     <td>Dolar</td>
     <td><?=(empty($this->pago_dolar))?'0': money_format('%.2n', $this->pago_dolar)?></td>
     <td><?=(empty($this->suma_movimientos_dolar))?'0': money_format('%.2n', $this->suma_movimientos_dolar )?></td>
-    <td><?= money_format('%.2n',  ( ($this->debe_dolar+$this->pago_dolar) - $this->suma_movimientos_dolar ))?></td>
+    <td><?= money_format('%.2n', ( $this->pago_dolar - $this->suma_movimientos_dolar ) )?></td>
     <td><?=(empty($this->debe_dolar))?'0':money_format('%.2n',  $this->debe_dolar )?></td>
     <td><?= money_format('%.2n',  ( ($this->debe_dolar+$this->pago_dolar) - $this->suma_movimientos_dolar ) )?></td>
   </tr>
@@ -30,7 +30,7 @@
     <td>Euro</td>
     <td><?=(empty($this->pago_euro))?'0': money_format('%.2n', $this->pago_euro)?></td>
     <td><?=(empty($this->suma_movimientos_euro))?'0': money_format('%.2n', $this->suma_movimientos_euro )?></td>
-    <td><?= money_format('%.2n',  (($this->debe_euro+$this->pago_euro) - $this->suma_movimientos_euro ) )?></td>
+    <td><?= money_format('%.2n', ( $this->pago_euro - $this->suma_movimientos_euro ))?></td>
     <td><?=(empty($this->debe_euro))?'0': money_format('%.2n', $this->debe_euro)?></td>
     <td><?= money_format('%.2n',  (($this->debe_euro+$this->pago_euro) - $this->suma_movimientos_euro ))?></td>
   </tr>
