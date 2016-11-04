@@ -31,7 +31,9 @@ $moneda = Domain_Helper::getHelperNameById('moneda', $this->m_movimiento->moneda
 	<tr>
 		<th>Nro. Movimiento</th>	
 		<th>Fecha</th>
+		<th>Nro Recibo/Factura</th>
 		<th>Moneda</th>
+		<th>Valor Divisa</th>
 		<th>Importe Total</th>
     <th>Descuento</th>
 	</tr>
@@ -39,7 +41,9 @@ $moneda = Domain_Helper::getHelperNameById('moneda', $this->m_movimiento->moneda
 <tr>
 <td><?=$this->m_movimiento->movimiento_id?></td>
 <td><?=$this->m_movimiento->fecha_pago?></td>
+<td><?=$this->m_movimiento->numero_factura?></td>
 <td><?=$moneda?></td>
+<td><?=$this->m_movimiento->cotizacion_divisa?></td>
 <td><?=round($this->m_movimiento->importe,2)?></td>
 <td><?=$this->m_movimiento->descuento?></td>
 </table>
