@@ -2682,8 +2682,14 @@ public function endosarPolizaResponsabilidadCivil($d_poliza,$params){
 
 
 	public function endosarPolizaAccidentesPersonales($d_poliza,$params){
+		
+		//exit;
 		//Pongo como endosada a la poliza vieja y la nueva es afectada
 		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
+
+		if($params['tipo_endoso_id'] == 5)
+		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('REFACTURADO');
+
 
 		//1. Traigo la poliza actual		
 		$poliza_a_endosar = new Domain_Poliza($params['poliza_id']);  
@@ -2707,7 +2713,14 @@ public function endosarPolizaResponsabilidadCivil($d_poliza,$params){
 		//Estado Afectada
 		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
 		
-		$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Endoso');
+		//Trae la operacion endoso por default
+		//$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Endoso');
+
+		//Si es endoso de refacturacion que traiga la otra operacion, sobreescribe la operacion y el estado
+		if($params['tipo_endoso_id'] == 5)
+			$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Refacturacion');
+				
+		
 
 		try {
 			//3. Guardo detalle poliza						
@@ -3310,8 +3323,8 @@ private function saveDetallePagoRefacturar($m_solicitud,$m_poliza_detalle_pago){
 				$detalle_pago_cuota->save();
 				//Agrego un mes a la fecha
 				$fecha_vigencia = Domain_DetallePago::addMonthbyDate($fecha_vigencia);
-				echo"<br>";
-				print_r($detalle_pago_cuotas->importe);
+				//echo"<br>";
+				//print_r($detalle_pago_cuotas->importe);
 
 			}
 

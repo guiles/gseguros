@@ -363,6 +363,160 @@ $(document).ready(
 			});
 
 			
+			var poliza_id = $('#poliza_endoso_id').val();
+			/** Si es de refacturacion **/
+
+			var tipo_endoso_id = $('#tipo_accidentes_personales_endoso').val();
+			
+			if(tipo_endoso_id == 5){
+
+				$.ajax({
+							url : "./poliza/poliza/trae-data-poliza",
+							data : {
+								poliza_id : poliza_id
+							},
+							success : function(result) {
+								
+								var data = JSON.parse(result);
+								//Le pongo la fecha de vigencia, es la fecha de vigencia que tiene la anterior poliza
+								$('#fecha_pedido').val(data.fecha_vigencia_hasta);
+								$('#fecha_vigencia').val(data.fecha_vigencia_hasta);
+
+								}
+							});
+
+			}
+			/** Modificar parametros del formulario cuando selecciona endoso de refacturacion **/
+
+			$('#tipo_accidentes_personales_endoso').change(function(data){
+				//console.debug(data.target.value);
+				var opcion = data.target.value;
+				//alert('modificandola');
+				//Si es refacturacion (Pongo un switch porque puede ser que hayan otras opciones)
+				switch(opcion) {
+					
+					case '5':
+					
+							$.ajax({
+							url : "./poliza/poliza/trae-data-poliza",
+							data : {
+								poliza_id : poliza_id
+							},
+							success : function(result) {
+								
+								var data = JSON.parse(result);
+								//Le pongo la fecha de vigencia, es la fecha de vigencia que tiene la anterior poliza
+								$('#fecha_pedido').val(data.fecha_vigencia_hasta);
+								$('#fecha_vigencia').val(data.fecha_vigencia_hasta);
+								//La fecha de vigencia es -- No es lo mas elegante pero lo quiero terminar ya
+								/*console.debug(data.fecha_pedido);
+								var anio = parseInt(data.fecha_pedido.substr(0, 4));
+								var mes = parseInt(data.fecha_pedido.substr(5, 2));
+								var dia = parseInt(data.fecha_pedido.substr(8, 2));
+								
+								console.debug(anio);
+								console.debug(mes);
+								console.debug(dia);
+								
+								//var fecha_hasta = calcularPeriodo(1,dia,mes,anio);
+								var fecha_hasta = calcularPeriodo(anio,mes,dia,data.fecha_pedido,5);
+								$('#fecha_vigencia').val(fecha_hasta);
+								*/
+								//console.debug(fecha_hasta);
+								}
+							});
+					//$('#fecha_vigencia').val('01/01/2011');
+					console.debug('modifica el formulario');
+
+
+
+					break;
+					default:
+					return false;
+
+				}
+
+			});
+
+
+		function calcularPeriodo(a,m,d,fecha_desde,periodo){
+
+		if( fecha_desde == '') return false;
+		
+		//var date = new Date(fecha_desde);
+		var date = new Date(a,m,d);
+		console.debug(date);
+		//var a = Date.parse(fecha_desde);
+		console.debug(date.getDay());
+		/*date.setMonth(date.getMonth() + 1) ;	
+		console.debug(date);
+		*/
+		switch (periodo) {
+			case 1:
+				
+			date.setMonth(date.getMonth() + 1) ;	
+			
+			if (date.getMonth() < 10) { var mes = '0' + date.getMonth(); }
+
+			var string_date = date.getFullYear()+'-'+ mes +'-'+ date.getDate();
+			return string_date;
+
+			break;
+			case 7:
+				
+			
+			break;
+		/*	case '2':
+				
+			$date->add(new DateInterval('P3M'));
+			$fecha_hasta =  $date->format('Y-m-d') . "\n";
+			break;
+			
+			case '3':
+				
+			$date->add(new DateInterval('P4M'));
+			$fecha_hasta =  $date->format('Y-m-d') . "\n";
+			break;
+			
+			case '4':
+				
+			$date->add(new DateInterval('P6M'));
+			$fecha_hasta =  $date->format('Y-m-d') . "\n";
+			break;
+			*/
+			case 5:
+				
+			date.setYear(date.getFullYear() + 1) ;	
+			
+			if (date.getMonth() < 10) { var mes = '0' + date.getMonth(); }
+
+			var string_date = date.getFullYear()+'-'+ mes +'-'+ date.getDate();
+			return string_date;
+			break;
+			
+			/*
+			case '6':
+				
+			$date->add(new DateInterval('P2Y'));
+			//$fecha_hasta =  $date->format('Y-m-d') . "\n";
+			$fecha_hasta =  $date->format('Y-m-d') . "\n";
+			break;
+			*/
+			default:
+			return  null	;
+			break;
+		}
+		
+		/*$date_parche = new DateTime($fecha_desde);
+		if($date_parche->format('d') == '31') $date->sub(new DateInterval('P1D'));
+		
+		$fecha_hasta =  $date->format('Y-m-d') . "\n";
+
+		return $fecha_hasta;
+		*/
+	}
+
+
 			
 		});
 

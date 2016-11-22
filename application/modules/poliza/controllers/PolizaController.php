@@ -1452,7 +1452,7 @@ public function endosoPolizaAccidentesPersonalesAction()
 		echo "<br><font color='blue'>Poliza endosada con exito: ".$m_poliza->numero_poliza."/".$m_poliza->endoso."</font>";
 		
 		echo "<br><font color='blue'>".$this->view->tipo_endoso_text."</font>";
-		//exit;
+		exit;
 		}
 
 	}
@@ -4246,4 +4246,24 @@ public function editPolizaIntegralComercioAction()
 
 	}
 	
+
+	/** Endoso de refacturacion **/
+
+	public function traeDataPolizaAction(){
+		
+		$this->_helper->viewRenderer->setNoRender();
+
+		$params = $this->_request->getParams();
+		//Treae poliza
+		
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$m_poliza = $d_poliza->getModelPoliza();
+		$data = $m_poliza->toArray();
+
+		echo  json_encode($data);
+	}
+
+
+
+
 }

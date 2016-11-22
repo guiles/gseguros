@@ -9,7 +9,6 @@
 		<form id="endoso_poliza_accidentes_personales" name="endoso_poliza"
 			action="./poliza/poliza/alta-accidentes_personales" onSubmit="return false">
 			<input type="hidden" name="save" value=1>
-			<input type="hidden" name="save" value=1>
 			
 			<input type="hidden" id="poliza_endoso_id"
 				name="poliza_id"
@@ -23,7 +22,7 @@
 				<td>Tipo de Endoso:</td>
 						<td><select id="tipo_accidentes_personales_endoso" name="tipo_endoso_id" >
 								
-								<? foreach($this->tipo_endoso as $row ):?>
+								<?foreach($this->tipo_endoso as $row ):?>
 								<?if($this->poliza->tipo_endoso_id==$row['dominio_id']):?>
 								<option selected value=<?= $row['dominio_id']?>>
 								<?=$row['nombre']?>
