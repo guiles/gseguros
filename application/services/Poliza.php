@@ -2251,6 +2251,15 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 		//1. Traigo la poliza actual		
 		$poliza_a_endosar = new Domain_Poliza($params['poliza_id']);  
 
+
+		if($params['tipo_endoso_id'] == 5)
+		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('REFACTURADO');
+		
+		$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Endoso');		
+		
+		if($params['tipo_endoso_id'] == 5)
+			$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Refacturacion');
+
 		//Traigo la poliza que tengo que copiar
 		$model_poliza = $poliza_a_endosar->getModelPoliza();
 		$model_poliza->estado_id=$estado_endosada;
@@ -2270,7 +2279,7 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 		//Estado Afectada
 		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('AFECTADA');
 		
-		$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Endoso');
+
 
 		try {
 			//3. Guardo detalle poliza			
@@ -2463,6 +2472,15 @@ public function endosarPolizaSeguroTecnico($d_poliza,$params){
 		//Pongo como endosada a la poliza vieja y la nueva es afectada
 		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
 
+		if($params['tipo_endoso_id'] == 5)
+		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('REFACTURADO');
+		
+		$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Endoso');		
+		
+		if($params['tipo_endoso_id'] == 5)
+			$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Refacturacion');
+
+
 		//1. Traigo la poliza actual		
 		$poliza_a_endosar = new Domain_Poliza($params['poliza_id']);  
    		//Traigo la poliza que tengo que copiar
@@ -2483,7 +2501,6 @@ public function endosarPolizaSeguroTecnico($d_poliza,$params){
 		//Estado Afectada
 		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
 		
-		$operacion_id = Domain_Helper::getHelperIdByDominioAndName('operacion', 'Endoso');
 
 		try {
 			//3. Guardo detalle poliza						
@@ -2689,7 +2706,7 @@ public function endosarPolizaResponsabilidadCivil($d_poliza,$params){
 
 		if($params['tipo_endoso_id'] == 5)
 		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('REFACTURADO');
-
+	
 
 		//1. Traigo la poliza actual		
 		$poliza_a_endosar = new Domain_Poliza($params['poliza_id']);  

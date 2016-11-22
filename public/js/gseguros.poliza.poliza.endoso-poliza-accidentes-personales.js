@@ -368,7 +368,7 @@ $(document).ready(
 
 			var tipo_endoso_id = $('#tipo_accidentes_personales_endoso').val();
 			
-			if(tipo_endoso_id == 5){
+			/*if(tipo_endoso_id == 5){
 
 				$.ajax({
 							url : "./poliza/poliza/trae-data-poliza",
@@ -385,9 +385,9 @@ $(document).ready(
 								}
 							});
 
-			}
+			}*/
 			/** Modificar parametros del formulario cuando selecciona endoso de refacturacion **/
-
+/*
 			$('#tipo_accidentes_personales_endoso').change(function(data){
 				//console.debug(data.target.value);
 				var opcion = data.target.value;
@@ -409,19 +409,7 @@ $(document).ready(
 								$('#fecha_pedido').val(data.fecha_vigencia_hasta);
 								$('#fecha_vigencia').val(data.fecha_vigencia_hasta);
 								//La fecha de vigencia es -- No es lo mas elegante pero lo quiero terminar ya
-								/*console.debug(data.fecha_pedido);
-								var anio = parseInt(data.fecha_pedido.substr(0, 4));
-								var mes = parseInt(data.fecha_pedido.substr(5, 2));
-								var dia = parseInt(data.fecha_pedido.substr(8, 2));
 								
-								console.debug(anio);
-								console.debug(mes);
-								console.debug(dia);
-								
-								//var fecha_hasta = calcularPeriodo(1,dia,mes,anio);
-								var fecha_hasta = calcularPeriodo(anio,mes,dia,data.fecha_pedido,5);
-								$('#fecha_vigencia').val(fecha_hasta);
-								*/
 								//console.debug(fecha_hasta);
 								}
 							});
@@ -438,7 +426,7 @@ $(document).ready(
 
 			});
 
-
+*/
 		function calcularPeriodo(a,m,d,fecha_desde,periodo){
 
 		if( fecha_desde == '') return false;
