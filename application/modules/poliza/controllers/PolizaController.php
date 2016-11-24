@@ -944,12 +944,17 @@ public function endosoPolizaAduanerosAction()
 		$this->view->cuotas = Domain_Helper::getHelperByDominio('cuota');
 
 		$this->view->moneda = Domain_Helper::getHelperNameById('moneda', $d_poliza->getModelPolizaValores()->moneda_id);
-		$despachante_aduana = new Domain_DespachanteAduana();
-		$this->view->despachante_aduanas= $despachante_aduana->getModel()->getTable()->findAll()->toArray();
-		$beneficiario = new Domain_Beneficiario();
-		$this->view->beneficiarios= $beneficiario->getModel()->getTable()->findAll()->toArray();
+		
+		
 		$this->view->forma_pago = Domain_Helper::getHelperNameById('forma_pago', $d_poliza->getModelDetallePago()->forma_pago_id);
 		$this->view->forma_pago_id = $d_poliza->getModelDetallePago()->forma_pago_id;
+		
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->tipo_garantia = Domain_TipoGarantia::getNameByTipoPolizaAndId($d_poliza->getModelDetalle()->tipo_garantia_id, $tipo_poliza_id);
+		$this->view->motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($d_poliza->getModelDetalle()->motivo_garantia_id, $tipo_poliza_id);
+		$this->view->despachante_aduana = Domain_DespachanteAduana::getNameById($d_poliza->getModelDetalle()->despachante_aduana_id);
+		
+	
 		if($params['save']){
 
 		//1. Traigo el POST
@@ -1034,7 +1039,7 @@ public function endosoPolizaAduanerosAction()
 		echo "<br><font color='blue'>Poliza endosada con exito: ".$m_poliza->numero_poliza."/".$m_poliza->endoso."</font>";
 		
 		echo "<br><font color='blue'>".$this->view->tipo_endoso_text."</font>";
-		//exit;
+		exit;
 		}
 
 	}

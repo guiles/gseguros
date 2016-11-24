@@ -2245,6 +2245,11 @@ public function refacturarPolizaAlquiler($poliza){
 
 
 public function endosarPolizaAduaneros($d_poliza,$params){
+		echo "entra aca";
+		echo "<pre>";
+		//print_r($d_poliza->getModelDetalle());
+		//exit;
+		$e_m_poliza_detalle = $d_poliza->getModelDetalle();
 		//Pongo como endosada a la poliza vieja y la nueva es afectada
 		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
 
@@ -2279,21 +2284,24 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 		//Estado Afectada
 		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('AFECTADA');
 		
-
-
+		
 		try {
 			//3. Guardo detalle poliza			
 			$m_poliza_detalle = $poliza_endosada->getModelDetallePoliza($tipo_poliza);
-			$m_poliza_detalle->motivo_garantia_id=$params['motivo_garantia_id'];
-			$m_poliza_detalle->domicilio_riesgo=$params['domicilio_riesgo'];
-			$m_poliza_detalle->localidad_riesgo=$params['localidad_riesgo'];
-			$m_poliza_detalle->provincia_riesgo=$params['provincia_riesgo'];
-			$m_poliza_detalle->tipo_garantia_id=$params['tipo_garantia_id'];
-			$m_poliza_detalle->beneficiario_id=$params['beneficiario_id'];
-			$m_poliza_detalle->despachante_aduana_id=$params['despachante_aduana_id'];
-			$m_poliza_detalle->descripcion_adicional=$params['descripcion_adicional'];
-			
-			
+			$m_poliza_detalle->motivo_garantia_id= $e_m_poliza_detalle->motivo_garantia_id; //$params['motivo_garantia_id'];
+			$m_poliza_detalle->domicilio_riesgo= $e_m_poliza_detalle->domicilio_riesgo; //$params['domicilio_riesgo'];
+			$m_poliza_detalle->localidad_riesgo= $e_m_poliza_detalle->localidad_riesgo; //$params['localidad_riesgo'];
+			$m_poliza_detalle->provincia_riesgo= $e_m_poliza_detalle->provincia_riesgo; //$params['provincia_riesgo'];
+			$m_poliza_detalle->tipo_garantia_id= $e_m_poliza_detalle->tipo_garantia_id; //$params['tipo_garantia_id'];
+			$m_poliza_detalle->beneficiario_id= $e_m_poliza_detalle->beneficiario_id; //$params['beneficiario_id'];
+			$m_poliza_detalle->despachante_aduana_id= $e_m_poliza_detalle->despachante_aduana_id; //$params['despachante_aduana_id'];
+			$m_poliza_detalle->descripcion_adicional= $e_m_poliza_detalle->descripcion_adicional; //$params['descripcion_adicional'];
+			$m_poliza_detalle->acreedor_prendario= $e_m_poliza_detalle->acreedor_prendario;//$params['acreedor_prendario'];
+			$m_poliza_detalle->mercaderia= $e_m_poliza_detalle->mercaderia; //$params['mercaderia'];
+			$m_poliza_detalle->bl= $e_m_poliza_detalle->bl;//$params['bl'];
+			$m_poliza_detalle->factura= $e_m_poliza_detalle->factura; //$params['factura'];
+			$m_poliza_detalle->sim= $e_m_poliza_detalle->sim; //$params['sim'];
+
 			$m_poliza_detalle->save();
 		} catch (Exception $e) {
 			echo $e->getMessage();

@@ -153,130 +153,52 @@ Luego el resto ordenando en 2 columnas
  
  
   -->
-			<hr>
+  			<hr>
 			<h3 id="detalle_riesgo_aduaneros_show">Detalle del Riesgo</h3>
 			<div id="detalle_riesgo_aduaneros">
 				<table>
-				<tr>
+					<tr>
 						<td>Tipo de Garantia:</td>
-						
-						<td><select id="tipo_garantia_id" name="tipo_garantia_id">
-								<option value="0">Seleccione Tipo Garantia</option>
-								<? foreach($this->tipo_garantias as $row ):?>
-								<?if($this->poliza_detalle->tipo_garantia_id==$row['t_garantia_id']):?>
-								<option selected value=<?=$row['t_garantia_id']?>>
-								<?=$row['nombre']?>
-								<?else:?>
-								<option value=<?=$row['t_garantia_id']?>>
-								<?=$row['nombre']?>
-								</option>
-								<?endif; ?>
-								<? endforeach; ?>
-						</select>
+						<td><?=$this->tipo_garantia?></td>
 					</tr>
 					<tr>
-						<td>Motivo Garantia:</td>
-						<td width="471" id="table_motivo_garantia_id">
-						<select   id="motivo_garantia_id" name="motivo_garantia_id">
-							<option value="0">Seleccione Motivo Garantia</option>
-							<? foreach($this->motivo_garantias as $row ):?>
-							<?if($this->poliza_detalle->motivo_garantia_id==$row['motivo_garantia_id']):?>
-							<option selected value=<?=$row['motivo_garantia_id']?>>
-							<?=$row['motivo_garantia']?>
-							<?else:?>
-							
-							<option value=<?=$row['motivo_garantia_id']?>>
-							<?=$row['motivo_garantia']?>
-							</option>
-							<?endif; ?>
-							<? endforeach; ?>
-					</select>
-							
-						</td>
-					</tr>
-				
-					<tr>
-					<td>Despachante de Aduana:</td>
-					<td><select id="despachante_aduana_id" name="despachante_aduana_id">
-							<option value="0">Seleccione Despachante de Aduana</option>
-							<? foreach($this->despachante_aduanas as $row ):?>
-							<?if($this->poliza_detalle->despachante_aduana_id==$row['despachante_aduana_id']):?>
-							<option selected value=<?=$row['despachante_aduana_id']?>>
-							<?=$row['nombre']?>
-							<?else:?>
-							
-							<option value=<?=$row['despachante_aduana_id']?>>
-							<?=$row['nombre']?>
-							</option>
-							<?endif; ?>
-							<? endforeach; ?>
-					</select>
-					</td>
-					
-					<td>Beneficiario:</td>
-					<td><select id="beneficiario_id" name="beneficiario_id">
-							<option value="0">Seleccione Beneficiario</option>
-							<? foreach($this->beneficiarios as $row ):?>
-							<?if($this->poliza_detalle->beneficiario_id==$row['beneficiario_id']):?>
-							<option selected value=<?=$row['beneficiario_id']?>>
-							<?=$row['nombre']?>
-							<?else:?>
-							
-							<option value=<?=$row['beneficiario_id']?>>
-							<?=$row['nombre']?>
-							</option>
-							<?endif; ?>
-							<? endforeach; ?>
-					</select>
-					</td>
-					
+						<td>Motivo de Garantia:</td>
+						<td><?=$this->motivo_garantia?></td>
 					</tr>
 					<tr>
+						<td>Despachante de aduanas:</td>
+						<td><?=$this->escape($this->despachante_aduana)?>	</td>
 						<td>Domicilio Riesgo:</td>
-						<td><input type="text" id="domicilio_riesgo"
-							name="domicilio_riesgo"
-							value="<?=$this->escape($this->poliza_detalle->domicilio_riesgo)?>" />
-						</td>
-
-						<td>Localidad Riesgo:</td>
-						<td><input type="text" id="localidad_riesgo"
-							name="localidad_riesgo"
-							value="<?=$this->escape($this->poliza_detalle->localidad_riesgo)?>" />
-						</td>
-						</tr>
-					<tr>
-						<td>Provincia Riesgo:</td>
-						<td><input type="text" id="provincia_riesgo"
-							name="provincia_riesgo"
-							value="<?=$this->escape($this->poliza_detalle->provincia_riesgo)?>" />
-						</td>
+						<td><?=$this->escape($this->poliza_detalle->domicilio_riesgo)?>	</td>
+					</tr>
+					<td>Beneficiario:</td>
+					<td>
+							<?=$this->beneficiario?>
+					</td>
 					
+					<tr>
+						<td>Localidad Riesgo:</td>
+						<td><?=$this->escape($this->poliza_detalle->localidad_riesgo)?>	</td>
+						<td>Provincia Riesgo:</td>
+						<td><?=$this->escape($this->poliza_detalle->provincia_riesgo)?>	</td>
+					</tr>
+					<tr>
+						<td>Acreedor Prendario:</td>
+						<td><?=$this->escape($this->poliza_detalle->acreedor_prendario)?></td>
 						<td>Mercaderia:</td>
-						<td><input type="text" id="mercaderia" name="mercaderia"
-							value="<?=$this->escape($this->poliza_detalle->mercaderia)?>" />
-						</td>
+						<td><?=$this->escape($this->poliza_detalle->mercaderia)?></td>
 					</tr>
-					<tr>	
+					<tr>
 						<td>Descripcion Adicional:</td>
-						<td><input type="text" id="descripcion_adicional"
-							name="descripcion_adicional"
-							value="<?=$this->escape($this->poliza_detalle->descripcion_adicional)?>" />
-						</td>
-						
+						<td><?=$this->escape($this->poliza_detalle->descripcion_adicional)?> </td>
 						<td>BL:</td>
-						<td><input type="text" id="bl" name="bl"
-							value="<?=$this->escape($this->poliza_detalle->bl)?>" />
-						</td>
+						<td><?=$this->escape($this->poliza_detalle->bl)?></td>
 					</tr>
-					<tr>	
+					<tr>		
 						<td>Factura:</td>
-						<td><input type="text" id="factura" name="factura"
-							value="<?=$this->escape($this->poliza_detalle->factura)?>" />
-						</td>
+						<td><?=$this->escape($this->poliza_detalle->factura)?></td>
 						<td>SIM:</td>
-						<td><input type="text" id="sim" name="sim"
-							value="<?=$this->escape($this->poliza_detalle->sim)?>" />
-						</td>
+						<td><?=$this->escape($this->poliza_detalle->sim)?></td>
 					</tr>
 
 				</table>
