@@ -3761,6 +3761,192 @@ public function notaCreditoPolizaJudiciales($poliza){
 		return $poliza;
 	}
   
+	public function editPolizaFacturaConstruccion($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+	public function editPolizaFacturaSeguroTecnico($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+	public function editPolizaFacturaAlquiler($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+
+
+	public function editPolizaFacturaIntegralComercio($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+	public function editPolizaFacturaResponsabilidadCivil($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+
+	public function editPolizaFacturaAccidentesPersonales($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+	public function editPolizaFacturaIncendio($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+
+	public function editPolizaFacturaIgj($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+	public function editPolizaFacturaJudiciales($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+
+	public function editPolizaFacturaVida($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+
+	public function editPolizaFacturaTransporteMercaderia($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
+	public function editPolizaFacturaAutomotores($poliza,$params){
+		//	$tipo_poliza = Domain_TipoPoliza::getIdByName('ADUANEROS');
+
+		try{
+			$m_poliza = $poliza->getModelPoliza();
+			$m_poliza->numero_factura=$params['numero_factura'];
+			
+			$m_poliza->save();
+		}catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $poliza;
+	}
+
 private function calcularPeriodo($fecha_desde,$periodo){
 
 		if(empty($fecha_desde)) return false;

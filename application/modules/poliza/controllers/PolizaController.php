@@ -2020,6 +2020,546 @@ public function bajaLiberacionPolizaAction(){
 
 	}
 
+		public function editPolizaFacturaConstruccionAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('CONSTRUCCION');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaConstruccion($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+	public function editPolizaFacturaSeguroTecnicoAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('SEGURO_TECNICO');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaSeguroTecnico($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+	public function editPolizaFacturaAlquilerAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('ALQUILER');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaAlquiler($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+	public function editPolizaFacturaIntegralComercioAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('INTEGRAL_COMERCIO');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaIntegralComercio($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+		public function editPolizaFacturaResponsabilidadCivilAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('RESPONSABILIDAD_CIVIL');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaResponsabilidadCivil($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+
+	public function editPolizaFacturaAccidentesPersonalesAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('ACCIDENTES_PERSONALES');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaAccidentesPersonales($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+	public function editPolizaFacturaIncendioAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('INCENDIO');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaIncendio($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+	public function editPolizaFacturaIgjAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('IGJ');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaIgj($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+
+	public function editPolizaFacturaJudicialesAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('IGJ');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaJudiciales($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+	public function editPolizaFacturaVidaAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('VIDA');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaVida($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+public function editPolizaFacturaTransporteMercaderiaAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('TRANSPORTE_MERCADERIA');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaTransporteMercaderia($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
+
+
+public function editPolizaFacturaAutomotoresAction()
+	{
+		//La Poliza siempre tiene poliza_id
+		$tipo_poliza_id = Domain_TipoPoliza::getIdByName('AUTOMOTORES');
+		$this->view->isAgente = false;
+		
+
+		//1. Traigo el POST
+		$params = $this->_request->getParams();
+		$poliza = $this->_poliza;
+
+
+		//3.Traigo la poliza
+		$d_poliza = new Domain_Poliza($params['poliza_id']);
+		$poliza = $d_poliza->getModelPoliza();
+		//Datos de la poliza
+
+		$this->view->tipo_endoso_text = Domain_Helper::getHelperNameById('tipo_endoso',$poliza->tipo_endoso_id);
+		$this->view->compania= Domain_Compania::getNameById($poliza->compania_id);
+		$this->view->productor= Domain_Productor::getNameById($poliza->productor_id);
+		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
+		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
+		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+
+		
+
+		$this->view->poliza = $poliza;
+		$this->view->poliza_valores = $poliza_valores;
+		$this->view->poliza_detalle = $poliza_detalle;
+
+		
+		if($params['save']){
+			/*
+			 * Service_Poliza::saveSolicitud()
+			 * @param: Domain_Poliza,$params(datos del POST)
+			 */
+			//Hago un save distinto por ahora, para salir del paso, estoy cansado
+			$poliza = $this->_services_poliza->editPolizaFacturaAutomotores($d_poliza,$params);
+			$this->view->poliza = $d_poliza->getModelPoliza();
+			echo "Factura Modificada";	
+		}
+
+	}
 
 
 	public function viewPolizaConstruccionAction()
