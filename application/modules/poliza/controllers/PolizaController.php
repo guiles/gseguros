@@ -1996,6 +1996,7 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
@@ -2043,6 +2044,7 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
@@ -2088,6 +2090,7 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
@@ -2133,6 +2136,7 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
@@ -2178,6 +2182,7 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
@@ -2223,8 +2228,8 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
-		
 
 		$this->view->poliza = $poliza;
 		$this->view->poliza_valores = $poliza_valores;
@@ -2269,9 +2274,9 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
-
 		$this->view->poliza = $poliza;
 		$this->view->poliza_valores = $poliza_valores;
 		$this->view->poliza_detalle = $poliza_detalle;
@@ -2314,6 +2319,7 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
@@ -2359,6 +2365,7 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
@@ -2405,6 +2412,7 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
@@ -2450,6 +2458,7 @@ public function bajaLiberacionPolizaAction(){
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
@@ -2495,6 +2504,7 @@ public function editPolizaFacturaTransporteMercaderiaAction()
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
@@ -2540,6 +2550,7 @@ public function editPolizaFacturaAutomotoresAction()
 		$this->view->agente= Domain_Agente::getNameById($poliza->agente_id);
 		$this->view->cobrador= Domain_Cobrador::getNameById($poliza->cobrador_id);
 		$this->view->beneficiario= Domain_Beneficiario::getNameById($d_poliza->getModelDetalle()->beneficiario_id);
+		$this->view->asegurado = Domain_Asegurado::getNameById($poliza->asegurado_id);
 
 		
 
