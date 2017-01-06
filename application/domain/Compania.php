@@ -201,6 +201,8 @@ class Domain_Compania {
 		$estado_baja_devolucion = Domain_EstadoPoliza::getIdByCodigo('BAJA_POR_DEVOLUCION');
 		$estado_no_renovado = Domain_EstadoPoliza::getIdByCodigo('NO_RENOVADO');
 		$estado_nota_credito = Domain_EstadoPoliza::getIdByCodigo('NOTA_DE_CREDITO');
+		$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
+
 
 
 		$debe = Doctrine_Query::create()
@@ -208,8 +210,9 @@ class Domain_Compania {
 		->from('Model_Poliza p, p.Model_PolizaValores pv')
 		->where('p.compania_id = ? and p.pago_compania_id = ? and pv.moneda_id = ? ',array($compania_id,0,$moneda_id))
 		->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? 
-		OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =?'
-		,array($estado_baja,$estado_afectada,$estado_refacturado,$estado_vigente,$estado_baja_devolucion,$estado_no_renovado,$estado_nota_credito))
+		OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?' 
+		,array($estado_baja,$estado_afectada,$estado_refacturado,$estado_vigente,$estado_baja_devolucion,$estado_no_renovado
+			,$estado_nota_credito,$estado_vigencia_cumplida))
 		->execute()
 		->toArray();
 		//->getSqlQuery();
@@ -237,6 +240,8 @@ class Domain_Compania {
 		$estado_baja_devolucion = Domain_EstadoPoliza::getIdByCodigo('BAJA_POR_DEVOLUCION');
 		$estado_no_renovado = Domain_EstadoPoliza::getIdByCodigo('NO_RENOVADO');
 		$estado_nota_credito = Domain_EstadoPoliza::getIdByCodigo('NOTA_DE_CREDITO');
+		$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
+
 
 
 		$debe = Doctrine_Query::create()
@@ -244,8 +249,9 @@ class Domain_Compania {
 		->from('Model_Poliza p, p.Model_PolizaValores pv')
 		->where('p.compania_id = ? and p.pago_compania_id = ? and pv.moneda_id = ? ',array($compania_id,1,$moneda_id))
 		->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? 
-		OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =?'
-		,array($estado_baja,$estado_afectada,$estado_refacturado,$estado_vigente,$estado_baja_devolucion,$estado_no_renovado,$estado_nota_credito))
+		OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
+		,array($estado_baja,$estado_afectada,$estado_refacturado,$estado_vigente,$estado_baja_devolucion,$estado_no_renovado
+			,$estado_nota_credito,$estado_vigencia_cumplida))
 		->execute()
 		->toArray();
 		//->getSqlQuery();

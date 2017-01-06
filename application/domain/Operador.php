@@ -324,14 +324,16 @@ class Domain_Operador implements Domain_IEntidad {
 		$estado_nota_credito = Domain_EstadoPoliza::getIdByCodigo('NOTA_DE_CREDITO');
 		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
 		$estado_renovada = Domain_EstadoPoliza::getIdByCodigo('RENOVADA');
+		$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
+
 
 
 
 		$rows = Doctrine_Query::create()
 		->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 		->where('p.asegurado_id = ? and dpc.pago_id = ? and p.numero_poliza like ?',array($asegurado_id,$estado_id,"%$nro_poliza%"))
-		->andwhere('p.estado_id = ? OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =?'
-		,array($estado_renovada,$estado_baja,$estado_afectada,$estado_refacturado,$estado_vigente,$estado_baja_devolucion,$estado_no_renovado,$estado_nota_credito,$estado_endosada))
+		->andwhere('p.estado_id = ? OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
+		,array($estado_renovada,$estado_baja,$estado_afectada,$estado_refacturado,$estado_vigente,$estado_baja_devolucion,$estado_no_renovado,$estado_nota_credito,$estado_endosada,$estado_vigencia_cumplida))
 		->execute()
 		->toArray();
 		//->getSqlQuery();
@@ -997,14 +999,16 @@ public function findPolizaInpagaByCompania($nro_poliza,$compania_id){
 		$estado_no_renovado = Domain_EstadoPoliza::getIdByCodigo('NO_RENOVADO');
 		$estado_nota_credito = Domain_EstadoPoliza::getIdByCodigo('NOTA_DE_CREDITO');
 		$estado_endosada = Domain_EstadoPoliza::getIdByCodigo('ENDOSADA');
+		$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
 
 
 
 		$rows = Doctrine_Query::create()
 		->from('Model_Poliza p')
 		->where('p.compania_id = ? and p.pago_compania_id = ? and p.numero_poliza like ?',array($compania_id,$estado_id,"%$nro_poliza%"))
-		->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
-		,array($estado_baja,$estado_afectada,$estado_refacturado,$estado_vigente,$estado_baja_devolucion,$estado_no_renovado,$estado_nota_credito,$estado_endosada))
+		->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
+		,array($estado_baja,$estado_afectada,$estado_refacturado,$estado_vigente,$estado_baja_devolucion,$estado_no_renovado,$estado_nota_credito
+			,$estado_endosada,$estado_vigencia_cumplida))
 		->execute()
 		->toArray();
 		//->getSqlQuery();

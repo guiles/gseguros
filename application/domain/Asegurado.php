@@ -182,6 +182,8 @@ public static function getDebeByAseguradoIdAndMoneda($asegurado_id,$moneda_id){
 		$estado_no_renovado = Domain_EstadoPoliza::getIdByCodigo('NO_RENOVADO');
 		$estado_nota_credito = Domain_EstadoPoliza::getIdByCodigo('NOTA_DE_CREDITO');
 		$estado_renovada = Domain_EstadoPoliza::getIdByCodigo('RENOVADA');
+		$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
+
 		//$estado_refactovada = Domain_EstadoPoliza::getIdByCodigo('RENOVADA');
 //REFACTURADO
 
@@ -190,9 +192,9 @@ public static function getDebeByAseguradoIdAndMoneda($asegurado_id,$moneda_id){
 		->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 		->where('p.asegurado_id = ? and dpc.pago_id = ? and dp.moneda_id = ? ',array($asegurado_id,$estado_id,$moneda_id))
 		->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? 
-		OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
+		OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =? OR p.estado_id =?'
 		,array($estado_baja,$estado_afectada,$estado_refacturado,$estado_vigente,
-$estado_baja_devolucion,$estado_no_renovado,$estado_nota_credito,$estado_renovada))
+$estado_baja_devolucion,$estado_no_renovado,$estado_nota_credito,$estado_renovada,$estado_vigencia_cumplida))
 		->execute()
 		->toArray();
 		//->getSqlQuery();
@@ -271,6 +273,9 @@ public static function bkgetPagoByAseguradoIdAndMoneda($id,$moneda_id){
 		$estado_no_renovado = Domain_EstadoPoliza::getIdByCodigo('NO_RENOVADO');
 		$estado_nota_credito = Domain_EstadoPoliza::getIdByCodigo('NOTA_DE_CREDITO');
 		$estado_renovada = Domain_EstadoPoliza::getIdByCodigo('RENOVADA');
+		$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
+
+
 
 
 		$debe = Doctrine_Query::create()
@@ -278,9 +283,9 @@ public static function bkgetPagoByAseguradoIdAndMoneda($id,$moneda_id){
 		->from('Model_Poliza p, p.Model_DetallePago dp, dp.Model_DetallePagoCuota dpc')
 		->where('p.asegurado_id = ? and dpc.pago_id = ? and dp.moneda_id = ? ',array($asegurado_id,$estado_id,$moneda_id))
 		->andwhere('p.estado_id = ? OR p.estado_id =? OR p.estado_id =? 
-		OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id = ?'
+		OR p.estado_id = ? OR p.estado_id = ? OR p.estado_id =? OR p.estado_id =? OR p.estado_id = ? OR p.estado_id =?'
 		,array($estado_baja,$estado_afectada,$estado_refacturado,
-$estado_vigente,$estado_baja_devolucion,$estado_no_renovado,$estado_nota_credito,$estado_renovada))
+$estado_vigente,$estado_baja_devolucion,$estado_no_renovado,$estado_nota_credito,$estado_renovada,$estado_vigencia_cumplida))
 		->execute()
 		->toArray();
 		//->getSqlQuery();
