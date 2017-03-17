@@ -2328,8 +2328,8 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 
 		try {
 			//$model_poliza->fecha_vigencia
-            $fecha_vigencia_desde = $this->calcularPeriodo($params['fecha_vigencia'], $model_poliza->periodo_id);
-			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+            //$fecha_vigencia_desde = $this->calcularPeriodo($params['fecha_vigencia'], $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $model_poliza->periodo_id);
 			
 			$m_poliza = $poliza_endosada->getModelPoliza();
 			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
