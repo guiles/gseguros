@@ -1825,11 +1825,11 @@ CUIT"20361584792"/>
        $xmlRoot = $xml_ssn->appendChild($xml_cabecera);
     
        //Creo elemento Version
-        $xml_cabecera->appendChild($domtree->createElement("Version",'1'));
+        //$xml_cabecera->appendChild($domtree->createElement("Version",'1'));
         $xml_productor = $domtree->createElement("Productor");
         $xml_productor->setAttribute('TipoPersona', $productor->getModel()->tipo_persona_id); 
         $xml_productor->setAttribute('Matricula', $productor->getModel()->matricula);
-    	$xml_productor->setAttribute('CUIT', $productor->getModel()->cuit);
+//    	$xml_productor->setAttribute('CUIT', $productor->getModel()->cuit);
     	$xml_cabecera->appendChild($xml_productor);
         $cantidad_registros = count($listado_movimientos);
     	$xml_cabecera->appendChild($domtree->createElement("CantidadRegistros",$cantidad_registros));
@@ -1839,7 +1839,11 @@ CUIT"20361584792"/>
     
 	foreach ($listado_movimientos as $movimiento) {
 		
+	
 	$tipo_registro = ($movimiento['tipo_movimiento_id'] == 0)? 1 : 2;
+
+
+
 	$fecha_registro = $movimiento['fecha_pago'];
 	
 	$xml_registro = $xml_detalle->appendChild($domtree->createElement("Registro"));
@@ -1908,7 +1912,7 @@ CUIT"20361584792"/>
    	
    	$xml_registro->appendChild($domtree->createElement("Importe",$importe));
 	$xml_registro->appendChild($domtree->createElement("ImporteTipo",$movimiento['moneda_id']));
-	$xml_registro->appendChild($domtree->createElement("NroRegistroAnulaModifica"));
+	//$xml_registro->appendChild($domtree->createElement("NroRegistroAnulaModifica"));
    
 	}
 	
