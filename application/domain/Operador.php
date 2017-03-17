@@ -499,6 +499,18 @@ class Domain_Operador implements Domain_IEntidad {
 		$estado = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
 		$estado_caucion = Domain_EstadoPoliza::getIdByCodigo('AFECTADA');
 		$estado_refacturado = Domain_EstadoPoliza::getIdByCodigo('REFACTURADO');
+		$estado_baja_devolucion = Domain_EstadoPoliza::getIdByCodigo('BAJA_POR_DEVOLUCION');
+		$estado_baja_liberacion = Domain_EstadoPoliza::getIdByCodigo('BAJA_POR_LIBERACION');
+		$estado_baja_oficio = Domain_EstadoPoliza::getIdByCodigo('BAJA_DE_OFICIO');
+		$estado_no_renovado = Domain_EstadoPoliza::getIdByCodigo('NO_RENOVADO');
+		$estado_vigencia_cumplida = Domain_EstadoPoliza::getIdByCodigo('VIGENCIA_CUMPLIDA');
+		
+		/*
+		
+		NO RENOVADO
+		VIGENCIA CUMPLIDA*/
+
+
 		//Que muester todas las polizas, despues veo el filtro
 		$this->_model_poliza = new Model_Poliza();
 		
@@ -510,6 +522,7 @@ class Domain_Operador implements Domain_IEntidad {
 		//->Where('estado_id = ? OR estado_id = ? OR estado_id = ?',array($estado,$estado_caucion,$estado_refacturado))
 		->Where('estado_id not in (0,1)' )
 		->andWhere("fecha_vigencia_hasta between ? AND ?", array($fecha_desde,$fecha_hasta))
+		->andWhere("estado_id not in ($estado_baja_devolucion,$estado_baja_liberacion,$estado_baja_oficio,$estado_no_renovado,$estado_vigencia_cumplida)")
 		//->andWhere("fecha_vigencia_hasta => ? AND fecha_vigencia_hasta =< ?", array($fecha_desde,$fecha_hasta))
 		->orderBy('fecha_vigencia_hasta')
 		->execute()
@@ -523,6 +536,8 @@ class Domain_Operador implements Domain_IEntidad {
 		->Where('estado_id not in (0,1)' )
 		->andWhere("fecha_vigencia_hasta between ? AND ?", array($fecha_desde,$fecha_hasta))
 		->andWhere("asegurado_id = ?",$asegurado_id)
+		->andWhere("estado_id not in ($estado_baja_devolucion,$estado_baja_liberacion,$estado_baja_oficio,$estado_no_renovado,$estado_vigencia_cumplida)")
+
 		//->andWhere("fecha_vigencia_hasta => ? AND fecha_vigencia_hasta =< ?", array($fecha_desde,$fecha_hasta))
 		->orderBy('fecha_vigencia_hasta')
 		->execute()

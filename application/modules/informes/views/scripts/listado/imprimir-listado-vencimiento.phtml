@@ -54,9 +54,13 @@ window.print();
 			<th>Moneda</th>
 			<th>Suma Asegurada</th>
 			<th>Prima</th>
-			<th>Premio Cia.</th>
+			<?if($this->isAgente OR $this->isCliente): ?>
+			<th>Importe</th>
+			<?else:?>
 			<th>Premio</th>
-			<th>Importe Plus</th>
+			<th>Plus</th>
+			<th>Importe</th>
+			<?endif; ?>		
 			<th>Documentacion</th>
 			<th>Estado</th>
 			<th></th>
@@ -75,7 +79,7 @@ window.print();
 	if($row['tipo_poliza_id']!=7)
 	$riesgo = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_poliza_detalle->motivo_garantia_id,$row['tipo_poliza_id']);
 
-	$documentacion = ($row['tipo_poliza_id']==2)?Domain_Helper::getHelperNameById('documentacion', $m_poliza_detalle->documentacion_id):null;
+	$documentacion = Domain_Helper::getHelperNameById('documentacion', $m_poliza_detalle->documentacion_id);
 
 
 
@@ -103,16 +107,21 @@ window.print();
 			<td><p><?=$asegurado_nombre?></p></td>
 			<td align="center"><p1><?=$row['numero_poliza']?></p1></td>
 			<td align="center"><p1><?=$row['endoso']?></p1></td>
-		  <td align="center"><p><?=$operacion?></p></td>
-	    <td><p><?=$riesgo?></p></td>
+		  	<td align="center"><p><?=$operacion?></p></td>
+	    	<td><p><?=$riesgo?></p></td>
 			<td align="center"><p><?=$moneda?></p></td>
-	    <td align="right"><p1><?=round($m_poliza_valores->monto_asegurado,2)?></p1></td>
-		  <td align="center"><p><?=round($m_poliza_valores->prima_comision,2)?></p></td>
-		  <td align="right"><p><?=round($m_poliza_valores->premio_compania,2)?></p></td>
-		  <td align="right"><p1><?=round($m_poliza_valores->premio_asegurado,2)?></p1></td>
-		  <td align="right"><?=round($m_poliza_valores->plus,2)?></td>
-		  <td align="center"><p><?=$documentacion?></p></td>
-			<td align="center"><p1><?=$estado?></p1></td>
+	    	<td align="right"><p1><?=round($m_poliza_valores->monto_asegurado,2)?></p1></td>
+		  	<td align="center"><p><?=round($m_poliza_valores->prima_comision,2)?></p></td>
+			<?$importe = $m_poliza_valores->premio_asegurado + $m_poliza_valores->plus;?>
+			<?if($this->isAgente OR $this->isCliente): ?>
+			<td><?=round($importe,2)?></td>
+			<?else:?>
+			<td><?=round($m_poliza_valores->premio_asegurado,2)?></td>
+			<td><?=round($m_poliza_valores->plus,2)?></td>
+			<td><?=round($importe,2)?></td>
+			<?endif;?>	  	
+		  	<td><?=$documentacion?></td>
+			<td><?=$estado?></td>
 
 		</tr>
 		<?endforeach; ?>
