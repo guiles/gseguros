@@ -57,12 +57,19 @@ class Services_Solicitud
 			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
 			$m_poliza_valores->moneda_id=$params['moneda_id'];
 			$m_poliza_valores->iva=$params['iva'];
-			$m_poliza_valores->prima_comision=$params['prima_comision'];
+			$m_poliza_valores->prima_comision=$params['prima'];
 			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
 			$m_poliza_valores->premio_compania=$params['premio_compania'];
 			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
 			$m_poliza_valores->plus=$params['plus'];
+			
+			//echo "<pre>";
+			//print_r($m_poliza_valores);
+			//print_r($solicitud);
+			//exit;
 			$m_poliza_valores->save();
+
+
 		}catch (Exception $e) {
 			echo $e->getMessage();
 		}
@@ -233,6 +240,8 @@ class Services_Solicitud
 			$m_poliza_valores->premio_asegurado=$params['premio_asegurado'];
 			$m_poliza_valores->plus=$params['plus'];
 			$m_poliza_valores->save();
+
+
 		}catch (Exception $e) {
 			echo $e->getMessage();
 		}

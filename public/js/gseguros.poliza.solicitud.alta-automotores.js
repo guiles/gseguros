@@ -101,11 +101,6 @@ $(document).ready(function() {
 
 					// Oculta campos dar de alta solicitud o buscar
 
-					//$('#datos_seguro_automotor').toggle();
-					///$('#detalle_riesgo_automotor').toggle();
-					//$('#valores_seguro_automotor').toggle();
-					//$('#observaciones_seguro_automotor').toggle();
-					// $('#datos_solicitud').toggle();
 
 					$('#datos_seguro_automotor_show').click(function() {
 						$('#datos_seguro_automotor').toggle();
@@ -141,11 +136,7 @@ $(document).ready(function() {
 						mm = '0' + mm
 					}
 					var date_today = yyyy + '-' + mm + '-' + dd;
-					// alert(date_today);
-					// Por defecto va la fecha del pedido del dia
-					// alert($('#fecha_pedido'));
-					// if($('#fecha_pedido').val())
-					
+		
 					
 					 if($('#fecha_pedido').val()==''){
 							$('#fecha_pedido').val(date_today);
@@ -160,47 +151,47 @@ $(document).ready(function() {
 					 * Muestra importe
 					 */
 
-					// cuando modifica los valores
-					$('#valor_cuota')
-							.change(
-									function() {
+					
+			//cuando modifica los valores
+			$('#valor_cuota_automotores')
+					.change(
+							function() {
+								
+								var s_cuotas = $('#cuotas_automotores'),
+								s_valor_cuota = $('#valor_cuota_automotores');
+								var importe=0;
+								var cuotas=0;
+								var valor_cuota = 0;
 
-										var s_cuotas = $('#cuotas'), s_valor_cuota = $('#valor_cuota');
-										var importe = 0;
-										var cuotas = 0;
-										var valor_cuota = 0;
+								cuotas = parseFloat(s_cuotas.val());
+								valor_cuota = parseFloat(s_valor_cuota.val());
 
-										cuotas = parseFloat(s_cuotas.val());
-										valor_cuota = parseFloat(s_valor_cuota
-												.val());
+								if ((cuotas != 0 && valor_cuota != 0)) {
+									importe = (valor_cuota * cuotas);
+									$('#importe_automotores').val(importe);
+								}
 
-										if ((cuotas != 0 && valor_cuota != 0)) {
-											importe = (valor_cuota * cuotas);
-											$('#importe').val(importe);
-										}
+							});
 
-									});
+			$('#cuotas_automotores')
+					.change(
+							function() {
 
-					$('#cuotas')
-							.change(
-									function() {
+								var s_cuotas = $('#cuotas_automotores'), 
+								s_valor_cuota = $('#valor_cuota_automotores');
+								var importe=0;
+								var cuotas=0;
+								var valor_cuota = 0;
 
-										var s_cuotas = $('#cuotas'), s_valor_cuota = $('#valor_cuota');
-										var importe = 0;
-										var cuotas = 0;
-										var valor_cuota = 0;
+								cuotas = parseFloat(s_cuotas.val());
+								valor_cuota = parseFloat(s_valor_cuota.val());
 
-										cuotas = parseFloat(s_cuotas.val());
-										valor_cuota = parseFloat(s_valor_cuota
-												.val());
+								if ((cuotas != 0 && valor_cuota != 0)) {
+									importe = (valor_cuota * cuotas);
+									$('#importe_automotores').val(importe);
+								}
 
-										if ((cuotas != 0 && valor_cuota != 0)) {
-											importe = (valor_cuota * cuotas);
-											$('#importe').val(importe);
-										}
-
-									});
-
+							});
 					$("#datos_tarjeta_show").hide();
 					$('#forma_pago_id').change(function() {
 						// Si es el ID de pago con tarjeta
@@ -339,22 +330,35 @@ $(document).ready(function() {
 					    }
 					});
 
+
+
+
+								// Enviar Solicitud Compania
+			$('#enviar_compania_solicitud_automotor').click(function() {
+				// busca el id de la solicitud a confirmar
+				var solicitud_id = $('#solicitud_id').val();
+				// trae id de tab
+				var tabs_sel = $('#tabs').tabs();
+				var idx = tabs_sel.tabs('option', 'selected');
+
+				// Trae el tab correspondiente
+				var tab = $('#tabs ul li a')[idx];
+				// //console.debug($('#tabs ul li a'));
+				var href = $(tab).attr('href');
+				var show_result = href+' #show_result';	
+				$.ajax({
+					url : "./poliza/solicitud/enviar-solicitud-compania-automotor",
+					data : {
+						solicitud_id : solicitud_id
+					},
+					success : function(result) {
+						$(show_result).html(result);
+						//devuelve el resultado e indica si tuvo exito o no
+					}
+				});
+
+			});
+
+
 				
 });
-
-/*
- * $("#solicitud_poliza").validate({ rules: { monto_asegurado: { required: true,
- * minlength: 2, digits: true }, password: { required: true, minlength: 3 },
- * confirm_password: { required: true, minlength: 3, equalTo: "#password" },
- * tipo_usuario_id: { required: true }, usuario_perfil_id: { required: true } },
- * messages: {
- * 
- * username: { required: "No puede estar vacio", minlength: "Al menos 2
- * caracteres", remote: "Ya esta en la base" }, password: { required: "No puede
- * estar vacio", minlength: "Longitud mayor a 3 caracteres" }, confirm_password: {
- * required: "confirma el password", minlength: "", equalTo: "Tiene que ser
- * igual" }, tipo_usuario_id: { required: "Selecciona un tipo de usuario" },
- * usuario_perfil_id: { required: "Selecciona un perfil" } }
- * 
- * 
- */

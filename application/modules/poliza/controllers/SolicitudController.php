@@ -135,6 +135,10 @@ class Poliza_SolicitudController extends Poliza_IndexController
 		if(! empty($params['solicitud_id']) ){
 			$solicitud = new Domain_Poliza($params['solicitud_id']);
 
+			//echo "<pre>";
+			//print_r($solicitud->getModelPoliza());
+			//exit;
+
 			$this->view->solicitud = $solicitud->getModelPoliza();
 			$this->view->poliza_valores = $solicitud->getModelPolizaValores();
 			$this->view->poliza_detalle = $solicitud->getModelDetalle();
@@ -2412,7 +2416,7 @@ public function renovacionAutomotoresAction()
 
 	}
 	
-	public function enviarSolicitudCompaniaAduanerosAction(){
+	public function enviarSolicitudCompaniaAutomotorAction(){
 		
 		$this->_helper->viewRenderer->setNoRender ();
 		$params = $this->_request->getParams();
@@ -2436,7 +2440,172 @@ public function renovacionAutomotoresAction()
 		return false;
 		}
 		
-			$asegurado = new Domain_Asegurado($m_poliza->asegurado_id);
+		$asegurado = new Domain_Asegurado($m_poliza->asegurado_id);
+		$m_asegurado = $asegurado->getModel();
+		
+		$headers = "MIME-Version: 1.0\r\n";
+	    $headers .= "Content-type: text/html; charset=ISO-8859-1\r\n";
+	    $headers .= "From: SConsultora <solicitud@sconsultora.com.ar>\r\n";
+	    $headers .= "Bcc:solicitud@sconsultora.com.ar\r\n";
+	    $subject = " Solicitud de Poliza de ".$m_asegurado->nombre;
+	    $to = $email;
+		
+	
+	    
+	    $contenido = file_get_contents (APPLICATION_PATH.'/../plantillas/email_sconsultora_automotor.html' );
+		
+	    $template=$contenido;
+		
+		$dia = date('w');
+		$meses = array("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		$mes =$meses[date('n')];
+		$año = date('Y');
+
+		/*Cargo variables*/
+		
+	
+		
+		
+		$productor = new Domain_Productor($m_poliza->productor_id);
+		$m_productor = $productor->getModel();
+		$tipo_seguro = Domain_TipoPoliza::getNameById($m_poliza->tipo_poliza_id);
+		$m_detalle_poliza = $poliza->getModelDetalle();
+		$m_detalle_poliza_valores = $poliza->getModelPolizaValores();
+		// echo "<pre>";
+		//print_r($m_detalle_poliza_valores);
+		//	exit;
+		
+		//$motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_detalle_poliza->motivo_garantia_id, $m_poliza->tipo_poliza_id);
+		 
+		$codigo_productor = Model_CodigoProductorCompania::getCodigoProductorByCompaniaId($m_poliza->productor_id, $m_poliza->compania_id);
+		
+		/*$beneficiario = new Domain_Beneficiario($m_detalle_poliza->beneficiario_id);
+		$m_beneficiario = $beneficiario->getModel();*/
+		
+		/*$d_despachante = new Domain_DespachanteAduana($m_detalle_poliza->despachante_aduana_id);*/
+		//$m_despachante = $d_despachante->getModel();
+		$tipo_movimiento = 'Emisi&oacute;n';
+		
+		$moneda = '$';	
+		if($m_detalle_poliza_valores->moneda_id == 1){
+		$moneda = '$';	
+		}elseif($m_detalle_poliza_valores->moneda_id == 2){
+		$moneda = 'USD';		
+		}elseif($m_detalle_poliza_valores->moneda_id == 3){
+		$moneda = 'EURO';		
+		};
+		//AAA
+
+
+		$tipo_vehiculo = Domain_Helper::getHelperNameById('tipo_vehiculo_automotores',$m_detalle_poliza->tipo_vehiculo_id); 
+		$anio = $m_detalle_poliza->anio;
+		$marca = $m_detalle_poliza->marca;
+		$modelo = $m_detalle_poliza->modelo;
+		$color = $m_detalle_poliza->color;
+		$patente =  $m_detalle_poliza->patente;
+        $serial_chasis = $m_detalle_poliza->serial_carroceria;
+        $serial_motor = $m_detalle_poliza->serial_motor;
+        $uso_vehiculo =  $m_detalle_poliza->uso_vehiculo;
+        $capacidad = Domain_Helper::getHelperNameById('capacidad_automotores',$m_detalle_poliza->capacidad_id); 
+        $estado_luces = Domain_Helper::getHelperNameById('estado_vehiculo_automotores',$m_detalle_poliza->estado_luces_id); 
+        $estado_motor = Domain_Helper::getHelperNameById('estado_vehiculo_automotores',$m_detalle_poliza->estado_motor_id); 
+		$estado_carroceria = Domain_Helper::getHelperNameById('estado_vehiculo_automotores',$m_detalle_poliza->estado_carroceria_id); 
+		$estado_cubiertas = Domain_Helper::getHelperNameById('estado_vehiculo_automotores',$m_detalle_poliza->estado_cubiertas_id); 
+		$tipo_combustion = Domain_Helper::getHelperNameById('tipo_combustion_automotores',$m_detalle_poliza->tipo_combustion_id); 
+		$sistema_seguridad = Domain_Helper::getHelperNameById('sistema_seguridad_automotores',$m_detalle_poliza->sistema_seguridad_id); 
+        $tipo_cobertura =  Domain_Helper::getHelperNameById('tipo_cobertura_automotores',$m_detalle_poliza->tipo_cobertura_id); 
+
+		$variables = array(
+			'{numero_solicitud}'=>(empty($m_poliza->numero_solicitud))?'':$m_poliza->numero_solicitud,
+			'{compania}'=>(empty($m_poliza->compania_id))?'':$m_compania->nombre,
+			'{cliente}'=>(empty($m_poliza->asegurado_id))?'':$m_asegurado->nombre,
+			'{domicilio_cliente}'=>(empty($m_asegurado->domicilio))?'':$m_asegurado->domicilio,
+			'{cuit_cliente}'=>(empty($m_asegurado->cuit))?'':$m_asegurado->cuit,
+			'{iva_cliente}'=>(empty($m_asegurado->iva))?'':$m_asegurado->iva	,
+			'{productor}'=>(empty($m_productor->nombre))?'':$m_productor->nombre,	
+			'{codigo_productor}'=>(empty($codigo_productor))?'':$codigo_productor,
+			'{tipo_seguro}'=>(empty($tipo_seguro))?'':$tipo_seguro,
+			'{tipo_movimiento}'=>(empty($tipo_movimiento))?'':$tipo_movimiento,
+			'{vigencia_desde} '=>(empty($m_poliza->fecha_vigencia))?'':$m_poliza->fecha_vigencia,
+			'{vigencia_hasta}'=>(empty($m_poliza->fecha_vigencia_hasta))?'':$m_poliza->fecha_vigencia_hasta,
+			'{asegurado}'=>(empty($m_poliza->asegurado_id))?'':$m_asegurado->nombre,
+			'{cuit_beneficiario}'=>(empty($m_beneficiario->cuit))?'':$m_beneficiario->cuit,
+			'{tipo_vehiculo}'=>(empty($tipo_vehiculo))?'':$tipo_vehiculo,
+			'{anio}'=>(empty($anio))?'':$anio,
+			'{marca}'=>(empty($marca))?'':$marca,
+			'{modelo}'=>(empty($modelo))?'':$modelo,
+			'{color}'=>(empty($color))?'':$color,
+			'{patente}'=>(empty($patente))?'':$patente,
+			'{serial_motor}'=>(empty($serial_motor))?'':$serial_motor,
+			'{serial_chasis}'=>(empty($serial_chasis))?'':$serial_chasis,
+			'{uso_vehiculo}'=>(empty($uso_vehiculo))?'':$uso_vehiculo,
+			'{capacidad}'=>(empty($capacidad))?'':$capacidad,
+			'{estado_luces}'=>(empty($estado_luces))?'':$estado_luces,	
+			'{estado_motor}'=>(empty($estado_motor))?'':$estado_motor,
+			'{estado_carroceria}'=>(empty($estado_carroceria))?'':$estado_carroceria,
+			'{estado_cubiertas}'=>(empty($estado_cubiertas))?'':$estado_cubiertas,
+			'{tipo_combustion}'=>(empty($tipo_combustion))?'':$tipo_combustion,
+			'{sistema_seguridad}'=>(empty($sistema_seguridad))?'':$sistema_seguridad,
+			'{tipo_cobertura}'=>(empty($tipo_cobertura))?'':$tipo_cobertura,
+			'{localidad_cliente}'=>(empty($m_asegurado->localidad))?'':$m_asegurado->localidad,
+			'{provincia_cliente}'=>(empty($m_asegurado->provincia))?'':$m_asegurado->provincia,
+
+			'{suma_asegurada}'=>(empty($m_detalle_poliza_valores->monto_asegurado))?'':$m_detalle_poliza_valores->monto_asegurado,
+			'{observaciones_compania} '=>(empty($m_poliza->observaciones_compania))?'':$m_poliza->observaciones_compania,
+			'{factura}'=>(empty($m_detalle_poliza->factura))?'':$m_detalle_poliza->factura,
+			'{bl}'=>(empty($m_detalle_poliza->bl))?'':$m_detalle_poliza->bl,
+			'{adicional}'=>(empty($m_detalle_poliza->descripcion_adicional))?'':$m_detalle_poliza->descripcion_adicional,
+			'{prima}'=>(empty($m_detalle_poliza_valores->prima_comision))?'':$m_detalle_poliza_valores->prima_comision,
+			'{moneda}'=>(empty($moneda))?'':$moneda,
+			
+			);
+
+			/*Fin Cargo Variables*/
+			
+	$contenido= str_replace(array_keys($variables),array_values($variables),$template);
+
+
+		echo $contenido;
+	    	   
+	    
+		$res = mail("$to", "$subject",$contenido, $headers);
+		
+		if(!$res){
+		echo "<font color='red'>Ocurrio un error al tratar de enviar el email</font>";
+		}else{
+
+			echo "<font color='blue'>El email ha sido enviado correctamente!</font>";
+		}
+		
+				
+		return true;
+	}
+
+	public function enviarSolicitudCompaniaAduanerosAction(){
+
+		$this->_helper->viewRenderer->setNoRender ();
+		$params = $this->_request->getParams();
+		
+		$poliza = new Domain_Poliza($params['solicitud_id']);
+		$m_poliza = $poliza->getModelPoliza();
+		$compania_id = $m_poliza->compania_id;
+		//chequear si tiene asignada compania
+		
+		if(empty($compania_id)){
+		echo "<font color='red'>Error: La poliza no tiene compania!</font>";
+			return false;
+		}
+		
+		$compania = new Domain_Compania($compania_id);
+		$m_compania = $compania->getModel(); 
+		$email = $m_compania->email;
+		
+		if(empty($email)){
+		echo "<font color='red'>Error: La compania no tiene email!</font>";	
+		return false;
+		}
+		
+		$asegurado = new Domain_Asegurado($m_poliza->asegurado_id);
 		$m_asegurado = $asegurado->getModel();
 		
 		$headers = "MIME-Version: 1.0\r\n";
@@ -2470,9 +2639,10 @@ public function renovacionAutomotoresAction()
 		// echo "<pre>";
 		//print_r($m_detalle_poliza_valores);
 		//	exit;
-		
+	
 		$motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_detalle_poliza->motivo_garantia_id, $m_poliza->tipo_poliza_id);
-		 
+		 	echo $m_poliza->tipo_poliza_id;
+		exit;
 		$codigo_productor = Model_CodigoProductorCompania::getCodigoProductorByCompaniaId($m_poliza->productor_id, $m_poliza->compania_id);
 		
 		$beneficiario = new Domain_Beneficiario($m_detalle_poliza->beneficiario_id);
