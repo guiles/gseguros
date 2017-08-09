@@ -2641,8 +2641,7 @@ public function renovacionAutomotoresAction()
 		//	exit;
 	
 		$motivo_garantia = Domain_MotivoGarantia::getMotivoGarantiaByIdAndTipoPoliza($m_detalle_poliza->motivo_garantia_id, $m_poliza->tipo_poliza_id);
-		 	echo $m_poliza->tipo_poliza_id;
-		exit;
+		 	
 		$codigo_productor = Model_CodigoProductorCompania::getCodigoProductorByCompaniaId($m_poliza->productor_id, $m_poliza->compania_id);
 		
 		$beneficiario = new Domain_Beneficiario($m_detalle_poliza->beneficiario_id);

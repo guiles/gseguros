@@ -1513,6 +1513,7 @@ public function endosoPolizaJudicialesAction()
 		$this->view->documentacion = Domain_Helper::getHelperByDominio('documentacion');
 		$this->view->periodo = Domain_Helper::getHelperNameById('periodo', $m_poliza->periodo_id);
 		$this->view->cuotas = Domain_Helper::getHelperByDominio('cuota');
+		$this->view->moneda = Domain_Helper::getHelperNameById('moneda', $d_poliza->getModelPolizaValores()->moneda_id);
 
 
 		if($params['save']){

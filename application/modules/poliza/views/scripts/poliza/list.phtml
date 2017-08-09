@@ -257,10 +257,10 @@ if($motivo_garantia_id == $solvencia_economica_aduaneros):?>
 			
 
 			<?elseif($estado_codigo=='AFECTADA'):?>
-			<td><input type='button' value='REFACTURAR'
+			<!--td><input type='button' value='REFACTURAR'
 				onClick="return refacturarPoliza('./poliza/poliza/refacturar-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
 				</input>
-			</td>
+			</td-->
 			<td><input type='button' value='ENDOSO'
 				onClick="return endosoPoliza('./poliza/poliza/endoso-poliza-aduaneros/poliza_id/<?=$poliza['poliza_id']?>','ENDOSO ADUANEROS','ADUANEROS')">
 				</input>
@@ -306,10 +306,10 @@ case 'CONSTRUCCION':?>
 			</td>
 			
 			<?if($estado_codigo == 'VIGENTE'):?>
-			<td><input type='button' value='REFACTURAR'
+			<!--td><input type='button' value='REFACTURAR'
 				onClick="return refacturarPoliza('./poliza/poliza/refacturar-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
 				</input>
-			</td>
+			</td-->
 			<td><input type='button' value='ENDOSO'
 				onClick="return endosoPoliza('./poliza/poliza/endoso-poliza-construccion/poliza_id/<?=$poliza['poliza_id']?>','ENDOSO CONSTRUCCION','CONSTRUCCION')">
 				</input>
@@ -356,10 +356,10 @@ case 'SEGURO_TECNICO':?>
 			</td>
 			
 			<?if($estado_codigo == 'VIGENTE'):?>
-			<td><input type='button' value='REFACTURAR'
+			<!--td><input type='button' value='REFACTURAR'
 				onClick="return refacturarPoliza('./poliza/poliza/refacturar-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
 				</input>
-			</td>
+			</td-->
 			<td><input type='button' value='ENDOSO'
 				onClick="return endosoPoliza('./poliza/poliza/endoso-poliza-seguro-tecnico/poliza_id/<?=$poliza['poliza_id']?>','ENDOSO SEGURO TECNICO','SEGURO_TECNICO')">
 				</input>
@@ -603,10 +603,10 @@ case 'JUDICIALES':?>
 				onClick="return renovarPoliza('./poliza/solicitud/renovacion-judiciales/poliza_id/<?=$poliza['poliza_id']?>','RENOVACION JUDICIALES','JUDICIALES')">
 				</input>
 			</td-->
-			<td><input type='button' value='REFACTURAR'
+			<!--td><input type='button' value='REFACTURAR'
 				onClick="return refacturarPoliza('./poliza/poliza/refacturar-poliza/poliza_id/<?=$poliza['poliza_id']?>')">
 				</input>
-			</td>
+			</td-->
 			<td><input type='button' value='ENDOSO'
 				onClick="return endosoPoliza('./poliza/poliza/endoso-poliza-judiciales/poliza_id/<?=$poliza['poliza_id']?>','ENDOSO JUDICIALES','JUDICIALES')">
 				</input>
