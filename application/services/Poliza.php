@@ -2245,8 +2245,8 @@ public function refacturarPolizaAlquiler($poliza){
 
 
 public function endosarPolizaAduaneros($d_poliza,$params){
-		echo "entra aca";
-		echo "<pre>";
+		//echo "entra aca";
+		//echo "<pre>";
 		//print_r($d_poliza->getModelDetalle());
 		//exit;
 		$e_m_poliza_detalle = $d_poliza->getModelDetalle();
@@ -2329,7 +2329,8 @@ public function endosarPolizaAduaneros($d_poliza,$params){
 		try {
 			//$model_poliza->fecha_vigencia
             //$fecha_vigencia_desde = $this->calcularPeriodo($params['fecha_vigencia'], $model_poliza->periodo_id);
-			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $model_poliza->periodo_id);
+			//$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
 			
 			$m_poliza = $poliza_endosada->getModelPoliza();
 			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
@@ -2438,8 +2439,11 @@ public function endosarPolizaSeguroTecnico($d_poliza,$params){
 
 		try {
 
-            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
-			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+           // $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+		   //	$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+
+			//$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
 			
 			$m_poliza = $poliza_endosada->getModelPoliza();
 			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
@@ -2450,7 +2454,7 @@ public function endosarPolizaSeguroTecnico($d_poliza,$params){
 			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
 			$m_poliza->fecha_pedido=$params['fecha_pedido']; //fecha de pedido se modifica
 			$m_poliza->periodo_id=$model_poliza->periodo_id; // El resto de las fechas no se modifica
-			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->fecha_vigencia= $params['fecha_vigencia'];//$fecha_vigencia_desde;
 			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
 			$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
 			$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
@@ -2555,8 +2559,9 @@ public function endosarPolizaSeguroTecnico($d_poliza,$params){
 
 		try {
 
-            $fecha_vigencia_desde = $this->calcularPeriodo($params['fecha_vigencia'], $model_poliza->periodo_id);
-			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+            //$fecha_vigencia_desde = $this->calcularPeriodo($params['fecha_vigencia'], $model_poliza->periodo_id);
+			//$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
 			
 			$m_poliza = $poliza_endosada->getModelPoliza();
 			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
@@ -2570,7 +2575,6 @@ public function endosarPolizaSeguroTecnico($d_poliza,$params){
 			$m_poliza->periodo_id= $params['periodo_id'];//$model_poliza->periodo_id; // El resto de las fechas no se modifica
 			$m_poliza->fecha_vigencia= $params['fecha_vigencia'];//$fecha_vigencia_desde;
 			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
-			
 			//$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
 			//$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
 			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];
@@ -2666,8 +2670,9 @@ public function endosarPolizaResponsabilidadCivil($d_poliza,$params){
 
 		try {
 
-            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
-			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+            //$fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+			//$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
 			
 			$m_poliza = $poliza_endosada->getModelPoliza();
 			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
@@ -2678,7 +2683,7 @@ public function endosarPolizaResponsabilidadCivil($d_poliza,$params){
 			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
 			$m_poliza->fecha_pedido=$params['fecha_pedido']; //fecha de pedido se modifica
 			$m_poliza->periodo_id=$model_poliza->periodo_id; // El resto de las fechas no se modifica
-			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->fecha_vigencia= $params['fecha_vigencia'];
 			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
 			//$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
 			//$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
@@ -2783,9 +2788,11 @@ public function endosarPolizaResponsabilidadCivil($d_poliza,$params){
 
 		try {
 
-            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
-			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+            //$fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+			//$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
 			
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+
 			$m_poliza = $poliza_endosada->getModelPoliza();
 			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
 			$m_poliza->asegurado_id=$model_poliza->asegurado_id;
@@ -2795,7 +2802,7 @@ public function endosarPolizaResponsabilidadCivil($d_poliza,$params){
 			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
 			$m_poliza->fecha_pedido=$params['fecha_pedido']; //fecha de pedido se modifica
 			$m_poliza->periodo_id=$model_poliza->periodo_id; // El resto de las fechas no se modifica
-			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->fecha_vigencia= $params['fecha_vigencia'];
 			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
 			//$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
 			//$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
@@ -2878,7 +2885,7 @@ public function endosarPolizaJudiciales($d_poliza,$params){
 		try{
 			$m_poliza_valores = $poliza_endosada->getModelPolizaValores();
 			$m_poliza_valores->monto_asegurado=$params['monto_asegurado'];
-			$m_poliza_valores->moneda_id=$poliza_valores->moneda_id;
+			$m_poliza_valores->moneda_id=$params['moneda_id'];
 			$m_poliza_valores->iva=$params['iva'];
 			$m_poliza_valores->prima_comision=$params['prima_comision'];
 			$m_poliza_valores->prima_tarifa=$params['prima_tarifa'];
@@ -2892,8 +2899,9 @@ public function endosarPolizaJudiciales($d_poliza,$params){
 
 		try {
 
-            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
-			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+            //$fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+			//$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
 			
 			$m_poliza = $poliza_endosada->getModelPoliza();
 			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
@@ -2902,10 +2910,13 @@ public function endosarPolizaJudiciales($d_poliza,$params){
 			$m_poliza->compania_id=$model_poliza->compania_id;
 			$m_poliza->productor_id=$model_poliza->productor_id;
 			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
+
 			$m_poliza->fecha_pedido=$params['fecha_pedido']; //fecha de pedido se modifica
-			$m_poliza->periodo_id=$model_poliza->periodo_id; // El resto de las fechas no se modifica
-			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->periodo_id= $params['periodo_id'];//$model_poliza->periodo_id; // El resto de las fechas no se modifica
+			$m_poliza->fecha_vigencia= $params['fecha_vigencia'];//$fecha_vigencia_desde;
 			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
+
+
 			//$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
 			//$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
 			$m_poliza->observaciones_asegurado=$params['observaciones_asegurado'];
@@ -3002,8 +3013,10 @@ public function endosarPolizaIgj($d_poliza,$params){
 
 		try {
 
-            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
-			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+            //$fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+			//$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
 			
 			$m_poliza = $poliza_endosada->getModelPoliza();
 			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
@@ -3014,7 +3027,7 @@ public function endosarPolizaIgj($d_poliza,$params){
 			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
 			$m_poliza->fecha_pedido=$params['fecha_pedido']; //fecha de pedido se modifica
 			$m_poliza->periodo_id=$model_poliza->periodo_id; // El resto de las fechas no se modifica
-			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->fecha_vigencia= $params['fecha_vigencia'];
 			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
 			//$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
 			//$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
@@ -3106,9 +3119,10 @@ public function endosarPolizaAlquiler($d_poliza,$params){
 
 		try {
 
-            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
-			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
-			
+            //$fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+			//$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+
 			$m_poliza = $poliza_endosada->getModelPoliza();
 			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
 			$m_poliza->asegurado_id=$model_poliza->asegurado_id;
@@ -3118,7 +3132,7 @@ public function endosarPolizaAlquiler($d_poliza,$params){
 			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
 			$m_poliza->fecha_pedido=$model_poliza->fecha_vigencia_hasta;
 			$m_poliza->periodo_id=$model_poliza->periodo_id;
-			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->fecha_vigencia= $params['fecha_vigencia'];
 			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
 			$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
 			$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
@@ -3211,9 +3225,11 @@ public function endosarPolizaIntegralComercio($d_poliza,$params){
 
 		try {
 
-            $fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
-			$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
-			
+            //$fecha_vigencia_desde = $this->calcularPeriodo($model_poliza->fecha_vigencia, $model_poliza->periodo_id);
+			//$fecha_vigencia_hasta = $this->calcularPeriodo($fecha_vigencia_desde, $model_poliza->periodo_id);
+			$fecha_vigencia_hasta = $this->calcularPeriodo($params['fecha_vigencia'], $params['periodo_id']);
+
+
 			$m_poliza = $poliza_endosada->getModelPoliza();
 			$m_poliza->numero_solicitud=$model_poliza->numero_solicitud;
 			$m_poliza->asegurado_id=$model_poliza->asegurado_id;
@@ -3223,7 +3239,7 @@ public function endosarPolizaIntegralComercio($d_poliza,$params){
 			$m_poliza->cobrador_id=$model_poliza->cobrador_id;
 			$m_poliza->fecha_pedido=$model_poliza->fecha_vigencia_hasta;
 			$m_poliza->periodo_id=$model_poliza->periodo_id;
-			$m_poliza->fecha_vigencia= $fecha_vigencia_desde;
+			$m_poliza->fecha_vigencia= $params['fecha_vigencia'];
 			$m_poliza->fecha_vigencia_hasta= $fecha_vigencia_hasta;
 			$m_poliza->observaciones_asegurado=$model_poliza->observaciones_asegurado;
 			$m_poliza->observaciones_compania=$model_poliza->observaciones_compania;
