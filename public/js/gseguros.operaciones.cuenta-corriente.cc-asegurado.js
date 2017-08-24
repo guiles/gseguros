@@ -50,7 +50,6 @@ $(document).ready(
             $('#busqueda_poliza_movimientos').click(function() {
 
                 var numero_poliza = $('#numero_poliza').val();
-                console.debug(numero_poliza);
                 var tabs_sel = $('#tabs').tabs();
                 var idx = tabs_sel.tabs('option', 'selected');
 

@@ -22,6 +22,7 @@ $(document).ready(
 				////console.debug($(this).closest('tr'));
 		  		//$(this).closest('tr').not(':only-child').remove();
 		  		$(this).closest('tr').remove();
+		  		actualiza_importe();
 		});
 		 
 
@@ -29,7 +30,7 @@ $(document).ready(
 	//alert(table);
 	//$(table).html('<span> a verrr </span>');
 	$('#pasar_polizas_compania').click(function(){
-
+		var t_importe_total_a_pagar = 0;	
 		//alert('clic');
 		$("#tabla_busqueda_polizas_compania input:checkbox:checked ").each(function(index) {
 
@@ -66,7 +67,6 @@ $(document).ready(
 					esta = false;
 					//clono el registro		
 					var table_row = $('#tabla_busqueda_polizas_compania input:checkbox:checked').closest('tr').clone();
-					////console.debug(table_row);
 					
 					//le agrego el boton quitar	
 					var html = '<td><input class="eliminar_poliza_compania" type="button"  value="Quitar"></input></td>';
@@ -74,12 +74,40 @@ $(document).ready(
 					table_row.append(html);
 					$(table_polizas).append(table_row);	
 					
+
+					
 				}
-		
-		//$(table_polizas).append('<span> a verrr </span>');
+				actualiza_importe();
+			//alert(importe_total_a_pagar);
+	//$('#importe_compania').val(importe_total_a_pagar);
+			//$(table_polizas).append('<span> a verrr </span>');
 		
 		});
 	   
+
+				function actualiza_importe(){
+
+
+							var total = 0;
+							$('#div_tabla_polizas_compania input').each(function(){
+								
+								if(!( $(this).hasClass('eliminar_poliza_compania') )){
+							
+						  		var parcial = 0; //Si importe esta vacio no hago nada
+						  		if( !($(this).attr('importe') == ''))
+						  		parcial = parseFloat($(this).attr('importe'));
+						 
+						  		//que no entre si el input es ctotal
+						  		if(! ($(this).attr('id') =='ctotal'))
+						  		total = total + parcial;
+						  		
+						  		}
+							});
+							
+							var txt = parseFloat(total).toFixed(2);
+							$('#ctotal').val(txt);
+				};
+
 	});
 </script>
 
@@ -97,7 +125,7 @@ $(document).ready(
 					<th>Asegurado</th>
 					<th>Premio</th>
 					<th>Plus</th>
-					<th>Fecha Pago</th>
+					<th>Nro Factura Cia</th>
 					<th>Moneda</th>
 					<th>Importe</th>
 					<th></th>
@@ -147,7 +175,7 @@ $(document).ready(
 					<td><?=$asegurado?></td>
 					<td><?=$m_poliza_valores->premio_asegurado?></td>
 					<td><?=$m_poliza_valores->plus?></td>
-					<td><?=$row['fecha_pago']?></td>
+					<td><?=$m_poliza->numero_factura?></td>
 					<td><?=$moneda?></td>
 					<td><?=$m_poliza_valores->premio_compania?></td>
 				</tr>

@@ -132,7 +132,8 @@ $('#realizar_pago_compania').click(function() {
 
 		if(!( $(this).hasClass('eliminar_poliza_compania') )){
 			
-		  importe_total_a_pagar = importe_total_a_pagar + parseFloat($(this).attr('importe'));
+		  importe_total_a_pagar = parseFloat(importe_total_a_pagar + parseFloat($(this).attr('importe')).toFixed(2)).toFixed(2);
+
 		}
 	});
 
@@ -351,13 +352,29 @@ $.ajax({
 			<th>Asegurado</th>
 			<th>Premio</th>
 			<th>Plus</th>
-			<th>Fecha Pago</th>
+			<th>Nro Factura Cia</th>
 			<th>Moneda</th>
 			<th>Importe</th>
 		</tr>
 	</thead>
 	<tbody class="ui-widget-content">
 	</tbody>
+	<tfoot>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th>Importe a Pagar</th>
+			<th><input type="text" id="ctotal" value=0 readonly></input></th>
+		</tr>
+	</tfoot>
 </table>
 </div>
 <input type="button" id="realizar_pago_compania" value="Realizar Pago"></input>
