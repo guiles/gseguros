@@ -54,7 +54,7 @@ $(document).ready(
 
 	var id_check = 0;
 	var moneda_distinta = false;		
-	var importe_total_a_pagar = 0;		
+	//var importe_total_a_pagar = 0;		
 	var array_polizas_compania = new Array(); 
 	var tabs_sel = $('#tabs').tabs();
 	var idx = tabs_sel.tabs('option', 'selected');
@@ -127,8 +127,8 @@ $('#realizar_pago_compania').click(function() {
 	$('#realizar_pago_compania_show').toggle();
 
 	//Recorro la tabla para completar el campo importe en efectivo
-
-	$('#div_tabla_polizas_compania input').each(function(){
+	//Esto ya no hace falta porque el total lo calculo cuando lo informo 
+	/*$('#div_tabla_polizas_compania input').each(function(){
 
 		if(!( $(this).hasClass('eliminar_poliza_compania') )){
 			
@@ -137,13 +137,41 @@ $('#realizar_pago_compania').click(function() {
 		}
 	});
 
-	$('#importe_compania').val(importe_total_a_pagar);
+	//$('#importe_compania').val(importe_total_a_pagar);
+	*/
+	var v_total = $('#ctotal').val();
+	$('#importe_compania').val(v_total);
 
 	//console.debug('importe_total_a_pagar:'+importe_total_a_pagar);
 	
 	
 });
 	
+	function traeTotalCheques(){
+		var total = 0;
+		$('.c_importe_cheque').each(function(){
+			total = parseFloat(total) + parseFloat($(this).val());
+		});
+		//alert(total);
+		return parseFloat(total).toFixed(2);
+	}
+//Al actualizar el importe del cheque que vaya restando el total en efectivo
+$('.c_importe_cheque').change(function(){
+
+	//trae importe total efectivo
+	var importe_efectivo = $('#importe_compania').val();
+	var importe_total = $('#ctotal').val();
+
+	var importe_cheque = traeTotalCheques();
+	var saldo = importe_total - importe_cheque;
+	
+	$('#importe_compania').val(parseFloat(saldo).toFixed(2));	
+	
+
+	console.debug(this);
+
+});
+
 // Guardar Solicitud
 $('#confirmar_pago_compania').click(function() {
 //alert('realiza el pago de las poliza_companias seleccionadas');
@@ -199,7 +227,7 @@ $('#confirmar_pago_compania').click(function() {
 
 			//alert($(this).attr('moneda'));
 			//chequea que sean de la misma moneda, si no lo es sale		
-			if(!( $(this).hasClass('eliminar_poliza_compania') )){
+			if(!( $(this).hasClass('eliminar_poliza_compania') || $(this).attr('id') =='ctotal')){
 				
 			if(moneda_compania_id.val() != $(this).attr('moneda')){
 				alert("Debe seleccionar el mismo tipo de moneda");
@@ -207,7 +235,7 @@ $('#confirmar_pago_compania').click(function() {
 				return false;
 			}
 			}
-			if(!( $(this).hasClass('eliminar_poliza_compania') )){
+			if(!( $(this).hasClass('eliminar_poliza_compania') || $(this).attr('id') =='ctotal')){
 				
 			  //Agrego los id de las poliza_companias a modificar	
 			  array_polizas_compania.push($(this).val());
@@ -233,8 +261,15 @@ $('#confirmar_pago_compania').click(function() {
 	+ parseFloat(importe_cheque_compania_3.val()) + parseFloat(importe_cheque_compania_4.val())
 	+ parseFloat(importe_cheque_compania_5.val())	;
 
-	// alert(importe_total);
-	if(importe_total != importe_total_a_pagar){
+	//JS es una mierda cuando tratas con numeros, lo tengo que traer y convertir en float para despues poder realizar operaciones
+	/*var total_cheques = traeTotalCheques();
+	var x = parseFloat(total_cheques).toFixed(2) + parseFloat($('#importe_compania').val()).toFixed(2) ;
+	alert(x);
+	return;*/ 
+	var total_a_pagar = $('#ctotal').val();
+	importe_total = parseFloat(importe_total).toFixed(2);
+	
+	if(importe_total != total_a_pagar){
 	
 	var resp = confirm("El importe a pagar es diferente, desea continuar?");
 
@@ -437,8 +472,8 @@ $.ajax({
 		<td><input type="text" name="nro_cheque_compania_0" id="nro_cheque_compania_0" value="">
 		</input></td>
 		<td>Importe:</td>
-		<td><input type="text" name="importe_cheque_compania_0" id="importe_cheque_compania_0"
-			value="0"> </input></td>
+		<td><input  name="importe_cheque_compania_0" id="importe_cheque_compania_0"
+			value="0" class="c_importe_cheque"  type="number" min="0" step="any"> </input></td>
 	</tr>
 	<tr>
 		<td>Banco:</td>
@@ -448,8 +483,8 @@ $.ajax({
 		<td><input type="text" name="nro_cheque_compania_1" id="nro_cheque_compania_1" value="">
 		</input></td>
 		<td>Importe:</td>
-		<td><input type="text" name="importe_cheque_compania_1" id="importe_cheque_compania_1"
-			value="0"> </input></td>
+		<td><input name="importe_cheque_compania_1" id="importe_cheque_compania_1"
+			value="0" class="c_importe_cheque"  type="number" min="0" step="any"> </input></td>
 	</tr>
 	<tr>
 		<td>Banco:</td>
@@ -459,8 +494,8 @@ $.ajax({
 		<td><input type="text" name="nro_cheque_compania_2" id="nro_cheque_compania_2" value="">
 		</input></td>
 		<td>Importe:</td>
-		<td><input type="text" name="importe_cheque_compania_2" id="importe_cheque_compania_2"
-			value="0"> </input></td>
+		<td><input  name="importe_cheque_compania_2" id="importe_cheque_compania_2"
+			value="0" class="c_importe_cheque"  type="number" min="0" step="any"> </input></td>
 	</tr>
 	<tr>
 		<td>Banco:</td>
@@ -470,8 +505,8 @@ $.ajax({
 		<td><input type="text" name="nro_cheque_compania_3" id="nro_cheque_compania_3" value="">
 		</input></td>
 		<td>Importe:</td>
-		<td><input type="text" name="importe_cheque_compania_3" id="importe_cheque_compania_3"
-			value="0"> </input></td>
+		<td><input  name="importe_cheque_compania_3" id="importe_cheque_compania_3"
+			value="0" class="c_importe_cheque"  type="number" min="0" step="any"> </input></td>
 	</tr>
 
 	<tr>
@@ -482,20 +517,20 @@ $.ajax({
 		<td><input type="text" name="nro_cheque_compania_4" id="nro_cheque_compania_4" value="">
 		</input></td>
 		<td>Importe:</td>
-		<td><input type="text" name="importe_cheque_compania_4" id="importe_cheque_compania_4"
-			value="0"> </input></td>
+		<td><input  name="importe_cheque_compania_4" id="importe_cheque_compania_4"
+			value="0" class="c_importe_cheque"  type="number" min="0" step="any"> </input></td>
 	</tr>
 
 	<tr>
 		<td>Banco:</td>
-		<td><input type="text" name="banco_cheque_compania_5" id="banco_cheque_compania_5"
+		<td><input name="banco_cheque_compania_5" id="banco_cheque_compania_5"
 			value=""> </input></td>
 		<td>Nro:</td>
 		<td><input type="text" name="nro_cheque_compania_5" id="nro_cheque_compania_5" value="">
 		</input></td>
 		<td>Importe:</td>
-		<td><input type="text" name="importe_cheque_compania_5" id="importe_cheque_compania_5"
-			value="0"> </input></td>
+		<td><input  name="importe_cheque_compania_5" id="importe_cheque_compania_5"
+			value="0" class="c_importe_cheque"  type="number" min="0" step="any"> </input></td>
 	</tr>
 </table>
 </div>

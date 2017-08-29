@@ -1,6 +1,7 @@
 <script type="text/javascript">
 
 esta = false;
+error = 0;
 $(document).ready(
 		function(){
 			
@@ -36,35 +37,59 @@ $(document).ready(
 
 			////console.debug(index);
 			var row_busqueda_id = $(this).val();
-			         //alert('entro');
-			//table_row = $('#tabla_busqueda_poliza input:checkbox:checked').closest('tr').clone();        
-			//console.debug('id'+row_busqueda_id);
+			var moneda_id = $(this).attr('moneda');
 
-			$("#pago_tabla_polizas_compania input ").each(function(index) {
+
+			//table_row = $('#tabla_busqueda_poliza input:checkbox:checked').closest('tr').clone();        
+			
+
+			$("#pago_tabla_polizas_compania input ").each(function(index,element) {
 
 				////console.debug(index);
 				var row_id = $(this).val();
 				         //alert('entro');
+
 				//table_row = $('#tabla_busqueda_poliza input:checkbox:checked').closest('tr').clone();        
-				//console.debug('id_a_comparar'+row_id);
+				if(element.type == 'checkbox') {
+					var m_id = element.getAttribute('moneda');
+
+					if(moneda_id != m_id){
+						
+						error = 2; //Las monedas son distintas				
+					} 
+				}
 
 				if(row_busqueda_id==row_id){
 					//console.debug('ya esta la poliza');
 					esta = true;
+					error = 1;
 				}
 				
 			});		
-
 			
 		});
 		 
-		
-		//agrego a la tabla
-				if(esta){
-					alert('La poliza ya se encuentra en el listado');
+		//Horrible esto 
+				if(error > 0){
+						
+						switch(error) {
+						    case 1:
+								alert('La poliza ya se encuentra en el listado');
+						        break;
+						    case 2:
+						        alert('Las monedas son distintas');
+						        break;
+						    default:
+						        return;
+						}					
+
+					
 					esta = false;
-				}else{
+					error = 0;
+				}else{ 		//agrego a la tabla
+
 					esta = false;
+					error = 0;
 					//clono el registro		
 					var table_row = $('#tabla_busqueda_polizas_compania input:checkbox:checked').closest('tr').clone();
 					
@@ -79,7 +104,7 @@ $(document).ready(
 				}
 				actualiza_importe();
 			//alert(importe_total_a_pagar);
-	//$('#importe_compania').val(importe_total_a_pagar);
+			//$('#importe_compania').val(importe_total_a_pagar);
 			//$(table_polizas).append('<span> a verrr </span>');
 		
 		});
