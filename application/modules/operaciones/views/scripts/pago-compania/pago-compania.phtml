@@ -172,6 +172,16 @@ $('.c_importe_cheque').change(function(){
 
 });
 
+
+
+	$("#nro_poliza_compania").change(function(){
+			$('#buscar_poliza_compania').click();
+	});
+	$("#nro_poliza_compania").bind("enterKey",function(e){
+   			$('#buscar_poliza_compania').click();
+	});
+
+
 // Guardar Solicitud
 $('#confirmar_pago_compania').click(function() {
 //alert('realiza el pago de las poliza_companias seleccionadas');

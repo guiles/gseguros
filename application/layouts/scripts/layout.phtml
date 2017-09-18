@@ -26,6 +26,8 @@ $menu = $menu_manager->getMenuByPerfilId(array('perfilId' => $perfiles['0'] ));
 
 
 //echo "<pre>";
+//print_r($menu);
+//exit;
 //print_r($_SESSION);
 //print_r($usuario->getModel()->username);
 
@@ -138,8 +140,12 @@ tab_url = url;
     }});
  
 }*/
+//loadPage("./index/novedades","Principal");
 $(document).ready(function () {
 //Tabs
+
+$("#tabs-1").load("./poliza/poliza/novedades");
+//loadPage("./index/novedades","Principal");
 
 $('#loading').hide();
 
@@ -160,7 +166,7 @@ $('#loading').hide();
     			$(ui.tab).parents('li:first')
 	            .append('<span class="ui-tabs-close ui-icon ui-icon-close" title="Close Tab"></span>')
 	            .find('span.ui-tabs-close')
-	            .click(function() {
+	            .click(function() { 
 		            var maintab = jQuery('#tabs','#CenterPane');
 	            	$tabs.tabs('remove', $('li',maintab).index($(this).parents('li:first')[0]));
 	            });
@@ -183,8 +189,8 @@ $('#loading').hide();
             ,cache:true            
 		});	
 
-
 //endTabs
+
 
 //	$('body').layout({ applyDefaultStyles: true });
 /*
@@ -292,7 +298,7 @@ $('#loading').hide();
                 $( "#acordion" ).accordion();
         });
 
-        $("a").click(function(){
+        $("a").click(function(){ 
             //console.debug(this);
          var page = $(this).val();
 
@@ -303,7 +309,7 @@ $('#loading').hide();
         //console.debug(this);
         var page = $(this).val();
        
-        //alert(page);
+        
        
 
         switch(page)
@@ -386,6 +392,8 @@ $('#loading').hide();
 			<ul id="tablist">
 				<li><a href="#tabs-1">Principal</a></li>
 				<!-- <li><a href="#tabs-menu">Menu</a></li> -->
+				
+				
 			</ul>
 			
 	<div style="position:fixed; 

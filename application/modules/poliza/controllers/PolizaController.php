@@ -4820,7 +4820,28 @@ public function editPolizaIntegralComercioAction()
 		echo  json_encode($data);
 	}
 
+	 public function novedadesAction()
+    {
+       
+       // $poliza = new Domain_Poliza();
+        
+        $_sesion = Domain_Sesion::getInstance();
+        $_usuario = $_sesion->getUsuario();
+        $_t_usuario = $_usuario->getTipoUsuario();
 
+
+        	$date_desde = new DateTime();
+			//$date_desde->sub(new DateInterval('P15D'));
+			$fecha_desde =  $date_desde->format('Y-m-d');
+				
+			$date_hasta = new DateTime();
+			$date_hasta->add(new DateInterval('P8D'));
+			$fecha_hasta =  $date_hasta->format('Y-m-d');
+        
+        $rows = $_t_usuario->getNovedadesPolizaTemp($fecha_desde,$fecha_hasta);
+        //print_r($rows);
+        $this->view->rows = $rows;
+    }
 
 
 }

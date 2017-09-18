@@ -1187,6 +1187,27 @@ public function findPolizaInpagaByCompania($nro_poliza,$compania_id){
 		return $res_movimiento_poliza;
 	}
 	
+
+
+	public function getNovedadesPolizaTemp($inicio,$fin){
+
+		
+		$estado_vigente = Domain_EstadoPoliza::getIdByCodigo('VIGENTE');
+		
+
+		$rows = Doctrine_Query::create()
+		->from('Model_Poliza p')
+		->andwhere("p.estado_id = ?",$estado_vigente)
+		->andWhere("fecha_vigencia_hasta between ? AND ?", array($inicio,$fin))
+		->orderBy("p.fecha_pedido")
+		->limit(50)
+		//->getSqlQuery();
+		->execute()
+		->toArray();
+
+		return $rows;
+
+	}
 }
 
 
