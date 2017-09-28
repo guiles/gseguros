@@ -100,7 +100,6 @@ class Model_MenuManager
 			}
 
 		}
-
 		return $menu;
 	}
 

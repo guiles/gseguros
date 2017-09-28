@@ -1,0 +1,67 @@
+
+<script type="text/javascript">
+/*function listPaginator(g){
+
+	//alert("clic");
+	//console.debug(g);
+	var url = $(g).attr('url')
+	var tabs_sel = $('#tabs').tabs();
+	var idx = tabs_sel.tabs('option', 'selected');
+
+	//Trae el tab correspondiente
+	var tab = $('#tabs ul li a')[idx];
+	//console.debug($('#tabs ul li a'));
+	var href = $(tab).attr('href') ;       
+	var url = $(g).attr('href')
+
+	    $.ajax({url: url,success:function(result){
+	        $(href).html(result);
+	      }});
+	   
+	    return false;
+	}
+	*/
+function parametro(f){
+	var url = $(f).attr('url');
+	if(url == null){
+		url="./default/usuario/list";
+	}
+	var tabs_sel = $('#tabs').tabs();
+	var idx = tabs_sel.tabs('option', 'selected');
+
+	//Trae el tab correspondiente
+	var tab = $('#tabs ul li a')[idx];
+	//console.debug($('#tabs ul li a'));
+	var href = $(tab).attr('href') ;                       
+
+	    $.ajax({url: url,success:function(result){
+	        $(href).html(result);
+	      }});
+
+	    return false;
+	}
+</script>
+
+<table>
+  <tr>
+    <th>parametro_id</th>
+    <th>nombre</th>
+    <th>valor</th>
+    <th></th>
+  </tr>
+<?php 
+foreach ($this->rows as $parametro):?>
+  <tr>
+    <td><?=$parametro['parametro_id'] ?></td>
+    <td><?=$parametro['nombre'] ?></td>
+    <td><?=$parametro['valor'] ?></td>
+    <td><input type="button" value="Ver" url="./admin/parametro/view/id/<?=$parametro['parametro_id']?>" onClick="return parametro(this)"> </input> </td>
+    <td><input type="button" value="Eliminar" url="" onClick="return false"> </input> </td>
+  </tr>
+
+<?endforeach;?>
+<tr>
+    <td><input type="button" value="Agregar" url="./admin/parametro/add/" onClick="return parametro(this)"> </input> </td>
+  </tr>
+</table>
+<?=$this->paginationControl($this->rows, 'Sliding', 'paginator.phtml'); ?>

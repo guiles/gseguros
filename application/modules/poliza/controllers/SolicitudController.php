@@ -2608,15 +2608,26 @@ public function renovacionAutomotoresAction()
 		$asegurado = new Domain_Asegurado($m_poliza->asegurado_id);
 		$m_asegurado = $asegurado->getModel();
 		
+		$email_titulo = Domain_Parametro::getParametroByNombre('email_titulo');
+		$email_from = Domain_Parametro::getParametroByNombre('email_from');
+		$email_bcc = Domain_Parametro::getParametroByNombre('email_bcc');
+		
+
+
 		$headers = "MIME-Version: 1.0\r\n";
 	    $headers .= "Content-type: text/html; charset=ISO-8859-1\r\n";
-	    $headers .= "From: SConsultora <solicitud@sconsultora.com.ar>\r\n";
-	    $headers .= "Bcc:solicitud@sconsultora.com.ar\r\n";
+	    //$headers .= "From: SConsultora <solicitud@sconsultora.com.ar>\r\n";
+	    //$headers .= "Bcc:solicitud@sconsultora.com.ar\r\n";
+	    $headers .= "From: ".$email_titulo;
+	    $headers .= " ".$email_from."\r\n";
+	    $headers .= "Bcc:".$email_bcc."\r\n";
+	    
 	    $subject = " Solicitud de Poliza de ".$m_asegurado->nombre;
+
 	    $to = $email;
 		
-	
-	    
+		print_r($headers);
+	    //exit;
 	    $contenido = file_get_contents (APPLICATION_PATH.'/../plantillas/email_sconsultora_aduaneros.html' );
 		
 	    $template=$contenido;
